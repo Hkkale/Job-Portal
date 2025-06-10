@@ -7,11 +7,11 @@ const Navlinks = () => {
   const path = location.pathname;
 
   const isActive = (pathName) => {
-    return path === pathName ? "text-bright-sun-400" : "text-white";
+    return path === pathName ? "text-bright-sun-400 border-b-2" : "text-white";
   };
 
   return (
-    <div className='flex gap-5 items-center'>
+    <div className='flex gap-5 items-center '>
       <h2
         onClick={() => navigate("/findJob")}
         className={`${isActive("/findJob")} cursor-pointer`}
