@@ -9,7 +9,7 @@ const Header = () => {
     <div className='w-full h-20 text-white flex justify-between px-6 items-center bg-mine-shaft-950  '>
 
 
-      <div className='flex gap-2   text-bright-sun-400 '>
+      <div className='flex gap-2  h-full items-center  text-bright-sun-400 '>
         <IoBag className='text-4xl pb-1' color='text-bright-sun-400' />
         <div className='text-3xl font-semibold'>Jobify</div>
       </div>
@@ -18,7 +18,7 @@ const Header = () => {
       <Navlinks/>
 
 
-      <div className='flex gap-4 items-center'>
+      <div className='flex gap-4 items-center h-full '>
         
         <div className='flex items-center gap-2'>
           
