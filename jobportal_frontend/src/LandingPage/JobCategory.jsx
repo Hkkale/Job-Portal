@@ -56,36 +56,37 @@ const JobCategory = () => {
     }
 ]
   return (
-    <div className="mt-20 w-full h-250 ">
+    <div className="mt-20 w-full  overflow-hidden ">
       <div className="text-4xl font-semibold text-mine-shaft-100 text-center mb-3">
         Browse <span className="text-bright-sun-400">Job </span>Category
       </div>
-      <div className="text-lg mx-auto text-mine-shaft-300 text-center mb-20 w-1/2">
+      <div className="text-lg mx-auto text-mine-shaft-300 text-center mb-12  w-1/2">
         Explore diverse job oppurtunities tailored to your skills. Start your
         career journey today!
       </div>
 
-      <div className='w-full h-60   '>
+      <div className='w-full '>
       <Carousel
         
-        slideSize="20.7%"
-        loop
-        nextControlIcon={< FaArrowRightLong className='h-7 w-7 text-white' size={16} />}
-      previousControlIcon={< FaArrowLeftLong size={16} />}
+        slideSize="20.6%"
+        
+        nextControlIcon={< FaArrowRightLong className='h-6 w-6 text-white p-0.5' size={16} />}
+      previousControlIcon={< FaArrowLeftLong className='h-6 w-6 text-white p-0.5' size={16} />}
+      
         emblaOptions={{
           loop: true,
           dragFree: true,
           align: "start",
           
         }}
-        className='  h-full flex flex-col justify-center'
+        className='h-full flex flex-col justify-center [&_button]:!bg-bright-sun-400 ' 
       >
         {
           /* ...slides */
 
           jobCategory.map((category, index) => (
             <Carousel.Slide>
-              <div className="flex flex-col items-center w-64 gap-2 border border-bright-sun-400 p-5 rounded-xl hover:cursor-pointer hover:shadow-[0px_0_5px_2px_black] !shadow-bright-sun-400 transition duration-300 ease-in-out">
+              <div className="flex flex-col items-center w-66 gap-2 border border-bright-sun-400 p-5 rounded-xl hover:cursor-pointer hover:shadow-[0px_0_5px_2px_black] !shadow-bright-sun-400 transition duration-300 ease-in-out">
                 <div className="p-2 bg-bright-sun-300 rounded-full">
                   <img
                     className="h-8 w-8"
@@ -94,12 +95,12 @@ const JobCategory = () => {
                   />
                 </div>
                 <div className="text-mine-shaft-100 text-xl font-semibold">
-                  Digital Marketing
+                  {category.name}
                 </div>
                 <div className="text-mine-shaft-300 text-sm text-center ">{category.desc}
                 </div>
                 <div className="text-bright-sun-300 text-lg">
-                  {category.jobs} new job posted
+                  {category.jobs}+ new job posted
                 </div>
               </div>
             </Carousel.Slide>
