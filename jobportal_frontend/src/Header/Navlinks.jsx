@@ -13,8 +13,8 @@ const Navlinks = () => {
   return (
     <div className='flex gap-5 items-center  h-full '>
       <h2
-        onClick={() => navigate("/findJob")}
-        className={`${isActive("/findJob")} cursor-pointer  h-full flex items-center justify-center px-2`}
+        onClick={() => navigate("/find-jobs")}
+        className={`${isActive("/find-jobs")} cursor-pointer  h-full flex items-center justify-center px-2`}
       >
         Find job
       </h2>

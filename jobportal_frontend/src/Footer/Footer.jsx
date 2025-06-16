@@ -13,14 +13,14 @@ const Footer = () => {
 
 ]
   return (
-    <div className="mt-20 pb-5 flex gap-5 justify-around ">
-      <div className="w-1/4 flex flex-col gap-4">
+    <div className="pt-20 pb-5 flex gap-5 justify-around bg-mine-shaft-950 font-[poppins] ">
+      <div className="w-1/5 flex flex-col gap-4 ">
         <div className="flex gap-2  h-full items-center  text-bright-sun-400 ">
           <IoBag className="text-3xl pb-1" color="text-bright-sun-400" />
           <div className="text-xl font-semibold">Jobify</div>
         </div>
 
-        <div className="text-xs text-mine-shaft-300 border">
+        <div className="text-xs text-mine-shaft-300 ">
           Job portal with user profiles, skill updates, certifications, work
           experience and admin job postings
         </div>
@@ -42,11 +42,11 @@ const Footer = () => {
         {footerLinks.map((item,index)=><div key={index}>
 
 
-          <div className="text-lg font-semibold">{item.title}</div> 
+          <div className="text-lg font-semibold mb-4 text-bright-sun-400">{item.title}</div> 
           {
 
             item.links.map((link,index)=>
-            <div key={index} className="text-mine-shaft-300 text-sm hover:text-bright-sun-400 cursor-pointer">{link}</div>)
+            <div key={index} className="text-mine-shaft-300 text-sm hover:text-bright-sun-400 cursor-pointer mb-1 hover:translate-x-2 transition duration-300 ease-in-out ">{link}</div>)
 
           }
 

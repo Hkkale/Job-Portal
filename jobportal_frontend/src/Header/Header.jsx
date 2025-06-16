@@ -6,7 +6,7 @@ import { Avatar , Indicator} from '@mantine/core';
 import Navlinks from './Navlinks';
 const Header = () => {
   return (
-    <div className='w-full h-20 text-white flex justify-between px-6 items-center bg-mine-shaft-950  '>
+    <div className='w-full h-20 text-white flex justify-between px-6 items-center bg-mine-shaft-950 font-[poppins] '>
 
 
       <div className='flex gap-2  h-full items-center  text-bright-sun-400 '>
