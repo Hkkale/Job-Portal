@@ -19,7 +19,7 @@ const Navlinks = () => {
         Find job
       </h2>
       <h2
-        onClick={() => navigate("/findTalent")}
+        onClick={() => navigate("/find-talent")}
         className={`${isActive("/findTalent")} cursor-pointer h-full flex items-center justify-center px-2`}
       >
         Find Talent

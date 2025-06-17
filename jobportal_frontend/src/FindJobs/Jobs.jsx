@@ -98,7 +98,7 @@ const Jobs = () => {
 
       <div className='flex justify-between'>
 
-        <div className='text-2xl font-semibold mb-5'>Recommended Jobs</div>
+        <div className='text-2xl font-semibold '>Recommended Jobs</div>
         <div>
           <Sort/>
         </div>
@@ -107,7 +107,7 @@ const Jobs = () => {
 
       </div>
        
-       <div className='flex gap-x-15 gap-y-10 flex-wrap w-full '>
+       <div className='flex gap-3 flex-wrap w-full mt-10  '>
         {jobList.map((job,index)=> <JobsCard key={index} {...job}/>)}
 
        </div>
