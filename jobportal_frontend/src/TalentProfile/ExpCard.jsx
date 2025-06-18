@@ -1,27 +1,27 @@
 import React from 'react'
 
-const ExpCard = () => {
+const ExpCard = (exp) => {
   return (
     <div className='flex flex-col gap-1'>
 
       <div className='flex justify-between'>
               <div className='flex gap-2 items-center'>
-                <div className='p-2 bg-mine-shaft-800 rounded-md'><img className='h-7' src={`./src/assets/Icons/Google.png`} alt="" /></div>
+                <div className='p-2 bg-mine-shaft-800 rounded-md'><img className='h-7' src={`./src/assets/Icons/${exp.company}.png`} alt="" /></div>
                 <div>
-                  <div className='font-semibold'>Software Engineer</div>
-                  <div className='text-sm text-mine-shaft-300 '>Google &bull; New York, United States</div>
+                  <div className='font-semibold'>{exp.title}</div>
+                  <div className='text-sm text-mine-shaft-300 '>{exp.company} &bull; {exp.location}</div>
                 </div>
               </div>
               <div className='text-sm text-mine-shaft-300'>
 
-                Jan 2022 - Present
+                {exp.startDate} - {exp.endDate}
 
 
               </div>
             </div>
 
 
-            <div className='text-sm text-mine-shaft-300 text-justify'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis quam error, quia delectus quo, temporibus eius ratione inventore vitae esse iste enim! Nobis beatae earum exercitationem corrupti natus facilis corporis officia, fugit tenetur.</div>
+            <div className='text-sm text-mine-shaft-300 text-justify'>{exp.description}</div>
 
       
     </div>

@@ -3,8 +3,9 @@ import React from 'react'
 import { FaBriefcase } from 'react-icons/fa6'
 import { GrLocation } from 'react-icons/gr'
 import ExpCard from './ExpCard'
+import CertifiCard from './CertifiCard'
 
-const Profile = () => {
+const Profile = (profile) => {
   return (
     <div className='w-2/3 ' >
 
@@ -19,12 +20,12 @@ const Profile = () => {
       
         <div className='px-3 mt-16'>
 
-          <div className='text-3xl font-semibold flex justify-between'>Jarrad Wood
+          <div className='text-3xl font-semibold flex justify-between'>{profile.name}
             <Button color='brightSun.4' variant='light'>Message</Button>
           </div>
-          <div className='text-xl flex gap-1 items-center '><FaBriefcase className='h-4 w-4'/> Software Engineer &bull; Google </div>
+          <div className='text-xl flex gap-1 items-center '><FaBriefcase className='h-4 w-4'/> {profile.role} &bull; {profile.company} </div>
 
-          <div className='flex gap-1 text-lg items-center text-mine-shaft-300'> <GrLocation className='h-4 w-4'/>New York, Unite States</div>
+          <div className='flex gap-1 text-lg items-center text-mine-shaft-300'> <GrLocation className='h-4 w-4'/>{profile.location}</div>
 
         </div>
 
@@ -32,16 +33,15 @@ const Profile = () => {
 
         <div className='px-3'>
           <div className='text-2xl font-semibold mb-5 '>About</div>
-          <div className='text-sm text-mine-shaft-300 text-justify'>As a Software Engineer at Google, I specialize in building scalable and high-performance applications. My expertise lies in integrating front-end and back-end technologies to deliver seamless user experiences. With a strong foundation in React and SpringBoot, and a focus on MongoDB for database solutions, I am passionate about leveraging the latest technologies to solve complex problems and drive innovation. My goal is to create impactful software that enhances productivity and meets user needs effectively.</div>
+          <div className='text-sm text-mine-shaft-300 text-justify'>{profile.about}</div>
         </div>
         <Divider my="xl" mx="xs" orientation="horizontal" />
 
         <div className='px-3'>
           <div className='text-2xl font-semibold mb-5 '>Skills</div>
           <div className='flex flex-wrap gap-2'>
-            <div className='bg-bright-sun-300/15 text-sm font-medium bg-opacity-50 rounded-3xl text-bright-sun-400 px-3 py-1'>React</div>
-            <div className='bg-bright-sun-300/15 text-sm font-medium bg-opacity-50 rounded-3xl text-bright-sun-400 px-3 py-1'>React</div>
-            <div className='bg-bright-sun-300/15 text-sm font-medium bg-opacity-50 rounded-3xl text-bright-sun-400 px-3 py-1'>React</div>
+            {profile.skills.map((skill,index)=><div key={index} className='bg-bright-sun-300/15 text-sm font-medium bg-opacity-50 rounded-3xl text-bright-sun-400 px-3 py-1'>{skill}</div>
+          )}
           </div>
         </div>
 
@@ -51,7 +51,11 @@ const Profile = () => {
         <div className='px-3'>
           <div className='text-2xl font-semibold mb-5 '>Experience</div>
 
-          <ExpCard/>
+          <div className='flex flex-col gap-8'>
+            {profile.experience.map((exp,index)=><ExpCard key={index} {...exp} />)}
+          </div>
+
+          
 
         </div>
 
@@ -62,7 +66,9 @@ const Profile = () => {
         <div className='px-3'>
           <div className='text-2xl font-semibold mb-5 '>Certifications</div>
 
-          
+         <div className='flex flex-col gap-8'>
+            {profile.certifications.map((certi,index)=><CertifiCard key={index} {...certi} />)}
+          </div>
 
         </div>
     </div>
