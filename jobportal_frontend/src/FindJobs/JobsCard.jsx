@@ -3,13 +3,16 @@ import React from 'react'
 import { FaRegClock } from "react-icons/fa6";
 
 import { FaRegBookmark } from "react-icons/fa6";
+import { useNavigate } from 'react-router';
 
 const JobsCard = (job) => {
-  return (
-    <div className='bg-mine-shaft-900 p-4 w-72 flex gap-3 flex-col rounded-xl hover:shadow-[0_0_5px_1px_yellow] !shadow-bright-sun-400 '>
 
-      <div className='flex justify-between'>
-        <div className='flex gap-2 items-center'>
+  const navigate = useNavigate()
+  return (
+    <div  className='bg-mine-shaft-900 p-4 w-72 flex gap-3 flex-col rounded-xl hover:shadow-[0_0_5px_1px_yellow] !shadow-bright-sun-400 '>
+
+      <div className='flex justify-between '>
+        <div onClick={()=>navigate("/jobs")} className='flex gap-2 items-center  cursor-pointer'>
           <div className='p-2 bg-mine-shaft-800 rounded-md'><img className='h-7' src={`./src/assets/Icons/${job.company}.png`} alt="" /></div>
           <div>
             <div className='font-semibold'>{job.jobTitle}</div>
