@@ -56,7 +56,7 @@ const TalentProfilePage = () => {
       <Button className='m-4' leftSection={<FaArrowLeftLong size={20}/>} color='brightSun.4' onClick={()=>navigate("/find-talent")} variant='light' > Back </Button>
 
 
-      <div className='flex gap-15 m-4 justify-center'>
+      <div className='flex gap-15 m-4 justify-around'>
         <Profile {...profile}/>
         <RecommendTalent/>
 

@@ -3,6 +3,8 @@ import React from 'react'
 import { useNavigate } from 'react-router'
 import { FaArrowLeftLong } from "react-icons/fa6";
 import JobDesc from '../JobDesc/JobDesc';
+import RecommendTalent from '../TalentProfile/RecommendTalent';
+import RecommendedJob from '../JobDesc/RecommendedJob';
 
 
 const JobDescPage = () => {
@@ -17,9 +19,10 @@ const JobDescPage = () => {
       <Button className='m-4' leftSection={<FaArrowLeftLong size={20}/>} color='brightSun.4' onClick={()=>navigate("/find-jobs")} variant='light' > Back </Button>
 
 
-      <div className='flex gap-15 m-4 '>
+      <div className='flex gap-15 m-4 justify-around '>
 
         <JobDesc/>
+        <RecommendedJob/>
         
 
       </div>
