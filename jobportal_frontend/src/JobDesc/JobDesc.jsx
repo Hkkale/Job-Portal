@@ -7,6 +7,7 @@ import { HiOutlineBriefcase } from "react-icons/hi";
 import { RiMoneyRupeeCircleLine } from "react-icons/ri";
 import { BiBoltCircle } from "react-icons/bi";
 import DOMPurify from "dompurify";
+import { useNavigate } from "react-router";
 const JobDesc = () => {
   const card = [
     { name: "Location", icon: MdOutlineLocationOn, value: "New York" },
@@ -31,6 +32,8 @@ const JobDesc = () => {
     "Django",
     "PostgreSQL",
   ];
+
+  const navigate= useNavigate();
   return (
     <div className="w-2/3">
       <div className="flex justify-between  ">
@@ -142,7 +145,7 @@ const JobDesc = () => {
             </div>
             
               <Button
-                onClick={() => navigate("/")}
+                onClick={() => navigate("/company")}
                 
                 color="brightSun.4"
                 variant="light"

@@ -4,12 +4,15 @@ import { FaRegBell } from "react-icons/fa6";
 import { IoSettingsOutline } from "react-icons/io5";
 import { Avatar , Indicator} from '@mantine/core';
 import Navlinks from './Navlinks';
+import { useNavigate } from 'react-router';
 const Header = () => {
+
+  const navigate= useNavigate();
   return (
-    <div className='w-full h-20 text-white flex justify-between px-6 items-center bg-mine-shaft-950 font-[poppins] '>
+    <div className='w-full h-20 text-white flex justify-between px-6 items-center bg-mine-shaft-950 font-[poppins]  '>
 
 
-      <div className='flex gap-2  h-full items-center  text-bright-sun-400 '>
+      <div onClick={()=>navigate("/")} className='flex gap-2 cursor-pointer   h-full items-center  text-bright-sun-400 '>
         <IoBag className='text-4xl pb-1' color='text-bright-sun-400' />
         <div className='text-3xl font-semibold'>Jobify</div>
       </div>
