@@ -3,6 +3,7 @@ import React from 'react'
 import { FaArrowLeftLong } from 'react-icons/fa6'
 import { useNavigate } from 'react-router';
 import Company from '../CompanyProfile/Company';
+import SimilarComp from '../CompanyProfile/SimilarComp';
 
 const CompanyPage = () => {
   const navigate = useNavigate();
@@ -18,8 +19,9 @@ const CompanyPage = () => {
           
     
     
-         <div className='flex gap-5'>
-            <Company/>
+         <div className='flex px-8 gap-15'>
+            <Company/> 
+            <SimilarComp/>
          </div>
         
         

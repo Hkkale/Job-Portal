@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Combobox, useCombobox, Text, Box } from '@mantine/core';
+import { Button, Combobox, useCombobox, Text, Box, ActionIcon } from '@mantine/core';
 
 import { HiOutlineAdjustments } from "react-icons/hi";
 
@@ -41,7 +41,11 @@ const Sort= () => {
               selectedItem
             }
 
+            <ActionIcon color='brightSun.4' variant='transparent' size='xs' aria-label='Settings'>
+
             <HiOutlineAdjustments className='text-bright-sun-400 h-5 w-5' />
+
+            </ActionIcon>
 
 
 

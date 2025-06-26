@@ -72,7 +72,7 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/*" element={<HomePage />} />
           </Routes>
-          <Divider mx="md" size="xs" />
+          <Divider mx="md" size="xs" className="" />
           <Footer />
         </div>
       </BrowserRouter>
