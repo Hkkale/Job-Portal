@@ -12,10 +12,12 @@ import TalentProfilePage from "./Pages/TalentProfilePage";
 import PostJobPage from "./Pages/PostJobPage";
 
 import "@mantine/tiptap/styles.css";
+import '@mantine/dates/styles.css';
 import JobDescPage from "./Pages/JobDescPage";
 import ApplyJobPage from "./Pages/ApplyJobPage";
 import CompanyPage from "./Pages/CompanyPage";
 import PostedJobPage from "./Pages/PostedJobPage";
+import JobHistoryPage from "./Pages/JobHistoryPage";
 
 function App() {
   const theme = createTheme({
@@ -70,6 +72,7 @@ function App() {
              <Route path="/posted-job" element={<PostedJobPage />} />
             <Route path="/apply-job" element={<ApplyJobPage />} />
             <Route path="/company" element={<CompanyPage />} />
+            <Route path="/job-history" element={<JobHistoryPage />} />
 
             <Route path="/" element={<HomePage />} />
             <Route path="/*" element={<HomePage />} />

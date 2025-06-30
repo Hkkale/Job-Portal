@@ -118,11 +118,15 @@ const PostedJobDesc = () => {
 
           <Tabs.Panel className='[&>div]:w-full' value="overview"> <JobDesc edit/> </Tabs.Panel>
           <Tabs.Panel value="applicants">
-             <div className='flex mt-10 flex-wrap gap-8'>
+             <div className='flex mt-10 flex-wrap gap-8 justify-around'>
                {talents.map((talent,index)=><TalentCard key={index} {...talent} posted />)}
              </div>
           </Tabs.Panel>
-          <Tabs.Panel value="invited"></Tabs.Panel>
+          <Tabs.Panel value="invited">
+            <div className='flex mt-10 flex-wrap gap-8 justify-around'>
+               {talents.map((talent,index)=><TalentCard key={index} {...talent} invited />)}
+             </div>
+          </Tabs.Panel>
         </Tabs>
       
     </div>

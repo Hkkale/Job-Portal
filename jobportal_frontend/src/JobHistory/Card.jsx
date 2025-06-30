@@ -1,0 +1,109 @@
+import { Button, Divider, Text } from '@mantine/core'
+import React from 'react'
+import { FaRegCalendarAlt } from 'react-icons/fa';
+import { FaRegBookmark, FaRegClock } from 'react-icons/fa6'
+import { FaBookmark } from "react-icons/fa6";
+
+const Card = ({interviewing,offered,saved,applied, ...job}) => {
+  return (
+    <div  className='bg-mine-shaft-900 p-4 w-72 flex gap-3 flex-col rounded-xl hover:shadow-[0_0_5px_1px_yellow] !shadow-bright-sun-400 '>
+    
+          <div className='flex justify-between '>
+            <div onClick={()=>navigate("/jobs")} className='flex gap-2 items-center  cursor-pointer'>
+              <div className='p-2 bg-mine-shaft-800 rounded-md'><img className='h-7' src={`./src/assets/Icons/${job.company}.png`} alt="" /></div>
+              <div>
+                <div className='font-semibold'>{job.jobTitle}</div>
+                <div className='text-xs text-mine-shaft-300 '>{job.company} &#x2022; {job.applicants} Applicants</div>
+              </div>
+            </div>
+            {saved ?<FaBookmark className='text-bright-sun-400 cursor-pointer'/> :<FaRegBookmark className='text-mine-shaft-300 cursor-pointer'/>}
+          </div>
+    
+    
+    
+    
+    
+          <div className='flex gap-2 [&>div]:py-1 [&>div]:px-2 [&>div]:bg-mine-shaft-800 [&>div]:text-bright-sun-400 [&>div]:rounded-lg [&>div]:text-xs'>
+    
+            <div>{job.experience}</div>
+            <div>{job.jobType}</div>
+            <div>{job.location}</div>
+    
+    
+    
+          </div>
+    
+    
+          <Text className='!text-xs text-justify !text-mine-shaft-300 ' lineClamp={3}>
+         {job.description}
+           </Text>
+    
+    
+          <Divider color='mineShaft.7' size="xs" orientation="horizontal" />
+    
+    
+    
+    
+    
+    
+          <div className='flex justify-between  '>
+            <div className='font-semibold text-mine-shaft-200'>&#8377; {job.package}</div>
+            <div className='flex gap-1 text-xs items-center text-mine-shaft-400'> <FaRegClock className='h-4 w-4'/>{applied ?"Applied  ":offered?"Interviewed ": interviewing ? "Applied " : "Posted "}  
+             {job.postedDaysAgo} days ago</div>
+          </div>
+
+          {offered &&
+
+          <>
+          <Divider color='mineShaft.7' size="xs" orientation="horizontal" />
+
+          <div className='flex gap-2'>
+
+            
+
+            <Button color='brightSun.4' variant='outline' fullWidth> Accept </Button>
+            <Button color='brightSun.4' variant='light' fullWidth> Reject </Button>
+
+
+          </div>
+          </>
+          
+          }
+
+
+
+
+
+          {
+
+            interviewing && <>
+
+            <Divider color='mineShaft.7' size="xs" orientation="horizontal" />
+
+
+            <div className="flex gap-1  text-sm items-center justify-center">
+                    <FaRegCalendarAlt className='text-bright-sun-400 w-4 h-4' />
+                      Sun, 25 August &bull; <span className='text-mine-shaft-400'>10:00 AM</span> 
+                   </div>
+            
+            
+            </>
+
+
+          }
+
+
+
+    
+
+
+
+    
+    
+          
+          
+        </div>
+  )
+}
+
+export default Card
