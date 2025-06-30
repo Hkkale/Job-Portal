@@ -1,13 +1,14 @@
 import { Avatar, Button, Divider, Text } from '@mantine/core'
 import React from 'react'
 import { FaRegBookmark, FaRegClock } from 'react-icons/fa6'
-import { FaRegHeart } from "react-icons/fa";
+import { FaRegCalendarAlt, FaRegHeart } from "react-icons/fa";
 import { GrLocation } from "react-icons/gr";
 import { useNavigate } from 'react-router';
 
 
-const TalentCard = (talent) => {
+const TalentCard = ({posted,...talent}) => {
   const navigate = useNavigate();
+  console.log(posted)
   return (
     <div className='bg-mine-shaft-900 p-4 w-85 flex gap-3 flex-col rounded-xl hover:shadow-[0_0_5px_1px_yellow] !shadow-bright-sun-400 '>
    
@@ -62,7 +63,7 @@ const TalentCard = (talent) => {
           <Button  color='brightSun.4' onClick={()=>navigate("/talent-profile")} variant='outline' fullWidth> Profile </Button>
 
           
-          <Button color='brightSun.4' variant='light' fullWidth> Messgae </Button>
+          {posted ? <Button rightSection={<FaRegCalendarAlt className='w-5 h-5'/>} color='brightSun.4' variant='light' fullWidth> Scedule </Button>:<Button color='brightSun.4' variant='light' fullWidth> Messgae </Button>}
 
           
 

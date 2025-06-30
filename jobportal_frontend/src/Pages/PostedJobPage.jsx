@@ -1,0 +1,33 @@
+import { Button } from '@mantine/core'
+import React from 'react'
+import { FaArrowLeftLong } from 'react-icons/fa6'
+import PostedJob from '../PostedJob/PostedJob'
+import PostedJobDesc from '../PostedJob/PostedJobDesc'
+
+const PostedJobPage = () => {
+  return (
+    <div className='min-h-[100vh] bg-mine-shaft-950 font-[poppins] w-screen  border-white box-border overflow-x-hidden'>
+    
+          
+    
+          
+
+
+          
+          
+    
+    
+         <div className='flex px-4 gap-15'>
+
+          <PostedJob/>
+          <PostedJobDesc/>
+            
+         </div>
+        
+        
+    
+        </div>
+  )
+}
+
+export default PostedJobPage

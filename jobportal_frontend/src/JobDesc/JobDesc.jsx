@@ -8,7 +8,7 @@ import { RiMoneyRupeeCircleLine } from "react-icons/ri";
 import { BiBoltCircle } from "react-icons/bi";
 import DOMPurify from "dompurify";
 import { useNavigate } from "react-router";
-const JobDesc = () => {
+const JobDesc = (props) => {
   const card = [
     { name: "Location", icon: MdOutlineLocationOn, value: "New York" },
     { name: "Experience", icon: HiOutlineBriefcase, value: "Expert" },
@@ -62,9 +62,16 @@ const JobDesc = () => {
             color="brightSun.4"
             variant="light"
           >
-            Apply
+            {props.edit ? "Edit" : "Apply"}
           </Button>
-          <FaRegBookmark className="text-bright-sun-400 cursor-pointer" />
+          {props.edit ? <Button
+            onClick={() => navigate("/apply-job")}
+            size="sm"
+            color="red.5"
+            variant="outline"
+          >
+            Delete
+          </Button>:<FaRegBookmark className="text-bright-sun-400 cursor-pointer" />}
         </div>
       </div>
 
