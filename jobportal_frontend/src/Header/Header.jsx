@@ -5,6 +5,8 @@ import { IoSettingsOutline } from "react-icons/io5";
 import { Avatar , Indicator} from '@mantine/core';
 import Navlinks from './Navlinks';
 import { useLocation, useNavigate } from 'react-router';
+import Profile from '../TalentProfile/Profile';
+import ProfileMenu from './ProfileMenu';
 const Header = () => {
 
   const navigate= useNavigate();
@@ -26,12 +28,8 @@ const Header = () => {
 
       <div className='flex gap-4 items-center h-full '>
         
-        <div className='flex items-center gap-2'>
-          
-          
-          <div>Hiten</div>
-          <Avatar src="./src/assets/avatar-9.png" alt="it's me" radius='xl' size={34}/>
-        </div>
+        
+        <ProfileMenu/>
         <div className='bg-mine-shaft-900 p-2 rounded-full'> <IoSettingsOutline color='white' size={20}/></div>
         <div className='bg-mine-shaft-900 p-2 rounded-full'>
           <Indicator color="brightSun.4" size={7} offset={3}>

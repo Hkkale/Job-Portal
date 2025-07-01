@@ -4,6 +4,8 @@ import { MdOutlineMailOutline } from "react-icons/md";
 import { BiText } from "react-icons/bi";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { useNavigate } from 'react-router';
+import { RiLockStarLine } from "react-icons/ri";
+
 const SignUp = () => {
   const navigate = useNavigate();
   return (
@@ -16,7 +18,7 @@ const SignUp = () => {
       <TextInput withAsterisk label="Email" placeholder='Enter Email' leftSection={<MdOutlineMailOutline className='text-bright-sun-400' />  }/>
 
       <PasswordInput withAsterisk label="Password" placeholder='Enter Password' leftSection={<RiLockPasswordLine className='text-bright-sun-400' />  }/>
-      <PasswordInput withAsterisk label="Confirf Password" placeholder='Confirm Password' leftSection={<RiLockPasswordLine className='text-bright-sun-400' />  }/>
+      <PasswordInput withAsterisk label="Confirf Password" placeholder='Confirm Password' leftSection={<RiLockStarLine className='text-bright-sun-400' />  }/>
 
       <Checkbox autoContrast label={<>I accept{' '}<Anchor> terms & conditions</Anchor></>}/>
 
