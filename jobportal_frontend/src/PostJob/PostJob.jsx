@@ -59,7 +59,7 @@ const PostJob = () => {
         </div>
 
 
-        <div className=' flex gap-4'>
+        <div className=' flex gap-4 mb-6'>
           <Button className=''  color='brightSun.4' onClick={()=>navigate("/find-talent")} variant='light' > Publish Job </Button>
           <Button className=''  color='brightSun.4' onClick={()=>navigate("/find-talent")} variant='outline' > Save as Draft </Button>
         </div>

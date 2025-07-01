@@ -4,6 +4,7 @@ import { FiFacebook } from "react-icons/fi";
 import { FaInstagram } from "react-icons/fa";
 
 import { FaXTwitter } from "react-icons/fa6";
+import { useLocation, useNavigate } from "react-router";
 
 const Footer = () => {
   const footerLinks = [
@@ -12,7 +13,9 @@ const Footer = () => {
     { title: "Support", links: ["Help & Support", "Feedback", "FAQs"] }
 
 ]
-  return (
+ 
+  const location = useLocation();
+  return location.pathname !="/signup" &&location.pathname !="/login" ? (
     <div className="pt-20 pb-5 flex gap-5 justify-around bg-mine-shaft-950 font-[poppins] ">
       <div className="w-1/5 flex flex-col gap-4 ">
         <div className="flex gap-2  h-full items-center  text-bright-sun-400 ">
@@ -60,7 +63,7 @@ const Footer = () => {
 
 
     </div>
-  );
+  ):(<></>)
 };
 
 export default Footer;

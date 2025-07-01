@@ -8,7 +8,7 @@ import SimilarComp from '../CompanyProfile/SimilarComp';
 const CompanyPage = () => {
   const navigate = useNavigate();
   return (
-    <div className='min-h-[100vh] bg-mine-shaft-950 font-[poppins] w-screen  border-white box-border overflow-x-hidden'>
+    <div className='min-h-screen bg-mine-shaft-950 font-[poppins] w-full border-white box-border overflow-hidden'>
     
           
     

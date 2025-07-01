@@ -4,11 +4,14 @@ import { FaRegBell } from "react-icons/fa6";
 import { IoSettingsOutline } from "react-icons/io5";
 import { Avatar , Indicator} from '@mantine/core';
 import Navlinks from './Navlinks';
-import { useNavigate } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 const Header = () => {
 
   const navigate= useNavigate();
-  return (
+  const location = useLocation();
+  return location.pathname !="/signup" && location.pathname !="/login" ? (
+
+    
     <div className='w-full h-20 text-white flex justify-between px-6 items-center bg-mine-shaft-950 font-[poppins]  '>
 
 
@@ -41,7 +44,7 @@ const Header = () => {
       </div>
       
     </div>
-  )
+  ):(<></>)
 }
 
 export default Header

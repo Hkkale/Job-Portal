@@ -6,7 +6,7 @@ import PostedJobDesc from '../PostedJob/PostedJobDesc'
 
 const PostedJobPage = () => {
   return (
-    <div className='min-h-[100vh] bg-mine-shaft-950 font-[poppins] w-screen  border-white box-border overflow-x-hidden'>
+    <div className=' min-h-screen bg-mine-shaft-950 font-[poppins] w-full border-white box-border overflow-hidden'>
     
           
     
@@ -17,7 +17,7 @@ const PostedJobPage = () => {
           
     
     
-         <div className='flex px-4 gap-15'>
+         <div className='flex px-4 gap-15 mb-10'>
 
           <PostedJob/>
           <PostedJobDesc/>
