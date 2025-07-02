@@ -1,4 +1,4 @@
-import { ActionIcon, Button, Divider } from "@mantine/core";
+import { ActionIcon, Button, Divider, TagsInput, Textarea } from "@mantine/core";
 import React, { useState } from "react";
 import { FaBriefcase } from "react-icons/fa6";
 import { GrLocation } from "react-icons/gr";
@@ -6,6 +6,9 @@ import ExpCard from "./ExpCard";
 import CertifiCard from "./CertifiCard";
 import { GoPencil } from "react-icons/go";
 import { FaRegSave } from "react-icons/fa";
+import SelectInput from "./SelectInput";
+
+import { GoBriefcase } from "react-icons/go";
 
 const Profile = () => {
   const profile = {
@@ -68,7 +71,16 @@ const Profile = () => {
     ],
   };
 
+  const fields=[
+    {label:"Job Title",placeholder:"Enter Job Title", options:['Designer', 'Developer', 'Product Manager', 'Marketing Specialist', 'Data Analyst', 'Sales Executive', 'Content Writer', 'Customer Support'], value:"Software Engineer", leftSection:GoBriefcase},
+    {label:"Company",placeholder:"Enter Company Name", options:['Google', 'Microsoft', 'Meta', 'Netflix', 'Adobe', 'Facebook', 'Amazon', 'Apple', 'Spotify'],value:"Google", leftSection:GoBriefcase},
+    {label:"Location",placeholder:"Enter Job Location", options:['Delhi', 'New York', 'San Francisco', 'London', 'Berlin', 'Tokyo', 'Sydney', 'Toronto'], value:"New York, United States",leftSection:GrLocation}
+]
+
   const [edit, setEdit] = useState([false,false,false, false, false])
+
+  const [about, setAbout] = useState(profile.about);
+  const [skills, setSkills] = useState(profile.skills);
 
   const handleEdit = (index) =>{
 
@@ -103,7 +115,17 @@ const Profile = () => {
             {edit[0]? <FaRegSave className="h-4/5 w-4/5 " />   :<GoPencil className="h-4/5 w-4/5 " />}
           </ActionIcon>
         </div>
-        <div className="text-xl flex gap-1 items-center ">
+
+
+        {
+
+          edit[0] ?  <> <div className='flex gap-10 mb-5  [&>div]:w-1/2'>
+
+          <SelectInput {...fields[0]}/>
+          <SelectInput {...fields[1]}/>
+      
+        </div>
+          <SelectInput {...fields[2]}/>   </>  :<><div className="text-xl flex gap-1 items-center ">
           <FaBriefcase className="h-4 w-4" /> {profile.role} &bull;{" "}
           {profile.company}{" "}
         </div>
@@ -112,23 +134,52 @@ const Profile = () => {
           {" "}
           <GrLocation className="h-4 w-4" />
           {profile.location}
-        </div>
+        </div></>
+
+        }
+
+
+        
+
+
+
+
+
+
+
+        
       </div>
 
       <Divider my="xl" mx="xs" orientation="horizontal" />
 
       <div className="px-3">
-        <div className="text-2xl font-semibold mb-5 ">About</div>
-        <div className="text-sm text-mine-shaft-300 text-justify">
-          {profile.about}
+        <div className="text-2xl font-semibold mb-5 flex justify-between ">About
+
+          <ActionIcon onClick={()=>handleEdit(1)} size="lg" color="brightSun.4" variant="subtle">
+            {edit[1]? <FaRegSave className="h-4/5 w-4/5 " />   :<GoPencil className="h-4/5 w-4/5 " />}
+          </ActionIcon>
+
         </div>
+
+        {edit[1] ? <Textarea placeholder="Enter About Yourself..." autosize minRows={3} value={about} defaultValue={about} onChange={(e)=>setAbout(e.currentTarget.value)} /> :<div className="text-sm text-mine-shaft-300 text-justify">
+          {about}
+        </div>}
+
+
+
+        
       </div>
       <Divider my="xl" mx="xs" orientation="horizontal" />
 
       <div className="px-3">
-        <div className="text-2xl font-semibold mb-5 ">Skills</div>
-        <div className="flex flex-wrap gap-2">
-          {profile.skills.map((skill, index) => (
+        <div className="text-2xl font-semibold mb-5 flex justify-between ">Skills
+          <ActionIcon onClick={()=>handleEdit(2)} size="lg" color="brightSun.4" variant="subtle">
+            {edit[2]? <FaRegSave className="h-4/5 w-4/5 " />   :<GoPencil className="h-4/5 w-4/5 " />}
+          </ActionIcon>
+        </div>
+
+        {edit[2] ? <TagsInput value={skills} onChange={setSkills}  placeholder="Add skills" splitChars={[',', ' ','|']}/>:<div className="flex flex-wrap gap-2">
+          {skills.map((skill, index) => (
             <div
               key={index}
               className="bg-bright-sun-300/15 text-sm font-medium bg-opacity-50 rounded-3xl text-bright-sun-400 px-3 py-1"
@@ -136,17 +187,24 @@ const Profile = () => {
               {skill}
             </div>
           ))}
-        </div>
+        </div>}
+
+
+        
       </div>
 
       <Divider my="xl" mx="xs" orientation="horizontal" />
 
       <div className="px-3">
-        <div className="text-2xl font-semibold mb-5 ">Experience</div>
+        <div className="text-2xl font-semibold mb-5 flex justify-between">Experience
+          <ActionIcon onClick={()=>handleEdit(3)} size="lg" color="brightSun.4" variant="subtle">
+            {edit[3]? <FaRegSave className="h-4/5 w-4/5 " />   :<GoPencil className="h-4/5 w-4/5 " />}
+          </ActionIcon>
+        </div>
 
         <div className="flex flex-col gap-8">
           {profile.experience.map((exp, index) => (
-            <ExpCard key={index} {...exp} />
+            <ExpCard key={index} {...exp} edited={edit[3]} />
           ))}
         </div>
       </div>
@@ -154,7 +212,11 @@ const Profile = () => {
       <Divider my="xl" mx="xs" orientation="horizontal" />
 
       <div className="px-3">
-        <div className="text-2xl font-semibold mb-5 ">Certifications</div>
+        <div className="text-2xl font-semibold mb-5 flex justify-between">Certifications
+          <ActionIcon onClick={()=>handleEdit(4)} size="lg" color="brightSun.4" variant="subtle">
+            {edit[4]? <FaRegSave className="h-4/5 w-4/5 " />   :<GoPencil className="h-4/5 w-4/5 " />}
+          </ActionIcon>
+        </div>
 
         <div className="flex flex-col gap-8">
           {profile.certifications.map((certi, index) => (
