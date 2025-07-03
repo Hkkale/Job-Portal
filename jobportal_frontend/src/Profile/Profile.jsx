@@ -1,6 +1,6 @@
 import { ActionIcon, Button, Divider, TagsInput, Textarea } from "@mantine/core";
 import React, { useState } from "react";
-import { FaBriefcase } from "react-icons/fa6";
+import { FaBriefcase, FaPlus } from "react-icons/fa6";
 import { GrLocation } from "react-icons/gr";
 import ExpCard from "./ExpCard";
 import CertifiCard from "./CertifiCard";
@@ -9,6 +9,8 @@ import { FaRegSave } from "react-icons/fa";
 import SelectInput from "./SelectInput";
 
 import { GoBriefcase } from "react-icons/go";
+import ExpInput from "./ExpInput";
+import CertInput from "./CertInput";
 
 const Profile = () => {
   const profile = {
@@ -81,6 +83,8 @@ const Profile = () => {
 
   const [about, setAbout] = useState(profile.about);
   const [skills, setSkills] = useState(profile.skills);
+  const [addExp, setAddExp] = useState(false);
+  const [addCerti, setAddCerti] = useState(false);
 
   const handleEdit = (index) =>{
 
@@ -196,32 +200,45 @@ const Profile = () => {
       <Divider my="xl" mx="xs" orientation="horizontal" />
 
       <div className="px-3">
-        <div className="text-2xl font-semibold mb-5 flex justify-between">Experience
+        <div className="text-2xl font-semibold mb-5 flex justify-between">Experience <div className="flex gap-2">
+          <ActionIcon onClick={()=>setAddExp(true)} size="lg" color="brightSun.4" variant="subtle">
+           <FaPlus className="h-4/5 w-4/5 " />
+          </ActionIcon>
           <ActionIcon onClick={()=>handleEdit(3)} size="lg" color="brightSun.4" variant="subtle">
             {edit[3]? <FaRegSave className="h-4/5 w-4/5 " />   :<GoPencil className="h-4/5 w-4/5 " />}
           </ActionIcon>
+        </div>
         </div>
 
         <div className="flex flex-col gap-8">
           {profile.experience.map((exp, index) => (
             <ExpCard key={index} {...exp} edited={edit[3]} />
           ))}
+
+          {addExp && <ExpInput add setEdit={setAddExp}/>}
+
+
         </div>
       </div>
 
       <Divider my="xl" mx="xs" orientation="horizontal" />
 
       <div className="px-3">
-        <div className="text-2xl font-semibold mb-5 flex justify-between">Certifications
+        <div className="text-2xl font-semibold mb-5 flex justify-between">Certifications <div className="flex gap-2">
+          <ActionIcon onClick={()=>setAddCerti(true)} size="lg" color="brightSun.4" variant="subtle">
+           <FaPlus className="h-4/5 w-4/5 " />
+          </ActionIcon>
           <ActionIcon onClick={()=>handleEdit(4)} size="lg" color="brightSun.4" variant="subtle">
             {edit[4]? <FaRegSave className="h-4/5 w-4/5 " />   :<GoPencil className="h-4/5 w-4/5 " />}
           </ActionIcon>
         </div>
+        </div>
 
         <div className="flex flex-col gap-8">
           {profile.certifications.map((certi, index) => (
-            <CertifiCard key={index} {...certi} />
+            <CertifiCard key={index} edit={edit[4]} {...certi} />
           ))}
+          {addCerti && <CertInput  setEdit={setAddCerti}/>}
         </div>
       </div>
     </div>

@@ -5,7 +5,7 @@ import { GoBriefcase } from "react-icons/go";
 import { GrLocation } from "react-icons/gr";
 import { MonthPickerInput } from "@mantine/dates";
 
-const ExpInput = ({setEdit}) => {
+const ExpInput = ({add,setEdit}) => {
   const fields = [
     {
       label: "Job Title",
@@ -67,7 +67,7 @@ const ExpInput = ({setEdit}) => {
   );
   return (
     <div className="flex flex-col gap-3">
-      <div className="text-lg font-semibold">Edit Experience</div>
+      <div className="text-lg font-semibold">{add ? "Add":"Edit"} Experience</div>
       <div className="flex gap-10 mb-5  [&>div]:w-1/2">
         <SelectInput {...fields[0]} />
         <SelectInput {...fields[1]} />
