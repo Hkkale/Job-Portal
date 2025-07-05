@@ -2,10 +2,13 @@ package com.jobify.jobportal_backend.Controller;
 
 
 import com.jobify.jobportal_backend.DTOs.UserDto;
-import com.jobify.jobportal_backend.Entity.User;
+
 import com.jobify.jobportal_backend.Service.UserService;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @CrossOrigin
+@Validated
 @RequestMapping("/users")
 public class UserController {
 
@@ -24,13 +28,18 @@ public class UserController {
 
 
     @PostMapping("/register")
-    public ResponseEntity<UserDto> registerUser( @RequestBody  UserDto userDto){
+    public ResponseEntity<UserDto> registerUser( @RequestBody @Valid UserDto userDto){
+
+
+        userDto= userService.registerUser(userDto);
+
+        return new ResponseEntity<>(userDto, HttpStatus.CREATED);
 
 
 
 
 
-        return null;
+
 
     }
 
