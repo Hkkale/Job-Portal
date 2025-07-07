@@ -1,6 +1,8 @@
 package com.jobify.jobportal_backend.Utility;
+import com.jobify.jobportal_backend.Exception.JobPortalException;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import java.time.LocalDateTime;
@@ -10,11 +12,16 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import java.time.LocalDateTime;
 import java.util.stream.Collectors;
 
 @RestControllerAdvice
 public class ExceptionControllerAdvice {
+
+    private Environment environment;
+
+    public ExceptionControllerAdvice(Environment environment) {
+        this.environment = environment;
+    }
 
 
     @ExceptionHandler(Exception.class)
@@ -23,6 +30,25 @@ public class ExceptionControllerAdvice {
 
         ErrorInfo error = ErrorInfo.builder()
                 .errorMessage(exception.getMessage())
+                .errorCode(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                .timeStamp(LocalDateTime.now())
+                .build();
+
+
+        return new ResponseEntity<>(error,HttpStatus.INTERNAL_SERVER_ERROR);
+
+
+
+
+    }
+
+    @ExceptionHandler(JobPortalException.class)
+
+    public ResponseEntity<ErrorInfo> generalException(JobPortalException exception){
+
+        String msg=environment.getProperty(exception.getMessage());
+        ErrorInfo error = ErrorInfo.builder()
+                .errorMessage(msg)
                 .errorCode(HttpStatus.INTERNAL_SERVER_ERROR.value())
                 .timeStamp(LocalDateTime.now())
                 .build();
