@@ -6,6 +6,7 @@ import { RiLockPasswordLine } from "react-icons/ri";
 import { useNavigate } from 'react-router';
 import { RiLockStarLine } from "react-icons/ri";
 import {registerUser} from "../Services/UserService"
+import { signupValidation } from '../Services/FormValidation';
 
 const SignUp = () => {
 
@@ -18,14 +19,45 @@ const SignUp = () => {
 
   }
 
+  
+
 
   const [data,setData]= useState(form)
+  const [formError , setFormError] = useState(form)
 
 
   const handleChange = (event) =>{
 
-    if(typeof(event)=="string") setData({...data,acconutType:event});
-    else  setData({...data,[event.target.name]:event.target.value})
+    if(typeof(event)=="string"){ setData({...data,acconutType:event});
+    return
+    }
+    let name=event.target.name
+    let value = event.target.value
+    setData({...data,[name]:value})
+    console.log(signupValidation(name,value))
+
+    setFormError({...formError,[name]:signupValidation(name,value)})
+
+    if(name==="password" && data.confirmPassword!==""){
+      let err=""
+      if(data.confirmPassword!==value){
+       err="Passwords should be match"
+      }
+      
+      setFormError({...formError,[name]:signupValidation(name,value),confirmPassword:err})
+    }
+
+    if(name==="confirmPassword"){
+      if(data.password!==value){
+        setFormError({...formError,[name]:"Passwords should be match"})
+      }
+      else{
+        setFormError({...formError,confirmPassword:""})
+
+      }
+    }
+
+
 
     
    
@@ -51,12 +83,12 @@ const SignUp = () => {
       <div className='text-2xl font-semibold '>Create Account</div>
 
 
-      <TextInput name='name' onChange={handleChange} value={data.name} withAsterisk label="Full Name" placeholder='Enter Name' leftSection={<BiText className='text-bright-sun-400' />  }/>
+      <TextInput error={formError.name} name='name' onChange={handleChange} value={data.name} withAsterisk label="Full Name" placeholder='Enter Name' leftSection={<BiText className='text-bright-sun-400' />  }/>
 
-      <TextInput name='email' onChange={handleChange} value={data.email} withAsterisk label="Email" placeholder='Enter Email' leftSection={<MdOutlineMailOutline className='text-bright-sun-400' />  }/>
+      <TextInput error={formError.email} name='email' onChange={handleChange} value={data.email} withAsterisk label="Email" placeholder='Enter Email' leftSection={<MdOutlineMailOutline className='text-bright-sun-400' />  }/>
 
-      <PasswordInput name='password' onChange={handleChange} value={data.password} withAsterisk label="Password" placeholder='Enter Password' leftSection={<RiLockPasswordLine className='text-bright-sun-400' />  }/>
-      <PasswordInput name='confirmPassword' onChange={handleChange} value={data.confirmPassword} withAsterisk label="Confirm Password" placeholder='Confirm Password' leftSection={<RiLockStarLine className='text-bright-sun-400' />  }/>
+      <PasswordInput error={formError.password} name='password' onChange={handleChange} value={data.password} withAsterisk label="Password" placeholder='Enter Password' leftSection={<RiLockPasswordLine className='text-bright-sun-400' />  }/>
+      <PasswordInput error={formError.confirmPassword} name='confirmPassword' onChange={handleChange} value={data.confirmPassword} withAsterisk label="Confirm Password" placeholder='Confirm Password' leftSection={<RiLockStarLine className='text-bright-sun-400' />  }/>
 
 
 
