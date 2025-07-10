@@ -5,6 +5,7 @@ import { BiText } from "react-icons/bi";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { useNavigate } from 'react-router';
 import { RiLockStarLine } from "react-icons/ri";
+import {registerUser} from "../Services/UserService"
 
 const SignUp = () => {
 
@@ -34,6 +35,14 @@ const SignUp = () => {
   }
 
 
+  const handleSubmit =()=>{
+    console.log(data)
+    registerUser(data)
+    .then((res)=>console.log(res))
+    .catch((err)=>console.log(err))
+  }
+
+
 
   const navigate = useNavigate();
   const [value,setValue]=useState('react')
@@ -47,7 +56,7 @@ const SignUp = () => {
       <TextInput name='email' onChange={handleChange} value={data.email} withAsterisk label="Email" placeholder='Enter Email' leftSection={<MdOutlineMailOutline className='text-bright-sun-400' />  }/>
 
       <PasswordInput name='password' onChange={handleChange} value={data.password} withAsterisk label="Password" placeholder='Enter Password' leftSection={<RiLockPasswordLine className='text-bright-sun-400' />  }/>
-      <PasswordInput name='confirmPassword' onChange={handleChange} value={data.confirmPassword} withAsterisk label="Confirf Password" placeholder='Confirm Password' leftSection={<RiLockStarLine className='text-bright-sun-400' />  }/>
+      <PasswordInput name='confirmPassword' onChange={handleChange} value={data.confirmPassword} withAsterisk label="Confirm Password" placeholder='Confirm Password' leftSection={<RiLockStarLine className='text-bright-sun-400' />  }/>
 
 
 
@@ -78,7 +87,7 @@ const SignUp = () => {
 
       <Checkbox autoContrast label={<>I accept{' '}<Anchor> terms & conditions</Anchor></>}/>
 
-      <Button variant='filled' autoContrast>Sign up</Button>
+      <Button onClick={handleSubmit} variant='filled' autoContrast>Sign up</Button>
 
       <div className='mx-auto '>Already an account?<span className='text-bright-sun-400 hover:underline cursor-pointer' onClick={()=>navigate("/login")}> Login</span></div>
 
