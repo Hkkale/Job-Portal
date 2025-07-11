@@ -13,6 +13,7 @@ import PostJobPage from "./Pages/PostJobPage";
 
 import "@mantine/tiptap/styles.css";
 import '@mantine/dates/styles.css';
+import '@mantine/notifications/styles.css';
 import JobDescPage from "./Pages/JobDescPage";
 import ApplyJobPage from "./Pages/ApplyJobPage";
 import CompanyPage from "./Pages/CompanyPage";
@@ -20,6 +21,7 @@ import PostedJobPage from "./Pages/PostedJobPage";
 import JobHistoryPage from "./Pages/JobHistoryPage";
 import SignUpPage from "./Pages/SignUpPage";
 import ProfilePage from "./Pages/ProfilePage";
+import { Notifications } from '@mantine/notifications';
 
 function App() {
   const theme = createTheme({
@@ -60,6 +62,7 @@ function App() {
 
   return (
     <MantineProvider defaultColorScheme="dark" theme={theme}>
+      <Notifications position="top-center" zIndex={1000} />
       <BrowserRouter>
         <div className="relative">
           <Header />

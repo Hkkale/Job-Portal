@@ -7,6 +7,8 @@ import { useNavigate } from 'react-router';
 import { RiLockStarLine } from "react-icons/ri";
 import {registerUser} from "../Services/UserService"
 import { signupValidation } from '../Services/FormValidation';
+import { notifications } from '@mantine/notifications';
+import { FaCheck, FaX } from 'react-icons/fa6';
 
 const SignUp = () => {
 
@@ -24,7 +26,8 @@ const SignUp = () => {
 
   const [data,setData]= useState(form)
   const [formError , setFormError] = useState(form)
-
+  const navigate = useNavigate();
+  
 
   const handleChange = (event) =>{
 
@@ -68,16 +71,76 @@ const SignUp = () => {
 
 
   const handleSubmit =()=>{
-    console.log(data)
+    let valid= true
+    let newFormError={}
+    for(let key in data){
+      if(key==="accountType") continue;
+
+      if(key!=="confirmPassword") newFormError[key]=signupValidation(key, data[key])
+      
+      else if(data[key]!==data["password"])  newFormError[key]=="Passwords should be match."
+
+      if(newFormError[key]) valid= false;
+
+      
+      
+      
+      setFormError(newFormError)
+      
+      
+      
+      
+      
+    }
+  if(valid===true){ 
+
+    
+        
     registerUser(data)
-    .then((res)=>console.log(res))
-    .catch((err)=>console.log(err))
+    .then((res)=>{
+      console.log(res)
+      setData(form)
+       notifications.show({
+          title: 'Registered Successfully!',
+          message: 'Redirecting to login page...',
+          withCloseButton:true,
+          icon:<FaCheck className='w-[85%] h-[85%]'/>,
+          color:'teal',
+          withBorder:true,
+          className:'!border-green-500'
+        })
+
+        setTimeout(()=>{
+          navigate("/login")
+        },4000)
+      
+    })
+    .catch((err)=>{
+      
+      console.log(err)
+      notifications.show({
+          title: 'Registration Failed!',
+          message: err.response.data.errorMessage,
+          withCloseButton:true,
+          icon:<FaX className='w-[85%] h-[85%] p-0.5'/>,
+          color:'red',
+          withBorder:true,
+          className:'!border-red-500'
+        })
+
+        
+
+      
+    
+    })
+
+  }
+    console.log(data)
   }
 
 
 
-  const navigate = useNavigate();
-  const [value,setValue]=useState('react')
+  
   return (
     <div className='w-1/2 px-20 flex flex-col justify-center gap-3'>
       <div className='text-2xl font-semibold '>Create Account</div>
@@ -121,7 +184,10 @@ const SignUp = () => {
 
       <Button onClick={handleSubmit} variant='filled' autoContrast>Sign up</Button>
 
-      <div className='mx-auto '>Already an account?<span className='text-bright-sun-400 hover:underline cursor-pointer' onClick={()=>navigate("/login")}> Login</span></div>
+      <div className='mx-auto '>Already an account?<span className='text-bright-sun-400 hover:underline cursor-pointer' onClick={()=>{
+        navigate("/login")
+        setData(form)
+        setFormError(form)}}> Login</span></div>
 
       
     </div>

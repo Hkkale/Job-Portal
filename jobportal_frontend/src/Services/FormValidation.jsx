@@ -1,42 +1,50 @@
-import React from 'react'
+import React from "react";
 
-const signupValidation = (name,value) => {
+const signupValidation = (name, value) => {
+  switch (name) {
+    case "name":
+      if (value.length === 0) return "Name is required.";
 
-  switch(name){
-    case "name" :
-      
-      if(value.length===0) return "Name is required."
-
-      return ""
+      return "";
 
     case "email":
-       if(value.length===0) return "Email is required."
+      if (value.length === 0) return "Email is required.";
 
-       if(!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value)) return "email is invalid."
+      if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value))
+        return "email is invalid.";
 
-      return ""
+      return "";
 
-    
-      case "password":
-         if(value.length===0) return "password is required."
+    case "password":
+      if (value.length === 0) return "password is required.";
 
-         if(!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).{8,15}$/.test(value)) return "Password must be 8-15 characters with an uppercase,a lowercase, a number and a special character. "
+      if (
+        !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).{8,15}$/.test(value)
+      )
+        return "Password must be 8-15 characters with an uppercase,a lowercase, a number and a special character. ";
 
-         return ""
+      return "";
 
-      
-         default:
-
-         return ""
-
-
-
-         
-
-
+    default:
+      return "";
   }
-  
-  
-}
+};
 
-export {signupValidation}
+const loginValidation = (name, value) => {
+  switch (name) {
+    case "email":
+      if (value.length === 0) return "Email is required.";
+
+      return "";
+
+    case "password":
+      if (value.length === 0) return "password is required.";
+
+      return "";
+
+    default:
+      return "";
+  }
+};
+
+export { signupValidation, loginValidation };
