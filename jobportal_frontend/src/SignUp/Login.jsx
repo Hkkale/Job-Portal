@@ -19,6 +19,7 @@ const Login = () => {
   const [formError, setFormError] = useState(form);
 
   const handleChange = (event) => {
+    setFormError({...formError,[event.target.name]:""})
     setData({ ...data, [event.target.name]: event.target.value });
   };
 

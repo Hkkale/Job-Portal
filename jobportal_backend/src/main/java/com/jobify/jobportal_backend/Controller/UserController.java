@@ -2,6 +2,7 @@ package com.jobify.jobportal_backend.Controller;
 
 
 import com.jobify.jobportal_backend.DTOs.LoginDto;
+import com.jobify.jobportal_backend.DTOs.ResponseDto;
 import com.jobify.jobportal_backend.DTOs.UserDto;
 
 import com.jobify.jobportal_backend.Exception.JobPortalException;
@@ -52,6 +53,23 @@ public class UserController {
 
 
         return new ResponseEntity<>(userService.loginUser(loginDto), HttpStatus.OK);
+
+
+
+
+
+
+
+    }
+
+
+    @PostMapping("/sendOtp/{email}")
+    public ResponseEntity<ResponseDto> sendOtp(@PathVariable String email) throws Exception {
+
+
+        userService.sendOtp(email);
+
+        return new ResponseEntity<>(new ResponseDto("Otp sent successfully"), HttpStatus.CREATED);
 
 
 
