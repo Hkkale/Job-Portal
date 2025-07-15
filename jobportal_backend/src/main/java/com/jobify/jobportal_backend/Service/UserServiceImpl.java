@@ -1,6 +1,7 @@
 package com.jobify.jobportal_backend.Service;
 
 import com.jobify.jobportal_backend.DTOs.LoginDto;
+import com.jobify.jobportal_backend.DTOs.ResponseDto;
 import com.jobify.jobportal_backend.DTOs.UserDto;
 import com.jobify.jobportal_backend.Entity.OTP;
 import com.jobify.jobportal_backend.Entity.User;
@@ -13,10 +14,12 @@ import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -102,6 +105,30 @@ public class UserServiceImpl implements UserService {
 
 
         return true;
+    }
+
+    @Override
+    public ResponseDto changePassword(LoginDto loginDto) throws JobPortalException {
+        User user = userRepository.findByEmail(loginDto.getEmail()).orElseThrow(() -> new JobPortalException("USER_NOT_FOUND"));
+        user.setPassword(passwordEncoder.encode(loginDto.getPassword()));
+        userRepository.save(user);
+
+        return new ResponseDto("Password changed successfully.");
+    }
+
+
+    @Scheduled(fixedRate = 60000)
+    public void removeExpiredOTPs(){
+        LocalDateTime expiry=LocalDateTime.now().minusMinutes(5);
+        List<OTP> expiredOtps=otpRepository.findByCreationTimeBefore(expiry);
+
+        if(!expiredOtps.isEmpty()){
+            otpRepository.deleteAll(expiredOtps);
+            System.out.println("Removed "+expiredOtps.size()+" expired otps");
+        }
+
+
+
     }
 
 
