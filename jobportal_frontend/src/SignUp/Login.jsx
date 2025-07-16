@@ -7,6 +7,8 @@ import { loginUser } from "../Services/UserService";
 import { loginValidation } from "../Services/FormValidation";
 import { notifications } from "@mantine/notifications";
 import { FaCheck, FaX } from "react-icons/fa6";
+import { useDisclosure } from "@mantine/hooks";
+import ResetPassword from "./ResetPassword";
 
 const Login = () => {
   const form = {
@@ -17,6 +19,7 @@ const Login = () => {
 
   const [data, setData] = useState(form);
   const [formError, setFormError] = useState(form);
+  const [opened,{open,close}]=useDisclosure(false)
 
   const handleChange = (event) => {
     setFormError({...formError,[event.target.name]:""})
@@ -72,6 +75,7 @@ const Login = () => {
     
   };
   return (
+    <>
     <div className="w-1/2 px-20 flex flex-col justify-center gap-3">
       <div className="text-2xl font-semibold ">Login</div>
 
@@ -117,7 +121,11 @@ const Login = () => {
           Sign Up
         </span>
       </div>
+
+      <div onClick={open} className="text-bright-sun-400 hover:underline cursor-pointer text-center">Forget Password</div>
     </div>
+    <ResetPassword opened={opened} close={close} />
+    </>
   );
 };
 
