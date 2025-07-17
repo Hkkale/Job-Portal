@@ -12,17 +12,31 @@ import { BsFillMoonStarsFill } from "react-icons/bs";
 
 import { TbLogout2 } from "react-icons/tb";
 import { useNavigate } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
+import { removeUser } from "../Slices/UserSlice";
 
 
 const ProfileMenu = () => {
   const [checked, setChecked]= useState(false);
   const [opened, setOpened] = useState(false);
   const navigate = useNavigate();
+  const dispatch =useDispatch();
+  const user = useSelector((state)=>state.user)
+
+  const handleLogout=()=>{
+
+    console.log("user Logged out")
+
+    dispatch(removeUser())
+
+  }
+
+
   return (
     <Menu shadow="md" width={200} opened={opened} onChange={setOpened}>
       <Menu.Target>
         <div className="flex items-center gap-2 cursor-pointer">
-          <div>Hiten</div>
+          <div>{user.name}</div>
           <Avatar
             src="./src/assets/avatar-9.png"
             alt="it's me"
@@ -52,7 +66,7 @@ const ProfileMenu = () => {
 
        
         
-        <Menu.Item color="red" leftSection={<TbLogout2 size={14} />}>
+        <Menu.Item onClick={handleLogout} color="red" leftSection={<TbLogout2 size={14}  />}>
           Logout
         </Menu.Item>
       </Menu.Dropdown>

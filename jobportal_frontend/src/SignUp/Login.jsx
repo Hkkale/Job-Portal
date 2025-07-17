@@ -1,4 +1,10 @@
-import { Button, Checkbox, PasswordInput, TextInput } from "@mantine/core";
+import {
+  Button,
+  Checkbox,
+  LoadingOverlay,
+  PasswordInput,
+  TextInput,
+} from "@mantine/core";
 import React, { useState } from "react";
 import { MdOutlineMailOutline } from "react-icons/md";
 import { RiLockPasswordLine } from "react-icons/ri";
@@ -9,8 +15,17 @@ import { notifications } from "@mantine/notifications";
 import { FaCheck, FaX } from "react-icons/fa6";
 import { useDisclosure } from "@mantine/hooks";
 import ResetPassword from "./ResetPassword";
+import { useDispatch } from "react-redux";
+import {
+  errorNotifiaction,
+  successNotification,
+} from "../Services/NotificationService";
+
+import { setUser } from "../Slices/UserSlice";
 
 const Login = () => {
+  const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
   const form = {
     email: "",
     password: "",
@@ -19,14 +34,15 @@ const Login = () => {
 
   const [data, setData] = useState(form);
   const [formError, setFormError] = useState(form);
-  const [opened,{open,close}]=useDisclosure(false)
+  const [opened, { open, close }] = useDisclosure(false);
 
   const handleChange = (event) => {
-    setFormError({...formError,[event.target.name]:""})
+    setFormError({ ...formError, [event.target.name]: "" });
     setData({ ...data, [event.target.name]: event.target.value });
   };
 
   const handleSubmit = () => {
+    
     let valid = true;
     let newFormError = {};
     for (let key in data) {
@@ -35,96 +51,98 @@ const Login = () => {
       if (newFormError[key]) valid = false;
 
       setFormError(newFormError);
-      
     }
-    
+
     console.log(data);
-      
 
-      if (valid) {
-        loginUser(data)
-          .then((res) => {
-            console.log(res);
-            notifications.show({
-              title: "Login Successfull!",
-              message: "Redirecting to Home page...",
-              withCloseButton: true,
-              icon: <FaCheck className="w-[85%] h-[85%]" />,
-              color: "teal",
-              withBorder: true,
-              className: "!border-green-500",
-            });
+    if (valid) {
+      setLoading(true);
+      loginUser(data)
+        .then((res) => {
+          console.log(res);
+          successNotification(
+            "Login Successfull!",
+            "Redirecting to Home page..."
+          );
 
-            setTimeout(() => {
-              navigate("/");
-            }, 4000);
-          })
-          .catch((err) => {
-            console.log(err.response.data);
-            notifications.show({
-              title: "Login Failed!",
-              message: err.response.data.errorMessage,
-              withCloseButton: true,
-              icon: <FaX className="w-[85%] h-[85%] p-0.5" />,
-              color: "red",
-              withBorder: true,
-              className: "!border-red-500",
-            });
-          });
-      }
-    
+          setTimeout(() => {
+            setLoading(false);
+            dispatch(setUser(res));
+            navigate("/");
+          }, 4000);
+        })
+        .catch((err) => {
+          setLoading(false);
+          console.log(err.response.data);
+          errorNotifiaction("Login Failed!", err.response.data.errorMessage);
+        });
+    }
   };
   return (
     <>
-    <div className="w-1/2 px-20 flex flex-col justify-center gap-3">
-      <div className="text-2xl font-semibold ">Login</div>
-
-      <TextInput
-        error={formError.email}
-        value={data.email}
-        name="email"
-        onChange={handleChange}
-        withAsterisk
-        label="Email"
-        placeholder="Enter Email"
-        leftSection={<MdOutlineMailOutline className="text-bright-sun-400" />}
+      <LoadingOverlay
+        visible={loading}
+        zIndex={1000}
+        overlayProps={{ radius: "sm", blur: 2 }}
+        loaderProps={{ color: "brightSun.4", type: "bars" }}
       />
+      <div className="w-1/2 px-20 flex flex-col justify-center gap-3">
+        <div className="text-2xl font-semibold ">Login</div>
 
-      <PasswordInput
-        error={formError.password}
-        value={data.password}
-        name="password"
-        onChange={handleChange}
-        withAsterisk
-        label="Password"
-        placeholder="Enter Password"
-        leftSection={<RiLockPasswordLine className="text-bright-sun-400" />}
-      />
+        <TextInput
+          error={formError.email}
+          value={data.email}
+          name="email"
+          onChange={handleChange}
+          withAsterisk
+          label="Email"
+          placeholder="Enter Email"
+          leftSection={<MdOutlineMailOutline className="text-bright-sun-400" />}
+        />
 
-      <Button onClick={handleSubmit} variant="filled" autoContrast>
-        Login
-      </Button>
+        <PasswordInput
+          error={formError.password}
+          value={data.password}
+          name="password"
+          onChange={handleChange}
+          withAsterisk
+          label="Password"
+          placeholder="Enter Password"
+          leftSection={<RiLockPasswordLine className="text-bright-sun-400" />}
+        />
 
-      <div className="mx-auto ">
-        Don't have an account?
-        <span
-          className="text-bright-sun-400 hover:underline cursor-pointer"
-          onClick={() =>{ 
-            navigate("/signup")
-            setData(form)
-            setFormError(form)
-          }
-
-          }
+        <Button
+          loading={loading}
+          onClick={handleSubmit}
+          variant="filled"
+          autoContrast
         >
-          {" "}
-          Sign Up
-        </span>
-      </div>
+          Login
+        </Button>
 
-      <div onClick={open} className="text-bright-sun-400 hover:underline cursor-pointer text-center">Forget Password</div>
-    </div>
-    <ResetPassword opened={opened} close={close} />
+        <div className="mx-auto ">
+          Don't have an account?
+          <span
+            className="text-bright-sun-400 hover:underline cursor-pointer"
+            onClick={() => {
+              navigate("/signup");
+              setData(form);
+              setFormError(form);
+            }}
+          >
+            {" "}
+            Sign Up
+          </span>
+        </div>
+
+        <div
+          onClick={open}
+          className="text-bright-sun-400 hover:underline cursor-pointer text-center"
+        >
+          Forget Password
+        </div>
+      </div>
+      <ResetPassword opened={opened} close={close} />
     </>
   );
 };

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import {Anchor, Button, Checkbox, Group, PasswordInput, Radio, TextInput} from '@mantine/core'
+import {Anchor, Button, Checkbox, Group, LoadingOverlay, PasswordInput, Radio, TextInput} from '@mantine/core'
 import { MdOutlineMailOutline } from "react-icons/md";
 import { BiText } from "react-icons/bi";
 import { RiLockPasswordLine } from "react-icons/ri";
@@ -9,6 +9,7 @@ import {registerUser} from "../Services/UserService"
 import { signupValidation } from '../Services/FormValidation';
 import { notifications } from '@mantine/notifications';
 import { FaCheck, FaX } from 'react-icons/fa6';
+import { errorNotifiaction, successNotification } from '../Services/NotificationService';
 
 const SignUp = () => {
 
@@ -27,6 +28,7 @@ const SignUp = () => {
   const [data,setData]= useState(form)
   const [formError , setFormError] = useState(form)
   const navigate = useNavigate();
+  const [loading,setLoading]=useState(false);
   
 
   const handleChange = (event) =>{
@@ -94,23 +96,18 @@ const SignUp = () => {
     }
   if(valid===true){ 
 
+    setLoading(true)
+
     
         
     registerUser(data)
     .then((res)=>{
       console.log(res)
       setData(form)
-       notifications.show({
-          title: 'Registered Successfully!',
-          message: 'Redirecting to login page...',
-          withCloseButton:true,
-          icon:<FaCheck className='w-[85%] h-[85%]'/>,
-          color:'teal',
-          withBorder:true,
-          className:'!border-green-500'
-        })
+       successNotification("Registered Successfully!","Redirecting to login page...")
 
         setTimeout(()=>{
+          setLoading(false)
           navigate("/login")
         },4000)
       
@@ -118,15 +115,8 @@ const SignUp = () => {
     .catch((err)=>{
       
       console.log(err)
-      notifications.show({
-          title: 'Registration Failed!',
-          message: err.response.data.errorMessage,
-          withCloseButton:true,
-          icon:<FaX className='w-[85%] h-[85%] p-0.5'/>,
-          color:'red',
-          withBorder:true,
-          className:'!border-red-500'
-        })
+      setLoading(false)
+      errorNotifiaction("Registration Failed!",err.response.data.errorMessage)
 
         
 
@@ -142,6 +132,14 @@ const SignUp = () => {
 
   
   return (
+    <>
+    <LoadingOverlay
+        visible={loading}
+        zIndex={1000}
+        className='translate-x-1/2'
+        overlayProps={{ radius: "sm", blur: 2 }}
+        loaderProps={{ color: "brightSun.4", type: "bars" }}
+      />
     <div className='w-1/2 px-20 flex flex-col justify-center gap-3'>
       <div className='text-2xl font-semibold '>Create Account</div>
 
@@ -182,7 +180,7 @@ const SignUp = () => {
 
       <Checkbox autoContrast label={<>I accept{' '}<Anchor> terms & conditions</Anchor></>}/>
 
-      <Button onClick={handleSubmit} variant='filled' autoContrast>Sign up</Button>
+      <Button loading={loading} onClick={handleSubmit} variant='filled' autoContrast>Sign up</Button>
 
       <div className='mx-auto '>Already an account?<span className='text-bright-sun-400 hover:underline cursor-pointer' onClick={()=>{
         navigate("/login")
@@ -191,6 +189,7 @@ const SignUp = () => {
 
       
     </div>
+    </>
   )
 }
 

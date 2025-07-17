@@ -2,12 +2,15 @@ import React from 'react'
 import { IoBag } from "react-icons/io5";
 import { FaRegBell } from "react-icons/fa6";
 import { IoSettingsOutline } from "react-icons/io5";
-import { Avatar , Indicator} from '@mantine/core';
+import { Avatar , Button, Indicator} from '@mantine/core';
 import Navlinks from './Navlinks';
 import { useLocation, useNavigate } from 'react-router';
 import Profile from '../TalentProfile/Profile';
 import ProfileMenu from './ProfileMenu';
+import { useSelector } from 'react-redux';
 const Header = () => {
+
+  const user= useSelector((state)=>state.user)
 
   const navigate= useNavigate();
   const location = useLocation();
@@ -29,8 +32,12 @@ const Header = () => {
       <div className='flex gap-4 items-center h-full '>
         
         
-        <ProfileMenu/>
-        <div className='bg-mine-shaft-900 p-2 rounded-full'> <IoSettingsOutline color='white' size={20}/></div>
+        {user ? <ProfileMenu/> : <><Button onClick={()=>navigate("/login")} variant='subtle' color='brightSun.4'>Login</Button></>}
+
+
+        {/* <div className='bg-mine-shaft-900 p-2 rounded-full'> <IoSettingsOutline color='white' size={20}/></div> */}
+
+        
         <div className='bg-mine-shaft-900 p-2 rounded-full'>
           <Indicator color="brightSun.4" size={7} offset={3}>
           <FaRegBell color='white' size={20}/>

@@ -2,26 +2,16 @@ import "./App.css";
 import { createTheme, Divider, MantineProvider } from "@mantine/core";
 import "@mantine/carousel/styles.css";
 
-import HomePage from "./Pages/HomePage";
-import { BrowserRouter, Route, Routes } from "react-router";
-import FindJob from "./Pages/FindJob";
-import Header from "./Header/Header";
-import Footer from "./Footer/Footer";
-import FindTalentPage from "./Pages/FindTalentPage";
-import TalentProfilePage from "./Pages/TalentProfilePage";
-import PostJobPage from "./Pages/PostJobPage";
 
 import "@mantine/tiptap/styles.css";
-import '@mantine/dates/styles.css';
-import '@mantine/notifications/styles.css';
-import JobDescPage from "./Pages/JobDescPage";
-import ApplyJobPage from "./Pages/ApplyJobPage";
-import CompanyPage from "./Pages/CompanyPage";
-import PostedJobPage from "./Pages/PostedJobPage";
-import JobHistoryPage from "./Pages/JobHistoryPage";
-import SignUpPage from "./Pages/SignUpPage";
-import ProfilePage from "./Pages/ProfilePage";
-import { Notifications } from '@mantine/notifications';
+import "@mantine/dates/styles.css";
+import "@mantine/notifications/styles.css";
+
+import { Notifications } from "@mantine/notifications";
+import { Provider } from 'react-redux'
+
+import Store from "./Store"
+import AppRoutes from "./Routes/AppRoutes";
 
 function App() {
   const theme = createTheme({
@@ -61,35 +51,14 @@ function App() {
   });
 
   return (
-    <MantineProvider defaultColorScheme="dark" theme={theme}>
-      <Notifications position="top-center" zIndex={1000} />
-      <BrowserRouter>
-        <div className="relative">
-          <Header />
-          <Divider mx="md" size="xs" orientation="horizontal" />
-          <Routes>
-            <Route path="/find-jobs" element={<FindJob />} />
-            <Route path="/find-talent" element={<FindTalentPage />} />
-            <Route path="/talent-profile" element={<TalentProfilePage />} />
-            <Route path="/jobs" element={<JobDescPage />} />
+    <Provider store={Store}>
+      <MantineProvider defaultColorScheme="dark" theme={theme}>
+        <Notifications position="top-center" zIndex={1000} />
 
-            <Route path="/post-job" element={<PostJobPage />} />
-             <Route path="/posted-job" element={<PostedJobPage />} />
-            <Route path="/apply-job" element={<ApplyJobPage />} />
-            <Route path="/company" element={<CompanyPage />} />
-            <Route path="/job-history" element={<JobHistoryPage />} />
-            <Route path="/signup" element={<SignUpPage />} />
-            <Route path="/login" element={<SignUpPage />} />
-            <Route path="/profile" element={<ProfilePage />} />
-
-            <Route path="/" element={<HomePage />} />
-            <Route path="/*" element={<HomePage />} />
-          </Routes>
-          <Divider mx="md" size="xs" className="" />
-          <Footer />
-        </div>
-      </BrowserRouter>
-    </MantineProvider>
+        <AppRoutes/>
+        
+      </MantineProvider>
+    </Provider>
   );
 }
 
