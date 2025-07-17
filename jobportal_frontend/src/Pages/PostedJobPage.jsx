@@ -1,8 +1,10 @@
 import { Button } from '@mantine/core'
 import React from 'react'
 import { FaArrowLeftLong } from 'react-icons/fa6'
-import PostedJob from '../PostedJob/PostedJob'
-import PostedJobDesc from '../PostedJob/PostedJobDesc'
+
+
+import PostedJob from '../Components/PostedJob/PostedJob'
+import PostedJobDesc from '../Components/PostedJob/PostedJobDesc'
 
 const PostedJobPage = () => {
   return (

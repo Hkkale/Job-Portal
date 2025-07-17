@@ -1,11 +1,20 @@
-import { Button, Modal, PasswordInput, PinInput, TextInput } from "@mantine/core";
+import {
+  Button,
+  Modal,
+  PasswordInput,
+  PinInput,
+  TextInput,
+} from "@mantine/core";
 import React, { useState } from "react";
 
 import { MdOutlineMailOutline } from "react-icons/md";
 import { RiLockPasswordLine } from "react-icons/ri";
-import { ChangePassword, sendOtp, verifyOtp } from "../Services/UserService";
-import { signupValidation } from "../Services/FormValidation";
-import { errorNotifiaction, successNotification } from "../Services/NotificationService";
+import { ChangePassword, sendOtp, verifyOtp } from "../../Services/UserService";
+import { signupValidation } from "../../Services/FormValidation";
+import {
+  errorNotifiaction,
+  successNotification,
+} from "../../Services/NotificationService";
 import { useInterval } from "@mantine/hooks";
 
 const ResetPassword = (props) => {
@@ -15,34 +24,39 @@ const ResetPassword = (props) => {
   const [verified, setVerified] = useState(false);
   const [password, setPassword] = useState("");
   const [passError, setPassError] = useState("");
-  const [resendLoader, setResendLoader] = useState(false)
+  const [resendLoader, setResendLoader] = useState(false);
 
-  const [seconds,setSeconds]=useState(60)
-  const interval = useInterval(()=>{
-    if(seconds===0){
-      setResendLoader(false)
-      setSeconds(60)
-      interval.start()
-    }
-    else setSeconds((s)=>s-1)
-  },1000)
+  const [seconds, setSeconds] = useState(60);
+  const interval = useInterval(() => {
+    if (seconds === 0) {
+      setResendLoader(false);
+      setSeconds(60);
+      interval.start();
+    } else setSeconds((s) => s - 1);
+  }, 1000);
 
   const handleSendOtp = () => {
     setOtpSending(true);
     sendOtp(email)
       .then((res) => {
         console.log(res);
-        successNotification("OTP send successfully","Enter OTP to reset password")
+        successNotification(
+          "OTP send successfully",
+          "Enter OTP to reset password"
+        );
         setOtpSent(true);
         setOtpSending(false);
-        setResendLoader(true)
-        interval.start()
+        setResendLoader(true);
+        interval.start();
       })
       .catch((err) => {
         console.log(err);
-        
+
         setOtpSending(false);
-        errorNotifiaction("OTP Sending Failed!" , err.response.data.errorMessage)
+        errorNotifiaction(
+          "OTP Sending Failed!",
+          err.response.data.errorMessage
+        );
       });
   };
 
@@ -51,76 +65,61 @@ const ResetPassword = (props) => {
     verifyOtp(email, otp)
       .then((res) => {
         console.log(res);
-        successNotification("Otp Verified.","Enter new password.")
+        successNotification("Otp Verified.", "Enter new password.");
         setVerified(true);
       })
       .catch((err) => {
         console.log(err);
-        errorNotifiaction("Otp Verification Failed",err.response.data.errorMessage)
+        errorNotifiaction(
+          "Otp Verification Failed",
+          err.response.data.errorMessage
+        );
       });
   };
 
   const resendOtp = () => {
-    if(resendLoader) return
-    handleSendOtp()
-
+    if (resendLoader) return;
+    handleSendOtp();
   };
 
   const changeEmail = () => {
     setOtpSent(false);
-    setResendLoader(false)
-    setSeconds(60)
-    setVerified(false)
+    setResendLoader(false);
+    setSeconds(60);
+    setVerified(false);
     setEmail("");
-    interval.stop()
+    interval.stop();
   };
 
+  const handleResetPassword = () => {
+    if (passError.length === 0) {
+      ChangePassword(email, password)
+        .then((res) => {
+          console.log(res);
 
-  const handleResetPassword =()=>{
-
-    if(passError.length===0){
-
-      ChangePassword(email,password)
-    .then((res)=>{
-      console.log(res)
-
-      successNotification("Password Changed Successfully.","Redirecting to login page.")
-      setTimeout(()=>{
-        props.close()
-        setEmail("")
-        setPassword("")
-        setOtpSent(false)
-        setVerified(false)
-        
-      },[1000])
-    })
-    .catch((err)=>{
-      console.log(err)
-      errorNotifiaction("Password Reset Failed.","Redirecting to login page.")
-    })
-
-
-    
-
+          successNotification(
+            "Password Changed Successfully.",
+            "Redirecting to login page."
+          );
+          setTimeout(() => {
+            props.close();
+            setEmail("");
+            setPassword("");
+            setOtpSent(false);
+            setVerified(false);
+          }, [1000]);
+        })
+        .catch((err) => {
+          console.log(err);
+          errorNotifiaction(
+            "Password Reset Failed.",
+            "Redirecting to login page."
+          );
+        });
+    } else {
+      errorNotifiaction("Password Reset Failed.", "Password is invalid!.");
     }
-    else{
-
-      errorNotifiaction("Password Reset Failed.","Password is invalid!.")
-
-    }
-
-    
-
-
-
-
-
-    
-
-
-  }
-
-
+  };
 
   return (
     <Modal opened={props.opened} onClose={props.close} title="Reset Password">
@@ -173,7 +172,7 @@ const ResetPassword = (props) => {
               variant="light"
               onClick={resendOtp}
             >
-              {resendLoader ? `Resend OTP in : ${seconds}s`:"Resend"}
+              {resendLoader ? `Resend OTP in : ${seconds}s` : "Resend"}
             </Button>
 
             <Button
@@ -204,8 +203,12 @@ const ResetPassword = (props) => {
           />
         )}
 
-
-        {verified && <Button onClick={handleResetPassword} autoContrast variant="filled"> Change Password </Button> }
+        {verified && (
+          <Button onClick={handleResetPassword} autoContrast variant="filled">
+            {" "}
+            Change Password{" "}
+          </Button>
+        )}
       </div>
     </Modal>
   );

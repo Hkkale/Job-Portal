@@ -13,24 +13,20 @@ import { BsFillMoonStarsFill } from "react-icons/bs";
 import { TbLogout2 } from "react-icons/tb";
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
-import { removeUser } from "../Slices/UserSlice";
-
+import { removeUser } from "../../Slices/UserSlice";
 
 const ProfileMenu = () => {
-  const [checked, setChecked]= useState(false);
+  const [checked, setChecked] = useState(false);
   const [opened, setOpened] = useState(false);
   const navigate = useNavigate();
-  const dispatch =useDispatch();
-  const user = useSelector((state)=>state.user)
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
 
-  const handleLogout=()=>{
+  const handleLogout = () => {
+    console.log("user Logged out");
 
-    console.log("user Logged out")
-
-    dispatch(removeUser())
-
-  }
-
+    dispatch(removeUser());
+  };
 
   return (
     <Menu shadow="md" width={200} opened={opened} onChange={setOpened}>
@@ -46,17 +42,28 @@ const ProfileMenu = () => {
         </div>
       </Menu.Target>
 
-      <Menu.Dropdown onChange={()=>setOpened(true)}>
-        
-        <Menu.Item onClick={()=>navigate("/profile")} leftSection={<FaRegUserCircle size={14} />}>Profile</Menu.Item>
+      <Menu.Dropdown onChange={() => setOpened(true)}>
+        <Menu.Item
+          onClick={() => navigate("/profile")}
+          leftSection={<FaRegUserCircle size={14} />}
+        >
+          Profile
+        </Menu.Item>
         <Menu.Item leftSection={<FaRegMessage size={14} />}>Messages</Menu.Item>
         <Menu.Item leftSection={<FaRegFileAlt size={14} />}>Resume</Menu.Item>
         <Menu.Item
           leftSection={<FaRegMoon size={14} />}
           rightSection={
-            
-            
-            <Switch checked={checked} onChange={(event) => setChecked(event.currentTarget.checked)}  size="md" color="dark.4" onLabel={<MdSunny className="text-bright-sun-400 h-3 w-3"/> }  offLabel={<BsFillMoonStarsFill className="text-bright-sun-400 h-3 w-3" /> }  />
+            <Switch
+              checked={checked}
+              onChange={(event) => setChecked(event.currentTarget.checked)}
+              size="md"
+              color="dark.4"
+              onLabel={<MdSunny className="text-bright-sun-400 h-3 w-3" />}
+              offLabel={
+                <BsFillMoonStarsFill className="text-bright-sun-400 h-3 w-3" />
+              }
+            />
           }
         >
           Dark Mode
@@ -64,9 +71,11 @@ const ProfileMenu = () => {
 
         <Menu.Divider />
 
-       
-        
-        <Menu.Item onClick={handleLogout} color="red" leftSection={<TbLogout2 size={14}  />}>
+        <Menu.Item
+          onClick={handleLogout}
+          color="red"
+          leftSection={<TbLogout2 size={14} />}
+        >
           Logout
         </Menu.Item>
       </Menu.Dropdown>

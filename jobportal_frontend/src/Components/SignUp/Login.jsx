@@ -9,8 +9,8 @@ import React, { useState } from "react";
 import { MdOutlineMailOutline } from "react-icons/md";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { useNavigate } from "react-router";
-import { loginUser } from "../Services/UserService";
-import { loginValidation } from "../Services/FormValidation";
+import { loginUser } from "../../Services/UserService";
+import { loginValidation } from "../../Services/FormValidation";
 import { notifications } from "@mantine/notifications";
 import { FaCheck, FaX } from "react-icons/fa6";
 import { useDisclosure } from "@mantine/hooks";
@@ -19,9 +19,9 @@ import { useDispatch } from "react-redux";
 import {
   errorNotifiaction,
   successNotification,
-} from "../Services/NotificationService";
+} from "../../Services/NotificationService";
 
-import { setUser } from "../Slices/UserSlice";
+import { setUser } from "../../Slices/UserSlice";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -42,7 +42,6 @@ const Login = () => {
   };
 
   const handleSubmit = () => {
-    
     let valid = true;
     let newFormError = {};
     for (let key in data) {

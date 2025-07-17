@@ -3,7 +3,7 @@ import React from 'react'
 import { FaArrowLeftLong } from 'react-icons/fa6'
 import { useNavigate } from 'react-router';
 import App from '../App';
-import ApplyJobComp from '../ApplyJob/ApplyJobComp';
+import ApplyJobComp from '../Components/ApplyJob/ApplyJobComp';
 
 const ApplyJobPage = () => {
   const navigate = useNavigate();
