@@ -34,14 +34,17 @@ public class UserServiceImpl implements UserService {
     private JavaMailSender javaMailSender;
     private OTPRepository otpRepository;
 
+    private  ProfileService profileService;
+
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, Utilities utilities, PasswordEncoder passwordEncoder, JavaMailSender javaMailSender, OTPRepository otpRepository) {
+    public UserServiceImpl(UserRepository userRepository, Utilities utilities, PasswordEncoder passwordEncoder, JavaMailSender javaMailSender, OTPRepository otpRepository, ProfileService profileService) {
         this.userRepository = userRepository;
         this.utilities = utilities;
         this.passwordEncoder = passwordEncoder;
         this.javaMailSender = javaMailSender;
         this.otpRepository = otpRepository;
+        this.profileService = profileService;
     }
 
 
@@ -53,6 +56,8 @@ public class UserServiceImpl implements UserService {
 
         if (optional.isPresent()) throw new JobPortalException("USER_FOUND");
 
+
+        userDto.setProfileId(profileService.createProfile(userDto.getEmail()));
 
         userDto.setId(utilities.getNextSequence("users"));
         userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
