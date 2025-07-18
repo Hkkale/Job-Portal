@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Builder
 public class Certification {
-    private String title;
+    private String name;
     private String issuer;
     private LocalDateTime issueDate;
     private String certificateId;

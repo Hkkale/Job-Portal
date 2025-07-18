@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 public class Experience {
-    private String title;
+    private String name;
     private String company;
     private String location;
     private LocalDateTime startDate;
