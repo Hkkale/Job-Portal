@@ -76,7 +76,7 @@ const Profile = () => {
       </div>
 
       <div className="px-3 mt-16">
-        <Info/>
+        <Info profile={profile}/>
 
 
         

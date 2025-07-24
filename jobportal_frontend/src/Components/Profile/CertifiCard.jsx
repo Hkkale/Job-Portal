@@ -2,6 +2,7 @@ import { ActionIcon } from "@mantine/core";
 import React from "react";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { FaTrash } from "react-icons/fa6";
+import { formatDate } from "../../Services/Utilities";
 
 const CertifiCard = ({edit,...certi}) => {
   return (
@@ -23,7 +24,7 @@ const CertifiCard = ({edit,...certi}) => {
 
       <div className="flex items-center gap-2">
       <div className="flex flex-col items-end">
-        <div className="text-sm text-mine-shaft-300">{certi.issueDate}</div>
+        <div className="text-sm text-mine-shaft-300">Issued  {formatDate(certi.issueDate)}</div>
         <div className="text-sm text-mine-shaft-300">
           ID: {certi.certificateId}
         </div>
