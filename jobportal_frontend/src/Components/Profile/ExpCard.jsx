@@ -6,6 +6,7 @@ import { formatDate } from '../../Services/Utilities'
 const ExpCard = (props) => {
 
   const [edit, setEdit]= useState(false)
+  console.log("Exp card Props data-------",props)
 
   return !edit ? (
      <div className='flex flex-col gap-1'>
@@ -20,7 +21,7 @@ const ExpCard = (props) => {
               </div>
               <div className='text-sm text-mine-shaft-300'>
 
-                {formatDate(props.startDate)} - {formatDate(formatDate(props.startDate))}
+                {formatDate(props.startDate)} - {props.working?"Present":formatDate(props.endDate)}
 
 
               </div>

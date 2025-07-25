@@ -16,7 +16,7 @@ const CertifiCard = ({edit,...certi}) => {
           />
         </div>
         <div>
-          <div className="font-semibold">{certi.name}</div>
+          <div className="font-semibold">{certi.title}</div>
           <div className="text-sm text-mine-shaft-300 ">{certi.issuer} </div>
         </div>
       </div>

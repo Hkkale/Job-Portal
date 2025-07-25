@@ -4,10 +4,12 @@ import { Button, Checkbox, Textarea } from "@mantine/core";
 import { GoBriefcase } from "react-icons/go";
 import { GrLocation } from "react-icons/gr";
 import { MonthPickerInput } from "@mantine/dates";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { isNotEmpty, useForm } from "@mantine/form";
+import { changeProfile } from '../../Slices/ProfileSlice'
+import { successNotification } from '../../Services/NotificationService'
 
-const ExpInput = ({add,setEdit,...props}) => {
+const ExpInput = ({ add, setEdit, ...props }) => {
   const fields = [
     {
       label: "Job Title",
@@ -60,99 +62,125 @@ const ExpInput = ({add,setEdit,...props}) => {
     },
   ];
 
-  const profile=useSelector((state)=>state.profile)
+  const profile = useSelector((state) => state.profile);
+  const dispatch=useDispatch();
 
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
-  const [checked, setChecked] = useState(false);
+  useEffect(() => {
+    if (!add) {
+      form.setValues({
+        title: props.title,
+        company: props.company,
+        location: props.location,
+        description: props.description,
+        startDate: new Date(props.startDate),
+        endDate: new Date(props.endDate),
+        working: props.working,
+      });
+    }
+  }, []);
 
-  useEffect(()=>{
-    if(!add){
-      form.setValues({title:props.title, company:props.company, location:props.location, description:props.description, startDate:new Date(props.startDate), endDate:new Date(props.endDate), working:props.working })
-      
-    } 
-  },[])
-
-  const form= useForm({
-    mode: 'controlled',
-    validateInputOnChange:true,
+  const form = useForm({
+    mode: "controlled",
+    validateInputOnChange: true,
     initialValues: {
-      title: '',
-      company:'',
-      location:  '',
-      description:  '',
+      title: "",
+      company: "",
+      location: "",
+      description: "",
       startDate: new Date(),
       endDate: new Date(),
-      working:false
+      working: false,
     },
-    validate:{
-      title:isNotEmpty("Title is required"),
-      company:isNotEmpty("Company is required"),
-      location:isNotEmpty("Location is required"),
-      description:isNotEmpty("Description is required")
+    validate: {
+      title: isNotEmpty("Title is required"),
+      company: isNotEmpty("Company is required"),
+      location: isNotEmpty("Location is required"),
+      description: isNotEmpty("Description is required"),
+    },
+  });
 
+  const handleSave = () => {
+    form.validate();
+
+    if (!form.isValid()) return;
+
+    let exp = [...profile.experiences];
+
+    if (add) {
+      exp.push(form.getValues());
+      exp[exp.length - 1].startDate =
+        exp[exp.length - 1].startDate.toISOString();
+      exp[exp.length - 1].endDate = exp[exp.length - 1].endDate.toISOString();
+    } else {
+      exp[props.index] = form.getValues();
+      exp[props.index].startDate =exp[props.index].startDate.toISOString();
+      exp[props.index].endDate = exp[props.index].endDate.toISOString();
+      
     }
 
-  })
+    let updatedProfile={
+      ...profile, experiences:exp
+    }
+    setEdit(false);
 
-  const [desc, setDesc] = useState(
-    "As a Software Engineer at Google, I am responsible for designing, developing, and maintaining scalable software solutions that enhance user experience and improve operational efficiency. My role involves collaborating with cross-functional teams to define project requirements, develop technical specifications, and implement robust applications using cutting-edge technologies. I actively participate in code reviews, ensuring adherence to best practices and coding standards, and contribute to the continuous improvement of the development process."
-  );
+    dispatch(changeProfile(updatedProfile))
+    successNotification("Success", `Experience ${add?"Added":"Updated"} Successfully`);
+
+    
+  };
   return (
     <div className="flex flex-col gap-3">
-      <div className="text-lg font-semibold">{add ? "Add":"Edit"} Experience</div>
+      <div className="text-lg font-semibold">
+        {add ? "Add" : "Edit"} Experience
+      </div>
       <div className="flex gap-10 mb-5  [&>div]:w-1/2">
         <SelectInput form={form} name="title" {...fields[0]} />
         <SelectInput form={form} name="company" {...fields[1]} />
       </div>
       <SelectInput form={form} name="location" {...fields[2]} />
       <Textarea
-        {...form.getInputProps('description')}
+        {...form.getInputProps("description")}
         label="Job Summary"
         placeholder="Enter summary..."
         autosize
         minRows={3}
         
-        onChange={(e) => setDesc(e.currentTarget.value)}
       />
 
       <div className="flex gap-10 mb-5  [&>div]:w-1/2">
         <MonthPickerInput
-          {...form.getInputProps('startDate')}
+          {...form.getInputProps("startDate")}
           withAsterisk
-          maxDate={endDate}
+          maxDate={form.getValues().endDate}
           label="Start Date"
           placeholder="Pick date"
-          
-          onChange={setStartDate}
         />
         <MonthPickerInput
-          {...form.getInputProps('endDate')}
-          disabled={checked}
+          {...form.getInputProps("endDate")}
+          disabled={form.getValues().working}
           withAsterisk
-          maxDate={startDate}
+          minDate={form.getValues().startDate}
+          maxDate={new Date()}
           label="End Date"
           placeholder="Pick date"
-          
-          onChange={setEndDate}
         />
       </div>
       <Checkbox
-        {...form.getInputProps('working')}
-        
+        checked={form.getValues().working}
+        onChange={(e) => form.setFieldValue("working", e.currentTarget.checked)}
         autoContrast
         label="Currently working here"
       />
 
       <div className="flex gap-5 mt-3">
         <Button
-          onClick={ ()=>setEdit(false)}
+          onClick={() => handleSave()}
           color="brightSun.4"
           variant="outline"
         >
           Save
         </Button>
-        <Button onClick={ ()=>setEdit(false)} color="red.8" variant="light">
+        <Button onClick={() => setEdit(false)} color="red.8" variant="light">
           Cancel
         </Button>
       </div>
