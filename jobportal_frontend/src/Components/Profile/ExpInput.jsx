@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SelectInput from "./SelectInput";
 import { Button, Checkbox, Textarea } from "@mantine/core";
 import { GoBriefcase } from "react-icons/go";
 import { GrLocation } from "react-icons/gr";
 import { MonthPickerInput } from "@mantine/dates";
+import { useSelector } from "react-redux";
+import { isNotEmpty, useForm } from "@mantine/form";
 
-const ExpInput = ({add,setEdit}) => {
+const ExpInput = ({add,setEdit,...props}) => {
   const fields = [
     {
       label: "Job Title",
@@ -58,9 +60,40 @@ const ExpInput = ({add,setEdit}) => {
     },
   ];
 
+  const profile=useSelector((state)=>state.profile)
+
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [checked, setChecked] = useState(false);
+
+  useEffect(()=>{
+    if(!add){
+      form.setValues({title:props.title, company:props.company, location:props.location, description:props.description, startDate:new Date(props.startDate), endDate:new Date(props.endDate), working:props.working })
+      
+    } 
+  },[])
+
+  const form= useForm({
+    mode: 'controlled',
+    validateInputOnChange:true,
+    initialValues: {
+      title: '',
+      company:'',
+      location:  '',
+      description:  '',
+      startDate: new Date(),
+      endDate: new Date(),
+      working:false
+    },
+    validate:{
+      title:isNotEmpty("Title is required"),
+      company:isNotEmpty("Company is required"),
+      location:isNotEmpty("Location is required"),
+      description:isNotEmpty("Description is required")
+
+    }
+
+  })
 
   const [desc, setDesc] = useState(
     "As a Software Engineer at Google, I am responsible for designing, developing, and maintaining scalable software solutions that enhance user experience and improve operational efficiency. My role involves collaborating with cross-functional teams to define project requirements, develop technical specifications, and implement robust applications using cutting-edge technologies. I actively participate in code reviews, ensuring adherence to best practices and coding standards, and contribute to the continuous improvement of the development process."
@@ -69,41 +102,44 @@ const ExpInput = ({add,setEdit}) => {
     <div className="flex flex-col gap-3">
       <div className="text-lg font-semibold">{add ? "Add":"Edit"} Experience</div>
       <div className="flex gap-10 mb-5  [&>div]:w-1/2">
-        <SelectInput {...fields[0]} />
-        <SelectInput {...fields[1]} />
+        <SelectInput form={form} name="title" {...fields[0]} />
+        <SelectInput form={form} name="company" {...fields[1]} />
       </div>
-      <SelectInput {...fields[2]} />
+      <SelectInput form={form} name="location" {...fields[2]} />
       <Textarea
+        {...form.getInputProps('description')}
         label="Job Summary"
         placeholder="Enter summary..."
         autosize
         minRows={3}
-        value={desc}
+        
         onChange={(e) => setDesc(e.currentTarget.value)}
       />
 
       <div className="flex gap-10 mb-5  [&>div]:w-1/2">
         <MonthPickerInput
+          {...form.getInputProps('startDate')}
           withAsterisk
           maxDate={endDate}
           label="Start Date"
           placeholder="Pick date"
-          value={startDate}
+          
           onChange={setStartDate}
         />
         <MonthPickerInput
+          {...form.getInputProps('endDate')}
           disabled={checked}
           withAsterisk
           maxDate={startDate}
           label="End Date"
           placeholder="Pick date"
-          value={endDate}
+          
           onChange={setEndDate}
         />
       </div>
       <Checkbox
-        checked={checked}
-        onChange={(event) => setChecked(event.currentTarget.checked)}
+        {...form.getInputProps('working')}
+        
         autoContrast
         label="Currently working here"
       />

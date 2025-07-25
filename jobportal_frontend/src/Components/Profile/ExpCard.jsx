@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import ExpInput from './ExpInput'
 import { formatDate } from '../../Services/Utilities'
 
-const ExpCard = ({edited,...exp}) => {
+const ExpCard = (props) => {
 
   const [edit, setEdit]= useState(false)
 
@@ -12,25 +12,25 @@ const ExpCard = ({edited,...exp}) => {
 
       <div className='flex justify-between'>
               <div className='flex gap-2 items-center'>
-                <div className='p-2 bg-mine-shaft-800 rounded-md'><img className='h-7' src={`./src/assets/Icons/${exp.company}.png`} alt="" /></div>
+                <div className='p-2 bg-mine-shaft-800 rounded-md'><img className='h-7' src={`./src/assets/Icons/${props.company}.png`} alt="" /></div>
                 <div>
-                  <div className='font-semibold'>{exp.title}</div>
-                  <div className='text-sm text-mine-shaft-300 '>{exp.company} &bull; {exp.location}</div>
+                  <div className='font-semibold'>{props.title}</div>
+                  <div className='text-sm text-mine-shaft-300 '>{props.company} &bull; {props.location}</div>
                 </div>
               </div>
               <div className='text-sm text-mine-shaft-300'>
 
-                {formatDate(exp.startDate)} - {formatDate(formatDate(exp.startDate))}
+                {formatDate(props.startDate)} - {formatDate(formatDate(props.startDate))}
 
 
               </div>
             </div>
 
 
-            <div className='text-sm text-mine-shaft-300 text-justify'>{exp.description}</div>
+            <div className='text-sm text-mine-shaft-300 text-justify'>{props.description}</div>
 
 
-            {edited && (<div className='flex gap-5 mt-3'>
+            {props.edited && (<div className='flex gap-5 mt-3'>
               <Button onClick={()=>setEdit(true)} color='brightSun.4' variant='outline'>Edit</Button>
               <Button color='red.8' variant='light'>Delete</Button>
             </div>)}
@@ -38,7 +38,7 @@ const ExpCard = ({edited,...exp}) => {
       
     </div>
    
-  ):<ExpInput setEdit={setEdit}/>
+  ):<ExpInput {...props} setEdit={setEdit}/>
 }
 
 export default ExpCard

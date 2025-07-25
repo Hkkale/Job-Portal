@@ -15,6 +15,9 @@ import { getProfile } from "../../Services/ProfileSevice";
 import { useDispatch, useSelector } from "react-redux";
 import Info from "./Info";
 import { setProfile } from "../../Slices/ProfileSlice";
+import About from "./About";
+import Skills from "./Skills";
+import Experience from "./Experience";
 
 const Profile = () => {
   
@@ -26,9 +29,7 @@ const Profile = () => {
 
   const [edit, setEdit] = useState([false,false,false, false, false])
 
-  const [about, setAbout] = useState(profile.about);
-  const [skills, setSkills] = useState(profile.skills);
-  const [addExp, setAddExp] = useState(false);
+ 
   const [addCerti, setAddCerti] = useState(false);
 
   const dispatch= useDispatch();
@@ -44,7 +45,7 @@ const Profile = () => {
   }
 
   useEffect(()=>{
-    console.log(profile)
+    
     getProfile(user.id)
     .then((data)=>{
       console.log(data)
@@ -92,70 +93,14 @@ const Profile = () => {
 
       <Divider my="xl" mx="xs" orientation="horizontal" />
 
-      <div className="px-3">
-        <div className="text-2xl font-semibold mb-5 flex justify-between ">About
-
-          <ActionIcon onClick={()=>handleEdit(1)} size="lg" color="brightSun.4" variant="subtle">
-            {edit[1]? <FaRegSave className="h-4/5 w-4/5 " />   :<GoPencil className="h-4/5 w-4/5 " />}
-          </ActionIcon>
-
-        </div>
-
-        {edit[1] ? <Textarea placeholder="Enter About Yourself..." autosize minRows={3} value={about} defaultValue={about} onChange={(e)=>setAbout(e.currentTarget.value)} /> :<div className="text-sm text-mine-shaft-300 text-justify">
-          {profile?.about}
-        </div>}
-
-
-
-        
-      </div>
+      <About/>
       <Divider my="xl" mx="xs" orientation="horizontal" />
 
-      <div className="px-3">
-        <div className="text-2xl font-semibold mb-5 flex justify-between ">Skills
-          <ActionIcon onClick={()=>handleEdit(2)} size="lg" color="brightSun.4" variant="subtle">
-            {edit[2]? <FaRegSave className="h-4/5 w-4/5 " />   :<GoPencil className="h-4/5 w-4/5 " />}
-          </ActionIcon>
-        </div>
-
-        {edit[2] ? <TagsInput value={skills} onChange={setSkills}  placeholder="Add skills" splitChars={[',', ' ','|']}/>:<div className="flex flex-wrap gap-2">
-          {profile?.skills?.map((skill, index) => (
-            <div
-              key={index}
-              className="bg-bright-sun-300/15 text-sm font-medium bg-opacity-50 rounded-3xl text-bright-sun-400 px-3 py-1"
-            >
-              {skill}
-            </div>
-          ))}
-        </div>}
-
-
-        
-      </div>
+      <Skills/>
 
       <Divider my="xl" mx="xs" orientation="horizontal" />
 
-      <div className="px-3">
-        <div className="text-2xl font-semibold mb-5 flex justify-between">Experience <div className="flex gap-2">
-          <ActionIcon onClick={()=>setAddExp(true)} size="lg" color="brightSun.4" variant="subtle">
-           <FaPlus className="h-4/5 w-4/5 " />
-          </ActionIcon>
-          <ActionIcon onClick={()=>handleEdit(3)} size="lg" color="brightSun.4" variant="subtle">
-            {edit[3]? <FaRegSave className="h-4/5 w-4/5 " />   :<GoPencil className="h-4/5 w-4/5 " />}
-          </ActionIcon>
-        </div>
-        </div>
-
-        <div className="flex flex-col gap-8">
-          {profile?.experiences?.map((exp, index) => (
-            <ExpCard key={index} {...exp} edited={edit[3]} />
-          ))}
-
-          {addExp && <ExpInput add setEdit={setAddExp}/>}
-
-
-        </div>
-      </div>
+      <Experience/>
 
       <Divider my="xl" mx="xs" orientation="horizontal" />
 

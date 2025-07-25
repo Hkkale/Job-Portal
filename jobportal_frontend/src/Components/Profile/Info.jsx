@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import SelectInput from './SelectInput'
-import { FaBriefcase } from 'react-icons/fa6'
+import { FaBriefcase, FaCheck } from 'react-icons/fa6'
 import { GrLocation } from 'react-icons/gr'
 import { ActionIcon } from '@mantine/core'
 import { FaRegSave } from 'react-icons/fa'
@@ -9,6 +9,7 @@ import { useForm } from '@mantine/form';
 import { useDispatch, useSelector } from 'react-redux'
 import { changeProfile } from '../../Slices/ProfileSlice'
 import { successNotification } from '../../Services/NotificationService'
+import { LiaTimesSolid } from "react-icons/lia";
 
 const Info = () => {
 
@@ -41,13 +42,19 @@ const Info = () => {
     }
     else{
       setEdit(false)
+      
+    }
+
+
+
+  }
+
+  const handleSave =()=>{
+
+      setEdit(false)
       let updatedProfile ={...profile,...form.getValues()}
       dispatch(changeProfile(updatedProfile))
       successNotification("Sucess","Profile Updated Successfully")
-    }
-
-    // Here you would typically dispatch an action to update the profile in the store
-    // dispatch(updateProfile(profile));
 
   }
   
@@ -56,9 +63,24 @@ const Info = () => {
 
     <div className="text-3xl font-semibold flex justify-between">
           {user.name}
-          <ActionIcon onClick={()=>handleEdit()} size="lg" color="brightSun.4" variant="subtle">
-            {edit ? <FaRegSave className="h-4/5 w-4/5 " />   :<GoPencil className="h-4/5 w-4/5 " />}
+
+
+          <div className='flex gap-1'>
+
+
+            {edit && <ActionIcon onClick={()=>handleSave()} size="lg" color="green.8" variant="subtle">
+             <FaCheck strokeWidth="2.5" className="h-4/5 w-4/5 " /> 
+          </ActionIcon>}
+
+
+
+            <ActionIcon onClick={()=>handleEdit()} size="lg" color={edit?"red.8":"brightSun.4"} variant="subtle">
+            {edit ? <LiaTimesSolid strokeWidth="2.5" className="h-4/5 w-4/5 " />   :<GoPencil className="h-4/5 w-4/5 " />}
           </ActionIcon>
+
+          
+          </div>
+          
         </div>
 
 
