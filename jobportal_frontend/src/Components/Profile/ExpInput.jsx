@@ -100,34 +100,39 @@ const ExpInput = ({ add, setEdit, ...props }) => {
   });
 
   const handleSave = () => {
-    form.validate();
+  form.validate();
 
-    if (!form.isValid()) return;
+  if (!form.isValid()) return;
 
-    let exp = [...profile.experiences];
+  const values = form.getValues();
 
-    if (add) {
-      exp.push(form.getValues());
-      exp[exp.length - 1].startDate =
-        exp[exp.length - 1].startDate.toISOString();
-      exp[exp.length - 1].endDate = exp[exp.length - 1].endDate.toISOString();
-    } else {
-      exp[props.index] = form.getValues();
-      exp[props.index].startDate =exp[props.index].startDate.toISOString();
-      exp[props.index].endDate = exp[props.index].endDate.toISOString();
-      
-    }
+  // Ensure startDate and endDate are Date objects
+  const startDate = new Date(values.startDate);
+  const endDate = new Date(values.endDate);
 
-    let updatedProfile={
-      ...profile, experiences:exp
-    }
-    setEdit(false);
+  let exp = [...profile.experiences];
 
-    dispatch(changeProfile(updatedProfile))
-    successNotification("Success", `Experience ${add?"Added":"Updated"} Successfully`);
-
-    
+  const newExp = {
+    ...values,
+    startDate: startDate.toISOString(),
+    endDate: endDate.toISOString(),
   };
+
+  if (add) {
+    exp.push(newExp);
+  } else {
+    exp[props.index] = newExp;
+  }
+
+  const updatedProfile = {
+    ...profile,
+    experiences: exp,
+  };
+
+  setEdit(false);
+  dispatch(changeProfile(updatedProfile));
+  successNotification("Success", `Experience ${add ? "Added" : "Updated"} Successfully`);
+};
   return (
     <div className="flex flex-col gap-3">
       <div className="text-lg font-semibold">
@@ -175,8 +180,8 @@ const ExpInput = ({ add, setEdit, ...props }) => {
       <div className="flex gap-5 mt-3">
         <Button
           onClick={() => handleSave()}
-          color="brightSun.4"
-          variant="outline"
+          color="green.8"
+          variant="light"
         >
           Save
         </Button>

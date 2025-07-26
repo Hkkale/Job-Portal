@@ -4,6 +4,10 @@ import SelectInput from "./SelectInput";
 import { GoBriefcase } from "react-icons/go";
 import { GrLocation } from "react-icons/gr";
 import { MonthPickerInput } from "@mantine/dates";
+import { isNotEmpty, useForm } from "@mantine/form";
+import { useDispatch, useSelector } from "react-redux";
+import { changeProfile } from "../../Slices/ProfileSlice";
+import { successNotification } from "../../Services/NotificationService";
 
 const CertInput = ({ setEdit }) => {
   const fields = [
@@ -58,39 +62,91 @@ const CertInput = ({ setEdit }) => {
     },
   ];
 
-  const [issueDate, setIssueDate]= useState(new Date());
+  const profile = useSelector((state) => state.profile);
+  const dispatch = useDispatch();
+
+  const form = useForm({
+    mode: "controlled",
+    validateInputOnChange: true,
+    initialValues: {
+      title: "",
+      issuer: "",
+
+      issueDate: new Date(),
+
+      certificateId: "",
+    },
+    validate: {
+      title: isNotEmpty("Title is required"),
+      issuer: isNotEmpty("issuer is required"),
+      issueDate: isNotEmpty("Issue Date is required"),
+      certificateId: isNotEmpty("Certificate ID is required"),
+    },
+  });
+
+  const handleSave = () => {
+    form.validate();
+
+    if (!form.isValid()) return;
+
+    const values = form.getValues();
+
+    // Ensure issueDate is a valid Date
+    const issueDate = new Date(values.issueDate);
+
+    let certi = [...profile.certifications];
+
+    certi.push({
+      ...values,
+      issueDate: issueDate.toISOString(),
+    });
+
+    const updatedProfile = {
+      ...profile,
+      certifications: certi,
+    };
+
+    setEdit(false);
+    dispatch(changeProfile(updatedProfile));
+    successNotification(
+      "Success",
+      `Certificate Added Successfully`
+    );
+  };
+
   return (
     <div className="flex flex-col gap-3">
       <div className="text-lg font-semibold">Add Certificate</div>
 
       <div className="flex gap-10 mb-5  [&>div]:w-1/2">
-        <TextInput withAsterisk label="Title" placeholder="Enter title" />
-        <SelectInput {...fields[1]} />
+        <TextInput
+          {...form.getInputProps("title")}
+          withAsterisk
+          label="Title"
+          placeholder="Enter title"
+        />
+        <SelectInput form={form} name="issuer" {...fields[1]} />
       </div>
 
       <div className="flex gap-10 mb-5  [&>div]:w-1/2">
         <MonthPickerInput
-        withAsterisk
-        maxDate={new Date()}
-        label="Issued Date"
-        placeholder="Pick date"
-        value={issueDate}
-        onChange={setIssueDate}
-      />
+          {...form.getInputProps("issueDate")}
+          withAsterisk
+          maxDate={new Date()}
+          label="Issued Date"
+          placeholder="Pick date"
+        />
 
-      <TextInput withAsterisk label="Certificate ID" placeholder="Enter ID" />
+        <TextInput
+          {...form.getInputProps("certificateId")}
+          withAsterisk
+          label="Certificate ID"
+          placeholder="Enter ID"
+        />
       </div>
 
-      
-
-      
-
       <div className="flex gap-5 mt-3">
-        <Button
-          onClick={() => setEdit(false)}
-          color="brightSun.4"
-          variant="outline"
-        >
+        <Button onClick={() => handleSave()} color="green.8" variant="light">
           Save
         </Button>
         <Button onClick={() => setEdit(false)} color="red.8" variant="light">

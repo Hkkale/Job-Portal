@@ -11,7 +11,7 @@ import { LiaTimesSolid } from "react-icons/lia";
 
 const Experience = () => {
   const profile=useSelector((state)=>state.profile)
-  const dispatch=useDispatch()
+  
   
   const [edit,setEdit]=useState(false)
   const [addExp, setAddExp] = useState(false);
@@ -25,9 +25,7 @@ const Experience = () => {
   }
 
 
-   const handleSave =()=>{
-    
-  }
+   
 
 
 
