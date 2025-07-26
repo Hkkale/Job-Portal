@@ -21,6 +21,7 @@ const ProfileMenu = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
+  const profile = useSelector((state) => state.profile);
 
   const handleLogout = () => {
     console.log("user Logged out");
@@ -32,9 +33,10 @@ const ProfileMenu = () => {
     <Menu shadow="md" width={200} opened={opened} onChange={setOpened}>
       <Menu.Target>
         <div className="flex items-center gap-2 cursor-pointer">
-          <div>{user.name}</div>
+          <div>{user.name.split(" ")[0]}</div>
           <Avatar
-            src="./src/assets/avatar-9.png"
+            src={profile.picture ? `data:image/jpeg;base64,${profile.picture}`:"./src/assets/avatar-9.png"}
+            className="border-2 border-mine-shaft-600 rounded-full"
             alt="it's me"
             radius="xl"
             size={34}

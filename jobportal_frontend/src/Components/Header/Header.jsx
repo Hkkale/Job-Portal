@@ -7,9 +7,30 @@ import Navlinks from "./Navlinks";
 import { useLocation, useNavigate } from "react-router";
 import Profile from "../TalentProfile/Profile";
 import ProfileMenu from "./ProfileMenu";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getProfile } from "../../Services/ProfileSevice";
+import { setProfile } from "../../Slices/ProfileSlice";
+import { useEffect } from "react";
 const Header = () => {
   const user = useSelector((state) => state.user);
+  
+
+  const dispatch = useDispatch();
+
+ 
+
+  useEffect(() => {
+    getProfile(user.id)
+
+      
+
+      .then((data) => {
+        console.log(data);
+        dispatch(setProfile(data));
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
 
   const navigate = useNavigate();
   const location = useLocation();

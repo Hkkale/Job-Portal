@@ -1,102 +1,129 @@
-import { ActionIcon, Button, Divider, TagsInput, Textarea } from "@mantine/core";
+import {
+  
+  Avatar,
+  Divider,
+  FileInput,
+  Overlay,
+ 
+} from "@mantine/core";
 import React, { useEffect, useState } from "react";
 
 import { getProfile } from "../../Services/ProfileSevice";
 import { useDispatch, useSelector } from "react-redux";
 import Info from "./Info";
-import { setProfile } from "../../Slices/ProfileSlice";
+import { changeProfile, setProfile } from "../../Slices/ProfileSlice";
 import About from "./About";
 import Skills from "./Skills";
 import Experience from "./Experience";
 import Certificate from "./Certificate";
+import { useHover } from "@mantine/hooks";
+import { BiSolidEdit } from "react-icons/bi";
+import { successNotification } from "../../Services/NotificationService";
 
 const Profile = () => {
+  const user = useSelector((state) => state.user);
+  const profile = useSelector((state) => state.profile);
+
+  const dispatch = useDispatch();
+
+  const {hovered,ref}=useHover();
+
   
 
- 
 
-  const user= useSelector((state)=>state.user)
-   const profile= useSelector((state)=>state.profile)
 
-  const [edit, setEdit] = useState([false,false,false, false, false])
+  const handleFileChange = async (image) =>{
 
- 
-  
+    let picture= await getBase64(image) 
+    let updatedProfile={...profile,picture:picture.split(',')[1]}
+    
 
-  const dispatch= useDispatch();
-  
-
-  const handleEdit = (index) =>{
-
-    const newEdit=[...edit];
-    newEdit[index]=!newEdit[index];
-    setEdit(newEdit);
-   
+    dispatch(changeProfile(updatedProfile))
+    successNotification("Success","Profile picture updated sucessfully!")
 
   }
 
-  useEffect(()=>{
-    
-    getProfile(user.id)
-    .then((data)=>{
-      console.log(data)
-      dispatch(setProfile(data))
+
+  const getBase64 = (file)=>{
+
+    return new Promise((resolve,reject)=>{
+      const reader = new FileReader();
+      reader.readAsDataURL(file)
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
 
     })
-    .catch((err)=>console
-  .log(err))
-  },[])
+
+  }
 
 
-  
+
+
+
+
+
+
+
 
 
   return (
     <div className="w-4/5 mx-auto mb-10 mt-10">
-      <div className="relative ">
-        <img
-          className="rounded-t-2xl h-45 w-full"
-          src="./src/assets/banner.jpg"
-          alt="banner"
-        />
 
-        <img
-          className="rounded-full w-48 h-48 -bottom-1/4 absolute left-3  border-mine-shaft-950 border-8"
-          src="./src/assets/avatar-9.png"
-          alt=""
-        />
+
+      <div className="">
+
+        <div className="relative">
+          <img className="rounded-t-2xl h-48 w-full" src="./src/assets/banner.jpg"
+          alt="banner"/>
+
+          <div ref={ref} className="absolute -bottom-1/3 left-6 flex items-center justify-center">
+
+          <Avatar className="!w-48 !h-48 border-mine-shaft-950 border-8 rounded-full" src={profile.picture ? `data:image/jpeg;base64,${profile.picture}`:"./src/assets/avatar-9.png"}/>
+
+
+          {hovered && <Overlay className="!rounded-full" color="#000" backgroundOpacity={0.75} />}
+
+          {hovered && <BiSolidEdit className="absolute z-[300] text-bright-sun-400 w-16 h-16" /> }
+
+          {hovered && <FileInput onChange={handleFileChange} className="absolute w-full z-[1000] h-full  [&_*]:!rounded-full [&_*]:!h-full " variant="transparent"   accept="image/png, image/jpeg" /> }
+
+          </div>
+
+        </div>
+
+
+
+
+
       </div>
+
+
+
+
+
+
+
+
+      
 
       <div className="px-3 mt-16">
-        <Info profile={profile}/>
-
-
-        
-
-
-
-
-
-
-
-        
+        <Info  />
       </div>
 
       <Divider my="xl" mx="xs" orientation="horizontal" />
 
-      <About/>
+      <About />
       <Divider my="xl" mx="xs" orientation="horizontal" />
 
-      <Skills/>
-
-      <Divider my="xl" mx="xs" orientation="horizontal" />
-
-      <Experience/>
+      <Skills />
 
       <Divider my="xl" mx="xs" orientation="horizontal" />
 
-     
-      <Certificate/>
+      <Experience />
+
+      <Divider my="xl" mx="xs" orientation="horizontal" />
+
+      <Certificate />
     </div>
   );
 };
