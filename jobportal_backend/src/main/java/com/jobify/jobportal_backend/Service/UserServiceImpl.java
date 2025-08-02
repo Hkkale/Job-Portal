@@ -122,7 +122,7 @@ public class UserServiceImpl implements UserService {
     }
 
 
-    @Scheduled(fixedRate = 60000)
+//    @Scheduled(fixedRate = 60000)
     public void removeExpiredOTPs(){
         LocalDateTime expiry=LocalDateTime.now().minusMinutes(5);
         List<OTP> expiredOtps=otpRepository.findByCreationTimeBefore(expiry);
