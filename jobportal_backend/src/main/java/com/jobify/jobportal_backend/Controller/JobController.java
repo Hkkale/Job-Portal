@@ -44,6 +44,19 @@ public class JobController {
     }
 
 
+    @GetMapping("/get/{id}")
+    public ResponseEntity<JobDto> getJob(@PathVariable Long id) throws JobPortalException {
+
+
+        return  new ResponseEntity<>(jobService.getJob(id), HttpStatus.OK);
+
+    }
+
+
+
+
+
+
 
 
 

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service("jobService")
 public class JobServiceImpl implements JobService{
@@ -28,5 +29,16 @@ public class JobServiceImpl implements JobService{
         jobDto.setId(utilities.getNextSequence(("jobs")));
         jobDto.setPostTime(LocalDateTime.now());
         return jobRepository.save(jobDto.toEntity()).toDto();
+    }
+
+    @Override
+    public List<JobDto> getAllJobs() {
+        return jobRepository.findAll().stream()
+                .map((x)->x.toDto()).toList();
+    }
+
+    @Override
+    public JobDto getJob(Long id) throws JobPortalException {
+        return jobRepository.findById(id).orElseThrow(()->new JobPortalException("JOB_NOT_FOUND")).toDto();
     }
 }
