@@ -8,10 +8,9 @@ import TextAlign from '@tiptap/extension-text-align';
 import Superscript from '@tiptap/extension-superscript';
 import SubScript from '@tiptap/extension-subscript';
 
-const content =
-  '<h4>About The Job</h4><p>Write description here...</p><h4>Responsibilities</h4><ul><li>Add responsibilities here...</li></ul><h4>Qualifications and Skill Sets</h4><ul><li>Add required qualification and skill set here...</li></ul>';
 
-const TextEditor = () => {
+
+const TextEditor = (props) => {
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -22,7 +21,10 @@ const TextEditor = () => {
       Highlight,
       TextAlign.configure({ types: ['heading', 'paragraph'] }),
     ],
-    content,
+    content:props.form.getValues().description,
+    onUpdate({editor}){
+      props.form.setFieldValue('description', editor.getHTML());
+    }
   });
 
   return (

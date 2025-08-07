@@ -1,6 +1,6 @@
 import { Button, Divider } from "@mantine/core";
-import React from "react";
-import { useNavigate } from "react-router";
+import React, { useState } from "react";
+import { useNavigate, useParams } from "react-router";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import JobDesc from "../Components/JobDesc/JobDesc";
 import RecommendTalent from "../Components/TalentProfile/RecommendTalent";
@@ -8,6 +8,8 @@ import RecommendedJob from "../Components/JobDesc/RecommendedJob";
 
 const JobDescPage = () => {
   const navigate = useNavigate();
+  const id=useParams();
+  const [job , setJob]=useState({})
   return (
     <div className=" min-h-screen bg-mine-shaft-950 font-[poppins] w-full border-white box-border overflow-hidden">
       <Button
