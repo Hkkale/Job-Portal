@@ -14,7 +14,7 @@ const JobsCard = (job) => {
 
       <div className='flex justify-between '>
         <div onClick={()=>navigate(`/jobs/${job.id}`)} className='flex gap-2 items-center  cursor-pointer'>
-          <div className='p-2 bg-mine-shaft-800 rounded-md'><img className='h-7' src={`./src/assets/Icons/${job.company}.png`} alt="" /></div>
+          <div className='p-2 bg-mine-shaft-800 rounded-md'><img className='h-7' src={`/src/assets/Icons/${job.company}.png`} alt="" /></div>
           <div>
             <div className='font-semibold'>{job.jobTitle}</div>
             <div className='text-xs text-mine-shaft-300 '>{job.company} &#x2022; {job.applicants?job.applicants.length:0} Applicants</div>
