@@ -59,7 +59,7 @@ const JobDesc = (props) => {
         </div>
         <div className="flex flex-col gap-2 items-center justify-center">
           <Button
-            onClick={() => navigate("/apply-job")}
+            onClick={() => navigate(`/apply-job/${props.id}`)}
             size="sm"
             color="brightSun.4"
             variant="light"

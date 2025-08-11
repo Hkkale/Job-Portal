@@ -12,7 +12,7 @@ const ApplyJobPage = () => {
     
           
     
-          <Button className='m-4' leftSection={<FaArrowLeftLong size={20}/>} color='brightSun.4' onClick={()=>navigate("/jobs")} variant='light' > Back </Button>
+          <Button className='m-4' leftSection={<FaArrowLeftLong size={20}/>} color='brightSun.4' onClick={()=>navigate(-1)} variant='light' > Back </Button>
 
 
           <ApplyJobComp/>
