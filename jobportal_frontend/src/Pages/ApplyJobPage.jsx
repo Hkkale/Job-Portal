@@ -1,11 +1,27 @@
 import { Button } from '@mantine/core'
-import React from 'react'
 import { FaArrowLeftLong } from 'react-icons/fa6'
-import { useNavigate } from 'react-router';
-import App from '../App';
+import { useNavigate, useParams } from 'react-router';
 import ApplyJobComp from '../Components/ApplyJob/ApplyJobComp';
+import { useEffect, useState } from 'react';
+import { getJob } from '../Services/JobService';
 
 const ApplyJobPage = () => {
+  const id=useParams().id;
+  
+  const [job , setJob]=useState({})
+
+  useEffect(()=>{
+    window.scrollTo(0,0);
+
+    getJob(id).then((res)=>{
+      setJob(res)
+    })
+    .catch((error)=>{
+      console.log(error)
+    })
+
+  },[id])
+
   const navigate = useNavigate();
   return (
     <div className='min-h-screen bg-mine-shaft-950 font-[poppins] w-full border-white box-border overflow-hidden '>
@@ -15,7 +31,7 @@ const ApplyJobPage = () => {
           <Button className='m-4' leftSection={<FaArrowLeftLong size={20}/>} color='brightSun.4' onClick={()=>navigate(-1)} variant='light' > Back </Button>
 
 
-          <ApplyJobComp/>
+          <ApplyJobComp {...job}/>
           
     
     

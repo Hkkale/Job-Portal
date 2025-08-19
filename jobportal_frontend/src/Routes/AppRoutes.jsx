@@ -46,7 +46,7 @@ const AppRoutes = () => {
           <Route path="/profile" element={<ProfilePage />} />
 
           <Route path="/" element={<HomePage />} />
-          <Route path="/*" element={<HomePage />} />
+          {/* <Route path="/*" element={<HomePage />} /> */}
         </Routes>
         <Divider mx="md" size="xs" className="" />
         <Footer />
