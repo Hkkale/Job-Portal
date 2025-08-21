@@ -19,6 +19,7 @@ import Certificate from "./Certificate";
 import { useHover } from "@mantine/hooks";
 import { BiSolidEdit } from "react-icons/bi";
 import { successNotification } from "../../Services/NotificationService";
+import { getBase64 } from "../../Services/Utilities";
 
 const Profile = () => {
   const user = useSelector((state) => state.user);
@@ -44,17 +45,7 @@ const Profile = () => {
   }
 
 
-  const getBase64 = (file)=>{
-
-    return new Promise((resolve,reject)=>{
-      const reader = new FileReader();
-      reader.readAsDataURL(file)
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = (error) => reject(error);
-
-    })
-
-  }
+  
 
 
 

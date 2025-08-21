@@ -33,6 +33,13 @@ const getJob = async (id)=>{
 
 }
 
+const applyJob = async(id,applicant)=>{
+  return axios.post(`${base_url}/apply/${id}`,applicant)
+  .then(res=>res.data)
+  .catch(error=>{throw error});
+
+}
 
 
-export { postJob, getAllJobs,getJob}
+
+export { postJob, getAllJobs,getJob,applyJob}

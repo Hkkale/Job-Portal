@@ -12,8 +12,11 @@ import {
   TextInput,
 } from "@mantine/core";
 import {  FaPaperclip } from "react-icons/fa6";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { isNotEmpty, useForm } from "@mantine/form";
+import { getBase64 } from "../../Services/Utilities";
+import { applyJob } from "../../Services/JobService";
+import { errorNotifiaction, successNotification } from "../../Services/NotificationService";
 
 
 const ApplicationForm = () => {
@@ -22,8 +25,32 @@ const ApplicationForm = () => {
   const [submit, setSubmit] = useState(false);
   const [sec, setSec] = useState(5);
   const navigate = useNavigate();
+  const id= useParams().id;
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+
+    setSubmit(true);
+
+    let resume= await getBase64(form.getValues().resume);
+    let applicant={...form.getValues(),resume:resume.split(',')[1]};
+
+
+    applyJob(id,applicant)
+    .then((res)=>{
+      setSubmit(false);
+      successNotification("Success","Application Submitted Successfully")
+      
+    })
+    .catch((error)=>{
+      setSubmit(false)
+      errorNotifiaction("Error",error.response.data.message)
+      console.error(error);
+    })
+
+
+
+
+
     
   };
 

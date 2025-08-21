@@ -13,7 +13,13 @@ import { FaArrowLeftLong, FaPaperclip } from "react-icons/fa6";
 import { FaCheck } from "react-icons/fa";
 import { useNavigate } from "react-router";
 import ApplicationForm from "./ApplicationForm";
-const ApplyJobComp = () => {
+import { timeAgo } from "../../Services/Utilities";
+
+
+
+
+
+const ApplyJobComp = (props) => {
   const [preview, setPreview] = useState(false);
   const [submit, setSubmit] = useState(false);
   const [sec, setSec] = useState(5);
@@ -23,11 +29,11 @@ const ApplyJobComp = () => {
     setSubmit(true);
 
     let x = 5;
-
-    setInterval(() => {
+    const interval = setInterval(() => {
       x--;
       setSec(x);
       if (x === 0) {
+        clearInterval(interval);
         navigate("/find-jobs");
       }
     }, 1000);
@@ -37,26 +43,29 @@ const ApplyJobComp = () => {
     setPreview(!preview);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
+
   return (
     <div className="w-2/3 mx-auto">
-      
-
-      <div className="flex justify-between  ">
+      <div className="flex justify-between">
         <div
           onClick={() => navigate("/jobs")}
-          className="flex gap-2 items-center  cursor-pointer"
+          className="flex gap-2 items-center cursor-pointer"
         >
           <div className="p-3 bg-mine-shaft-800 rounded-xl">
             <img
               className="h-14"
-              src={`/src/assets/Icons/Netflix.png`}
-              alt=""
+              src={`/src/assets/Icons/${props.company}.png`}
+              alt="Company Logo"
             />
           </div>
           <div>
-            <div className="font-semibold text-2xl">Software Engineer III</div>
-            <div className="text-lg text-mine-shaft-300 ">
-              Google &#x2022; 3 days ago &#x2022; 48 Applicants
+            <div className="font-semibold text-2xl">{props.jobTitle}</div>
+            <div className="text-lg text-mine-shaft-300 flex flex-wrap gap-2">
+              <span className="font-semibold">{props.company}</span> &#x2022;
+              <span className="font-semibold">{timeAgo(props.postTime)}</span> &#x2022;
+              <span className="font-semibold">
+                {props.applicants ? props.applicants.length : 0} Applicants
+              </span>
             </div>
           </div>
         </div>
