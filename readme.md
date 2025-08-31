@@ -31,12 +31,6 @@ Jobify is a full-stack job portal application that allows users to create accoun
 **Database:**  
 - MongoDB  
 
----
-
-
-
-🤝 Contributing
-Contributions are welcome! Please fork the repository and submit a pull request.
 
 📧 Contact
 Author: Hitendra Kale
