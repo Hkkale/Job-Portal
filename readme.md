@@ -33,43 +33,7 @@ Jobify is a full-stack job portal application that allows users to create accoun
 
 ---
 
-## 📂 Project Structure  
 
-jobify/
-├── backend/ # Spring Boot backend APIs
-├── frontend/ # React + Redux + Tailwind frontend
-├── README.md # Project documentation
-
-yaml
-Copy code
-
----
-
-## ⚙️ Installation & Setup  
-
-### Clone the repository  
-```bash
-git clone https://github.com/your-username/jobify.git
-cd jobify
-Backend Setup
-bash
-Copy code
-cd backend
-mvn clean install
-mvn spring-boot:run
-Frontend Setup
-bash
-Copy code
-cd frontend
-npm install
-npm start
-🌐 Usage
-Open the app in your browser: http://localhost:3000
-
-Backend runs on: http://localhost:8080
-
-📸 Screenshots
-(Add screenshots of your app here – login page, job listings, dashboard, etc.)
 
 🤝 Contributing
 Contributions are welcome! Please fork the repository and submit a pull request.
