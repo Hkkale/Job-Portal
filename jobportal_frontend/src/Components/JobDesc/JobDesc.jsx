@@ -53,7 +53,12 @@ const JobDesc = (props) => {
           <div>
             <div className="font-semibold text-2xl">{props.jobTitle}</div>
             <div className="text-lg text-mine-shaft-300 ">
-              {props.company} &#x2022; {timeAgo(props.postTime)} &#x2022; {props.applicants?props.applicants:0} Applicants
+              {props.company} &#x2022; {timeAgo(props.postTime)} &#x2022;  {props.applicants ? 
+    (typeof props.applicants === 'object' ? 
+      Object.keys(props.applicants).length : 
+      props.applicants
+    ) : 0
+  } Applicants
             </div>
           </div>
         </div>

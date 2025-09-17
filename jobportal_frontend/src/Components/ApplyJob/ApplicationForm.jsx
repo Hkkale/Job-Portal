@@ -12,11 +12,12 @@ import {
   TextInput,
 } from "@mantine/core";
 import {  FaPaperclip } from "react-icons/fa6";
-import { useNavigate, useParams } from "react-router";
+import { useNavigate, useParams,  } from "react-router";
 import { isNotEmpty, useForm } from "@mantine/form";
 import { getBase64 } from "../../Services/Utilities";
 import { applyJob } from "../../Services/JobService";
 import { errorNotifiaction, successNotification } from "../../Services/NotificationService";
+import { useSelector } from "react-redux";
 
 
 const ApplicationForm = () => {
@@ -26,6 +27,7 @@ const ApplicationForm = () => {
   const [sec, setSec] = useState(5);
   const navigate = useNavigate();
   const id= useParams().id;
+  const user= useSelector((state)=>state.user)
 
   const handleSubmit = async () => {
 
@@ -38,13 +40,16 @@ const ApplicationForm = () => {
     applyJob(id,applicant)
     .then((res)=>{
       setSubmit(false);
+      
       successNotification("Success","Application Submitted Successfully")
+      navigate("/job-history")
       
     })
     .catch((error)=>{
       setSubmit(false)
-      errorNotifiaction("Error",error.response.data.message)
+      errorNotifiaction("Error",error.response.data.errorMessage)
       console.error(error);
+     
     })
 
 

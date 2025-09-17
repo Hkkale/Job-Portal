@@ -30,6 +30,7 @@ public class ProfileServiceImpl implements  ProfileService{
                 .skills(new ArrayList<>())
                 .experiences(new ArrayList<>())
                 .certifications(new ArrayList<>())
+                .savedJobs(new ArrayList<>())
                 .build();
 
         profileRepository.save(profile);
