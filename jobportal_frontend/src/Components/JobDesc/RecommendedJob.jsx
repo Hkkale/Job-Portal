@@ -31,7 +31,7 @@ const RecommendedJob = () => {
 
       <div className="flex flex-wrap flex-col gap-5 ">
         {jobList.map(
-          (job, index) => index < 6 && id!= job.id  && <JobsCard key={index} {...job} />
+          (job, index) => index < 5 && id!= job.id  && <JobsCard key={index} {...job} />
         )}
       </div>
     </div>

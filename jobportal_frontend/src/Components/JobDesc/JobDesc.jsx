@@ -1,6 +1,6 @@
 import { ActionIcon, Button, Divider } from "@mantine/core";
-import React from "react";
-import { FaRegBookmark } from "react-icons/fa6";
+import React, { useEffect, useState } from "react";
+import { FaRegBookmark,FaBookmark } from "react-icons/fa6";
 import { MdOutlineLocationOn } from "react-icons/md";
 import { HiOutlineLocationMarker, HiSearch } from "react-icons/hi";
 import { HiOutlineBriefcase } from "react-icons/hi";
@@ -9,8 +9,44 @@ import { BiBoltCircle } from "react-icons/bi";
 import DOMPurify from "dompurify";
 import { useNavigate } from "react-router";
 import { timeAgo } from "../../Services/Utilities";
+import { useDispatch, useSelector } from "react-redux";
+import { changeProfile } from "../../Slices/ProfileSlice";
 const JobDesc = (props) => {
+  const profile=useSelector((state)=>state.profile);
+  const user=useSelector((state)=>state.user);
+
+    const dispatch= useDispatch();
+    const [applied,setApplied]=useState(false);
+  const handleSaveJob=()=>{
+    let savedJobs=profile.savedJobs?[...profile.savedJobs]:[];
+
+
+    if(savedJobs?.includes(props.id)){
+      savedJobs=savedJobs.filter((jobId)=>jobId!==props.id)
+    }
+    else{
+      savedJobs=[...savedJobs,props.id]
+    }
+
+    let updatedProfile={...profile,savedJobs:savedJobs};
+    dispatch(changeProfile(updatedProfile))
+    console.log(updatedProfile);
+
+  }
+
+  console.log(props.applicants)
+  console.log(user.id)
+  console.log(props)
   
+  useEffect(()=>{
+   if(props.applicants?.filter((applicant)=>applicant.applicantId===user.id).length>0){
+    setApplied(true)
+   }
+   else{
+    setApplied(false)
+   }
+  },[props])
+ 
   const card = [
     { name: "Location", icon: MdOutlineLocationOn, value: "New York",id:"location" },
     { name: "Experience", icon: HiOutlineBriefcase, value: "Expert" ,id:"experience" },
@@ -18,8 +54,7 @@ const JobDesc = (props) => {
     { name: "Job Type", icon: BiBoltCircle, value: "Full Time" ,id:"jobType" },
   ];
 
-  const desc =
-    "<h4>About The Job</h4><p>Here at UIHUT, we are a passionate, fun-loving, growing team. We are looking for passionate programmers who want to solve technical challenges and learn and incorporate new technologies into their skillset to join our team and grow with us. In this role, you would use various tech stacks, including Laravel, Node JS (Adonis JS), Vue JS, React JS, Nuxt JS, Redis, MySQL, MongoDB, and CSS. You will be engaged across the software development life cycle to create and modify platforms and capabilities in a collaborative and agile environment.</p><h4>Responsibilities</h4><ul><li>Design, build, test, and deploy software applications and features</li><li>Carry software products through the software development life cycle (SDLC)</li><li>Write clean, concise, and efficient code</li><li>Manage code documentation and version control</li><li>Troubleshoot and debug software</li><li>Participate in on-call rotation to respond to production issues</li></ul><h4>Qualifications and Skill Sets</h4><ul><li>3+ years of professional experience working on this field</li><li>Bachelor's degree in computer science, software engineering, or related field</li><li>Proficiency in at least one programming language (e.g., Java, C#, C++)</li><li>Back-end development expertise</li><li>Strong problem-solving and communication skills</li><li>Experience with build tools such as Gradle and Maven</li><li>Good working knowledge of the Linux operating system</li></ul>";
+  
 
   const data = DOMPurify.sanitize(props.description);
 
@@ -63,14 +98,24 @@ const JobDesc = (props) => {
           </div>
         </div>
         <div className="flex flex-col gap-2 items-center justify-center">
-          <Button
+         { (props.edit || !applied) &&<Button
             onClick={() => navigate(`/apply-job/${props.id}`)}
             size="sm"
             color="brightSun.4"
             variant="light"
           >
             {props.edit ? "Edit" : "Apply"}
+          </Button>}
+          { applied &&
+             <Button
+            
+            size="sm"
+            color="green.8"
+            variant="light"
+          >
+            Applied
           </Button>
+          }
           {props.edit ? <Button
             onClick={() => navigate("/apply-job")}
             size="sm"
@@ -78,7 +123,7 @@ const JobDesc = (props) => {
             variant="outline"
           >
             Delete
-          </Button>:<FaRegBookmark className="text-bright-sun-400 cursor-pointer" />}
+          </Button>:profile.savedJobs?.includes(props.id) ?<FaBookmark onClick={()=>handleSaveJob()} className=' cursor-pointer text-bright-sun-400'/>:<FaRegBookmark onClick={()=>handleSaveJob()} className='text-mine-shaft-300 cursor-pointer hover:text-bright-sun-400'/>}
         </div>
       </div>
 

@@ -34,7 +34,7 @@ const ApplicationForm = () => {
     setSubmit(true);
 
     let resume= await getBase64(form.getValues().resume);
-    let applicant={...form.getValues(),resume:resume.split(',')[1]};
+    let applicant={...form.getValues(),applicantId:user.id,resume:resume.split(',')[1]};
 
 
     applyJob(id,applicant)
