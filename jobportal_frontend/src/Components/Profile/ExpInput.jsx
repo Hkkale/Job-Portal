@@ -110,7 +110,7 @@ const ExpInput = ({ add, setEdit, ...props }) => {
   const startDate = new Date(values.startDate);
   const endDate = new Date(values.endDate);
 
-  let exp = [...profile.experiences];
+  let exp = profile.experiences ? [...profile.experiences] : [];
 
   const newExp = {
     ...values,
@@ -189,6 +189,7 @@ const ExpInput = ({ add, setEdit, ...props }) => {
           Cancel
         </Button>
       </div>
+      
     </div>
   );
 };
