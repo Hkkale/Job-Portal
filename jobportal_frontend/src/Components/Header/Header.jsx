@@ -14,13 +14,19 @@ import { useEffect } from "react";
 const Header = () => {
   const user = useSelector((state) => state.user);
   
+  
 
   const dispatch = useDispatch();
 
  
 
   useEffect(() => {
-    getProfile(user.id)
+
+
+    
+    
+    if(user){
+      getProfile(user.id)
 
       
 
@@ -29,6 +35,7 @@ const Header = () => {
         dispatch(setProfile(data));
       })
       .catch((err) => console.log(err));
+    }
   }, []);
 
 

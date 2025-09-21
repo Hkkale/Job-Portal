@@ -34,7 +34,7 @@ const sendOtp = async (email)=>{
 
 const verifyOtp = async (email,otp)=>{
 
-  return axios.get(`${base_url}verifyOtp/${email}/${otp}`,)
+  return axios.get(`${base_url}/verifyOtp/${email}/${otp}`,)
   .then(res=>res.data)
   .catch(error=>{throw error});
 
@@ -44,7 +44,7 @@ const verifyOtp = async (email,otp)=>{
 
 const ChangePassword = async (email,password)=>{
 
-  return axios.post(`${base_url}changePass`,{email,password})
+  return axios.post(`${base_url}/changePass`,{email,password})
   .then(res=>res.data)
   .catch(error=>{throw error});
 

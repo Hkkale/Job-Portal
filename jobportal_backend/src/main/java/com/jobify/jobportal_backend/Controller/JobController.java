@@ -2,6 +2,7 @@ package com.jobify.jobportal_backend.Controller;
 
 
 import com.jobify.jobportal_backend.DTOs.ApplicantDto;
+import com.jobify.jobportal_backend.DTOs.Application;
 import com.jobify.jobportal_backend.DTOs.JobDto;
 import com.jobify.jobportal_backend.DTOs.ResponseDto;
 import com.jobify.jobportal_backend.Exception.JobPortalException;
@@ -61,6 +62,25 @@ public class JobController {
         return  new ResponseEntity<>(new ResponseDto("Applied Successfully"), HttpStatus.OK);
 
     }
+
+    @GetMapping("/postedBy/{id}")
+    public ResponseEntity<List<JobDto>> getJobsPostedBy(@PathVariable Long id) throws JobPortalException {
+
+
+        return  new ResponseEntity<>(jobService.getJobsPostedBy(id), HttpStatus.OK);
+
+    }
+
+    @PostMapping("/changeAppStatus")
+    public ResponseEntity<ResponseDto> changeAppStatus(@RequestBody Application application) throws JobPortalException {
+        jobService.changeAppStatus(application);
+
+        return  new ResponseEntity<>(new ResponseDto("Application Changed Successfully"), HttpStatus.OK);
+
+    }
+
+
+
 
 
 

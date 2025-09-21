@@ -1,6 +1,7 @@
 package com.jobify.jobportal_backend.Service;
 
 import com.jobify.jobportal_backend.DTOs.ApplicantDto;
+import com.jobify.jobportal_backend.DTOs.Application;
 import com.jobify.jobportal_backend.DTOs.JobDto;
 import com.jobify.jobportal_backend.DTOs.ResponseDto;
 import com.jobify.jobportal_backend.Exception.JobPortalException;
@@ -16,4 +17,8 @@ public interface JobService {
     JobDto getJob(Long id) throws JobPortalException;
 
     void applyJob(Long id, ApplicantDto applicantDto) throws  JobPortalException;
+
+    List<JobDto> getJobsPostedBy(Long id);
+
+    void changeAppStatus(Application application) throws JobPortalException;
 }
