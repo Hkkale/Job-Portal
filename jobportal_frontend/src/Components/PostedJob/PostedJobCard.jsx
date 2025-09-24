@@ -1,13 +1,18 @@
 import React from 'react'
+import { useNavigate, useParams } from 'react-router'
+import { timeAgo } from '../../Services/Utilities';
 
 const PostedJobCard = (props) => {
+
+  const id=useParams().id;
+  const navigate=useNavigate()
   return (
-    <div className='bg-mine-shaft-900 rounded-xl p-2 border-l-2 border-l-bright-sun-400 '>
+    <div onClick={()=>navigate(`/posted-jobs/${props.id}`)} className={`' rounded-xl p-2 border-l-2 border-l-bright-sun-400 ${props.id==id?"bg-bright-sun-400 text-black":"bg-mine-shaft-900 text-mine-shaft-300"}`}>
 
 
       <div className='text-sm font-semibold'>{props.jobTitle}</div>
       <div className='text-xs  text-mine-shaft-300 font-medium'>{props.location}</div>
-      <div className='text-xs text-mine-shaft-300'>{props.posted}</div>
+      <div className='text-xs text-mine-shaft-300'>{timeAgo(props.postTime)}</div>
 
 
 

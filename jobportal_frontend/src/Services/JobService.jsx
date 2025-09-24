@@ -41,5 +41,24 @@ const applyJob = async(id,applicant)=>{
 }
 
 
+const getJobPostedBy = async (id)=>{
 
-export { postJob, getAllJobs,getJob,applyJob}
+  return axios.get(`${base_url}/postedBy/${id}`)
+  .then(res=>res.data)
+  .catch(error=>{throw error});
+
+
+
+}
+
+const changeAppStatus = async(application)=>{
+  return axios.post(`${base_url}/changeAppStatus`,application)
+  .then(res=>res.data)
+  .catch(error=>{throw error});
+
+}
+
+
+
+
+export { postJob, getAllJobs,getJob,applyJob,getJobPostedBy,changeAppStatus}
