@@ -10,7 +10,7 @@ const PostedJob = (props) => {
   useEffect(()=>{
     setActiveTab(props.job?.jobStatus||"ACTIVE")
     console.log("job prop in posted job",props.job)
-    console.log(props.job.jobStatus)
+    console.log(props.job?.jobStatus)
 
   },[props.job])
 

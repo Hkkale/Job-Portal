@@ -58,17 +58,7 @@ const JobDesc = (props) => {
 
   const data = DOMPurify.sanitize(props.description);
 
-  const skills = [
-    "React",
-    "Spring Boot",
-    "Java",
-    "Python",
-    "Node.js",
-    "MongoDB",
-    "Express",
-    "Django",
-    "PostgreSQL",
-  ];
+  
 
   const navigate= useNavigate();
   return (
@@ -106,7 +96,7 @@ const JobDesc = (props) => {
           >
             {props.edit ? "Edit" : "Apply"}
           </Button>}
-          { applied &&
+          {!props.edit && applied &&
              <Button
             
             size="sm"

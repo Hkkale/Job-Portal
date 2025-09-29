@@ -46,6 +46,25 @@ const getBase64 = (file)=>{
 
     })
 
-  }
+}
 
-export {formatDate,timeAgo,getBase64}
+
+
+
+const formatInterviewTime=(date)=>{
+  
+const dt = new Date(date);
+
+return dt.toLocaleString("en-US", {
+  year: "numeric",
+  month: "long",   // August
+  day: "numeric",  // 15
+  hour: "numeric",
+  minute: "2-digit",
+  hour12: true     // AM/PM format
+});
+
+
+}
+
+export {formatDate,timeAgo,getBase64,formatInterviewTime}

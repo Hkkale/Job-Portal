@@ -5,7 +5,7 @@ import { FaArrowLeftLong } from 'react-icons/fa6'
 
 import PostedJob from '../Components/PostedJob/PostedJob'
 import PostedJobDesc from '../Components/PostedJob/PostedJobDesc'
-import { useParams } from 'react-router'
+import { useNavigate, useParams } from 'react-router'
 import { useSelector } from 'react-redux'
 import {getJobPostedBy} from "../Services/JobService"
 
@@ -14,6 +14,7 @@ const PostedJobPage = () => {
   const user=useSelector((state)=>state.user);
   const [jobList , setJobList]=useState([])
   const [job , setJob]=useState({})
+  const navigate=useNavigate();
 
 
   useEffect(()=>{
@@ -21,6 +22,10 @@ const PostedJobPage = () => {
     getJobPostedBy(user.id)
     .then((res)=>{
       setJobList(res)
+      if(res && res.length>0 && Number(id)==0){
+        navigate(`/posted-jobs/${res[0].id}`)
+
+      }
       setJob(res.find((item)=>item.id==id))
     })
     .catch((err)=>{
@@ -31,7 +36,7 @@ const PostedJobPage = () => {
 
   
   return (
-    <div className=' min-h-screen bg-mine-shaft-950 font-[poppins] w-full border-white box-border overflow-hidden'>
+    <div className='min-h-screen bg-mine-shaft-950 font-[poppins] w-full border-white box-border overflow-hidden'>
     
           
     
