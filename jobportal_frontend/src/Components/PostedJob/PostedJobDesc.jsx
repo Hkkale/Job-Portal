@@ -8,6 +8,7 @@ const PostedJobDesc = (props) => {
   
   return (
     <div className="mt-5 w-3/4 px-5">
+      {props.jobTitle ? <>
       <div className="text-2xl font-semibold flex items-center">
         {props.jobTitle}
         <Badge variant="light" ml="sm" size="sm" color="brightSun.4">
@@ -46,7 +47,27 @@ const PostedJobDesc = (props) => {
             ))}
           </div>
         </Tabs.Panel>
+
+        <Tabs.Panel value="offered">
+          <div className="flex mt-10 flex-wrap gap-8 justify-around">
+            {props.applicants?.filter((x)=>x.applicationStatus=="OFFERED").map((talent, index)=> (
+              <TalentCard key={index} {...talent} offered />
+            ))}
+          </div>
+        </Tabs.Panel>
+
+        <Tabs.Panel value="rejected">
+          <div className="flex mt-10 flex-wrap gap-8 justify-around">
+            {props.applicants?.filter((x)=>x.applicationStatus=="REJECTED").map((talent, index)=> (
+              <TalentCard key={index} {...talent} offered />
+            ))}
+          </div>
+        </Tabs.Panel>
       </Tabs>
+      </>: <div className="text-2xl min-h-[70vh] font-semibold flex flex-col items-center justify-center text-mine-shaft-200">
+       <h1>NO JOB FOUND!</h1> 
+       <h1>Select a job to see details</h1>
+      </div>}
     </div>
   );
 };

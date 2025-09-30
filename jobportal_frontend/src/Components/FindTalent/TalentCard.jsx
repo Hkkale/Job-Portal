@@ -9,7 +9,7 @@ import { DateInput, TimeInput } from "@mantine/dates";
 import { getProfile } from "../../Services/ProfileSevice";
 import { changeAppStatus } from "../../Services/JobService";
 import { errorNotifiaction, successNotification } from "../../Services/NotificationService";
-import { formatInterviewTime } from "../../Services/Utilities";
+import { formatInterviewTime, openBase64PDF } from "../../Services/Utilities";
 
 const TalentCard = (props ) => {
   const id=useParams().id;
@@ -19,7 +19,9 @@ const TalentCard = (props ) => {
   const ref=useRef(null);
 
   const [opened, { open, close }] = useDisclosure(false);
+  const [apl, { open:openApl, close:closeApl }] = useDisclosure(false);
   const [profile, setProfile] = useState({})
+ 
 
   useEffect(()=>{
 
@@ -41,10 +43,19 @@ const TalentCard = (props ) => {
   },[props])
 
   const handleOffer = (status) => {
-  if (!date || !time) {
+
+    let interview = {
+    id,
+    applicantId: profile?.id,
+    applicationStatus: status,
+    
+  };
+
+  if(status==="INTERVIEWING"){
+    if (!date || !time) {
     errorNotifiaction("Error", "Please select both date and time");
     return;
-  }
+    }
 
   // Combine date & time
   const interviewDateTime = new Date(date);
@@ -56,16 +67,27 @@ const TalentCard = (props ) => {
   const formattedDateTime = interviewDateTime.toISOString().slice(0, 19); 
   // → "2025-09-30T10:30:00"
 
-  let interview = {
-    id,
-    applicantId: profile?.id,
-    applicationStatus: status,
-    interviewTime: formattedDateTime
-  };
+
+  interview={...interview, interviewTime: formattedDateTime}
+    
+  }
+
+
+
+
+ 
+
+  
 
   changeAppStatus(interview)
     .then((res) => {
-      successNotification("Success", "Interview Scheduled Successfully");
+     if(status==="INTERVIEWING")  successNotification("Interview Scheduled", "Interview Scheduled Successfully");
+     else if(status==="OFFERED")  successNotification("Offered", "Job Offered Successfully");
+     else if(status==="REJECTED")  successNotification("Rejected", "Application Rejected Successfully");
+
+
+
+
       window.location.reload();
     })
     .catch((err) => {
@@ -169,7 +191,7 @@ const TalentCard = (props ) => {
         props.invited && <>
 
         <div>
-          <Button color="brightSun.4" variant="outline" fullWidth>
+          <Button onClick={()=>handleOffer("OFFERED")} color="brightSun.4" variant="outline" fullWidth>
             
             Accept
           </Button>
@@ -178,7 +200,7 @@ const TalentCard = (props ) => {
 
 
         <div>
-          <Button color="brightSun.4" variant="light" fullWidth>
+          <Button onClick={()=>handleOffer("REJECTED")} color="brightSun.4" variant="light" fullWidth>
             
             Reject
           </Button>
@@ -191,11 +213,19 @@ const TalentCard = (props ) => {
       }
       </div>
 
+      {(props.invited || props.posted) &&  <Button onClick={openApl} color="brightSun.4" variant="filled" fullWidth autoContrast>
+            
+            View Application
+          </Button>}
+
+      
+
       <Modal
         title="Schedule Interview"
         centered
         opened={opened}
         onClose={close}
+        radius="lg"
       >
         <div className="flex flex-col gap-4 ">
           <DateInput
@@ -212,6 +242,38 @@ const TalentCard = (props ) => {
            
             Schedule
           </Button>
+
+        </div>
+      </Modal>
+
+
+      <Modal
+        title="Application"
+        centered
+        opened={apl}
+        onClose={closeApl}
+        radius="lg"
+      >
+        <div className="flex flex-col gap-4 ">
+
+
+          <div>
+            Email: &emsp; <a className="text-bright-sun-400 hover:underline cursor-pointer text-center" href={`mailto:hitendrakale000@gmail.com`}>{props.email}</a>
+          </div>
+
+          <div>
+            Website: &emsp; <a target="_blank" className="text-bright-sun-400 hover:underline cursor-pointer text-center" href={props.website}>{props.website}</a>
+          </div>
+
+
+          <div>
+            Resume: &emsp; <span className="text-bright-sun-400 hover:underline cursor-pointer text-center" onClick={()=>openBase64PDF(props.resume)}>{props.name}</span>
+          </div>
+
+           <div>
+            Cover Letter: &emsp; <div className="text-sm">{props.coverLetter}</div>
+          </div>
+          
 
         </div>
       </Modal>

@@ -67,4 +67,23 @@ return dt.toLocaleString("en-US", {
 
 }
 
-export {formatDate,timeAgo,getBase64,formatInterviewTime}
+
+const openBase64PDF=(base64string)=>{
+
+  const bytechar=atob(base64string);
+
+  const byteNum = new Array(bytechar.length);
+  for (let i = 0; i < bytechar.length; i++) {
+    byteNum[i] = bytechar.charCodeAt(i);
+  }
+
+  const byteArray = new Uint8Array(byteNum);
+  const file = new Blob([byteArray], { type: 'application/pdf' });
+  const fileURL = URL.createObjectURL(file);
+  window.open(fileURL,'_blank');
+
+
+
+}
+
+export {formatDate,timeAgo,getBase64,formatInterviewTime,openBase64PDF}
