@@ -8,6 +8,7 @@ import com.jobify.jobportal_backend.Utility.Utilities;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service("profileService")
 public class ProfileServiceImpl implements  ProfileService{
@@ -55,5 +56,10 @@ public class ProfileServiceImpl implements  ProfileService{
         return profileDto;
 
 
+    }
+
+    @Override
+    public List<ProfileDto> getAllProfiles()  {
+        return profileRepository.findAll().stream().map((x)->x.toDto()).toList();
     }
 }

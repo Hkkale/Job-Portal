@@ -103,7 +103,7 @@ const TalentCard = (props ) => {
       <div className="flex justify-between">
         <div className="flex gap-2 items-center">
           <div className="p-2 bg-mine-shaft-800 rounded-full">
-            <Avatar size="lg" src={profile?.picture ? `data:image/jpeg;base64,${profile?.picture}`:"./src/assets/avatar-9.png"} alt="" />
+            <Avatar size="lg" src={profile?.picture ? `data:image/jpeg;base64,${profile?.picture}`:"/src/assets/avatar-9.png"} alt="" />
           </div>
           <div>
             <div className="font-semibold text-lg">{profile.name}</div>
@@ -156,7 +156,7 @@ const TalentCard = (props ) => {
         
         <Button
           color="brightSun.4"
-          onClick={() => navigate("/talent-profile")}
+          onClick={() => navigate(`/talent-profile/${profile.id}`)}
           variant="outline"
           fullWidth
         >

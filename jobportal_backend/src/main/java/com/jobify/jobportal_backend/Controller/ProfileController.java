@@ -12,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin(origins = "http://localhost:5173")
 @Validated
@@ -34,6 +36,22 @@ public class ProfileController {
 
 
         return new ResponseEntity<>(profileService.getProfile(id), HttpStatus.OK);
+
+
+
+
+
+
+
+    }
+
+    @GetMapping("/get")
+    public ResponseEntity<List<ProfileDto>> getAllProfiles( ) throws JobPortalException {
+
+
+
+
+        return new ResponseEntity<>(profileService.getAllProfiles(), HttpStatus.OK);
 
 
 

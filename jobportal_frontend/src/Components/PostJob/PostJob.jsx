@@ -83,7 +83,7 @@ const content =
    const handleDraft=()=>{
     
 
-    postJob({...form.getValues(),postedBy:profile.id,jobStatus:"DRAFT"})
+    postJob({...form.getValues(),postedBy:user.id,jobStatus:"DRAFT"})
       .then((res)=>{
         console.log(res)
         successNotification("Success","Job Drafted successfully")

@@ -1,4 +1,5 @@
 import React from 'react'
+import { formatDate } from '../../Services/Utilities'
 
 const ExpCard = (exp) => {
   return (
@@ -6,7 +7,7 @@ const ExpCard = (exp) => {
 
       <div className='flex justify-between'>
               <div className='flex gap-2 items-center'>
-                <div className='p-2 bg-mine-shaft-800 rounded-md'><img className='h-7' src={`./src/assets/Icons/${exp.company}.png`} alt="" /></div>
+                <div className='p-2 bg-mine-shaft-800 rounded-md'><img className='h-7' src={`/src/assets/Icons/${exp.company}.png`} alt="" /></div>
                 <div>
                   <div className='font-semibold'>{exp.title}</div>
                   <div className='text-sm text-mine-shaft-300 '>{exp.company} &bull; {exp.location}</div>
@@ -14,7 +15,7 @@ const ExpCard = (exp) => {
               </div>
               <div className='text-sm text-mine-shaft-300'>
 
-                {exp.startDate} - {exp.endDate}
+                {formatDate(exp.startDate)} - {formatDate(exp.endDate)}
 
 
               </div>

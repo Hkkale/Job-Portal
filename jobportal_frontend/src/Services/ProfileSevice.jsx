@@ -11,6 +11,15 @@ const getProfile = async (id)=>{
 
 
 }
+const getAllProfiles = async ()=>{
+
+  return axios.get(`${base_url}/get`)
+  .then(res=>res.data)
+  .catch(error=>{throw error});
+
+
+
+}
 
 
 const updateProfile = async (profile)=>{
@@ -25,4 +34,4 @@ const updateProfile = async (profile)=>{
 
 
 
-export { getProfile, updateProfile}
+export { getProfile, updateProfile,getAllProfiles}
