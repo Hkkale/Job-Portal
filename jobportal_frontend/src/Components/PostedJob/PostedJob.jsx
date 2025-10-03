@@ -33,6 +33,9 @@ const PostedJob = (props) => {
             <Tabs.Tab onClick={() => setActiveTab("DRAFT")} value="DRAFT">
               Drafts [{ props.jobList?.filter((job)=>job?.jobStatus==='DRAFT').length}]
             </Tabs.Tab>
+            <Tabs.Tab onClick={() => setActiveTab("CLOSED")} value="CLOSED">
+              Closed [{ props.jobList?.filter((job)=>job?.jobStatus==='CLOSED').length}]
+            </Tabs.Tab>
           </Tabs.List>
 
           

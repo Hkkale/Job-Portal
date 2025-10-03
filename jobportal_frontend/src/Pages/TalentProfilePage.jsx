@@ -1,34 +1,31 @@
 import { Button, Divider } from "@mantine/core";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from "react-router";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import Profile from "../Components/TalentProfile/Profile";
 import RecommendTalent from "../Components/TalentProfile/RecommendTalent";
 import { getAllProfiles } from "../Services/ProfileSevice";
 
+
 const TalentProfilePage = () => {
   
- const [talents,setTalents]=useState([])
+const [talents,setTalents]=useState([])
 
-  const navigate = useNavigate();
+const navigate = useNavigate();
+
+console.log("Component rendering"); // Add this
   
-
-  useEffect(()=>{
-    console.log("useEffect running..."); // <--- Add this
-
-    getAllProfiles().then((res)=>{
-      console.log("API response:", res); // <-- Add this line
-      setTalents(res)
-    })
-    .catch((err)=>{
-      console.log(err)
-    })
-    
-
-
-  }
-  ,[])
-  console.log("talentssssssssss",talents)
+useEffect(()=>{
+  getAllProfiles()
+  .then((res)=>{
+    setTalents(res)
+    console.log("Fetched talents:", res); // Log the fetched data
+  })
+  .catch((err)=>{
+    console.log(err)
+  })
+},[])
+  
 
 
   return (

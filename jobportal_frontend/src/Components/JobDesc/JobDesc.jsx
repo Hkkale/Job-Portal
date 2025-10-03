@@ -90,7 +90,7 @@ const JobDesc = (props) => {
         <div className="flex flex-col gap-2 items-center justify-center">
          { (props.edit || !applied) &&<Button
             onClick={() => navigate(`/apply-job/${props.id}`)}
-            size="sm"
+            size="md"
             color="brightSun.4"
             variant="light"
           >
@@ -112,7 +112,7 @@ const JobDesc = (props) => {
             color="red.5"
             variant="outline"
           >
-            Delete
+            Close
           </Button>:profile.savedJobs?.includes(props.id) ?<FaBookmark onClick={()=>handleSaveJob()} className=' cursor-pointer text-bright-sun-400'/>:<FaRegBookmark onClick={()=>handleSaveJob()} className='text-mine-shaft-300 cursor-pointer hover:text-bright-sun-400'/>}
         </div>
       </div>

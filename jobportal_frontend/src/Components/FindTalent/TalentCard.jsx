@@ -26,6 +26,7 @@ const TalentCard = (props ) => {
   useEffect(()=>{
 
     if(props.applicantId){
+     
       getProfile(props.applicantId)
       .then((res)=>{
         setProfile(res)
@@ -176,9 +177,9 @@ const TalentCard = (props ) => {
             Scedule
           </Button>
         ) : (
-          <Button color="brightSun.4" variant="light" fullWidth>
+          <Button  color="brightSun.4" variant="light" fullWidth>
             
-            Messgae
+            Message
           </Button>
         )}
         </>
