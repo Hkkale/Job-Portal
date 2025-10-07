@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { RichTextEditor, Link } from '@mantine/tiptap';
 import { useEditor } from '@tiptap/react';
 import Highlight from '@tiptap/extension-highlight';
@@ -11,6 +11,13 @@ import SubScript from '@tiptap/extension-subscript';
 
 
 const TextEditor = (props) => {
+
+  useEffect(()=>{
+    editor?.commands.setContent(props.data)
+
+  },[props.data])
+
+
   const editor = useEditor({
     extensions: [
       StarterKit,

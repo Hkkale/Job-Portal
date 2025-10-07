@@ -1,9 +1,6 @@
 package com.jobify.jobportal_backend.Service;
 
-import com.jobify.jobportal_backend.DTOs.ApplicantDto;
-import com.jobify.jobportal_backend.DTOs.Application;
-import com.jobify.jobportal_backend.DTOs.ApplicationStatus;
-import com.jobify.jobportal_backend.DTOs.JobDto;
+import com.jobify.jobportal_backend.DTOs.*;
 import com.jobify.jobportal_backend.Entity.Applicant;
 import com.jobify.jobportal_backend.Entity.Job;
 import com.jobify.jobportal_backend.Exception.JobPortalException;
@@ -32,8 +29,20 @@ public class JobServiceImpl implements JobService{
 
     @Override
     public JobDto postJob(JobDto jobDto) throws JobPortalException {
-        jobDto.setId(utilities.getNextSequence(("jobs")));
-        jobDto.setPostTime(LocalDateTime.now());
+        if(jobDto.getId()==0){
+            jobDto.setId(utilities.getNextSequence(("jobs")));
+            jobDto.setPostTime(LocalDateTime.now());
+
+        }
+        else{
+
+            Job job =jobRepository.findById(jobDto.getId()).orElseThrow(()->new JobPortalException("JOB_NOT_FOUND"));
+            if(job.getJobStatus().equals(JobStatus.DRAFT)|| jobDto.getJobStatus().equals(JobStatus.CLOSED)) {
+                jobDto.setPostTime(LocalDateTime.now());
+            }
+
+        }
+
         return jobRepository.save(jobDto.toEntity()).toDto();
     }
 

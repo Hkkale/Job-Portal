@@ -135,8 +135,8 @@ const TalentCard = (props ) => {
         <FaRegCalendarAlt />
           Interview: {formatInterviewTime(props.interviewTime)}
        </div> : <div className="flex justify-between  ">
-        <div className="font-semibold text-mine-shaft-200">
-          23 LPA
+        <div className=" text-mine-shaft-300">
+          Exp: {props.totalExp ? props.totalExp:"Fresher"} {props.totalExp>1 ? "Years":props.totalExp <1 && props.totalExp!==null ?"Year":" "}
         </div>
         <div className="flex gap-1 text-xs items-center text-mine-shaft-400">
           

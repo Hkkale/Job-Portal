@@ -11,7 +11,7 @@ const SelectInput = (props) => {
     setSearch(props.form.getInputProps(props.name).value)
 
   },
-  [])
+  [props])
 
 
   const combobox = useCombobox({
