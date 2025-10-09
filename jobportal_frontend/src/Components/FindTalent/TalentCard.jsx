@@ -11,7 +11,7 @@ import { changeAppStatus } from "../../Services/JobService";
 import { errorNotifiaction, successNotification } from "../../Services/NotificationService";
 import { formatInterviewTime, openBase64PDF } from "../../Services/Utilities";
 
-const TalentCard = (props ) => {
+const TalentCard = (props) => {
   const id=useParams().id;
   const navigate = useNavigate();
   const [date, setDate] = useState(null)

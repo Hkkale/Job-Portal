@@ -8,9 +8,29 @@ import { Divider, Input, RangeSlider } from "@mantine/core";
 
 import { FaRegUserCircle } from "react-icons/fa";
 import MultiInput from "../FindJobs/MultiInput";
+import { useDispatch } from "react-redux";
+import { updateFilter } from "../../Slices/FilterSlice";
 
 const SearchBar = () => {
-  const [value, setValue] = useState([1, 80]);
+  const [value, setValue] = useState([0, 50]);
+   const [name, setName] = useState("");
+   const dispatch =useDispatch();
+
+
+   const handleChange =(name, event)=>{
+
+    if(name==="experience"){
+      
+      dispatch(updateFilter({exp:event}))
+    } 
+    else{
+      setName(event.target.value)
+      dispatch(updateFilter({name:event.target.value}))
+    }
+
+
+
+   }
 
   const searchFields = [
     {
@@ -79,26 +99,29 @@ const SearchBar = () => {
           className="[&_input]:!placeholder-mine-shaft-200 "
           variant="unstyled"
           placeholder="Talent Name"
+          defaultValue={name}
+          onChange={(e)=>handleChange("name",e)}
         />
       </div>
       <Divider mr="xs" size="xs" orientation="vertical" />
 
       {searchFields.map((item, index) => (
-        <>
+        <React.Fragment key={index}>
           <div key={index} className="w-1/5">
             <MultiInput {...item} />
           </div>
           <Divider mr="xs" size="xs" orientation="vertical" />
-        </>
+        </React.Fragment>
       ))}
       <div className="w-1/5 [&_.mantine-Slider-label]:!translate-y-10.5">
         <div className="flex justify-between text-sm">
-          <div>Salary</div>
+          <div>Experience (Year)</div>
           <div>
-            &#8377; {value[0]} LPA - &#8377; {value[1]} LPA
+             {value[0]}  -  {value[1]} 
           </div>
         </div>
         <RangeSlider
+          onChangeEnd={(e)=>handleChange("experience",e)}
           size="xs"
           color="brightSun.4"
           labelTransitionProps={{
@@ -106,6 +129,7 @@ const SearchBar = () => {
             duration: 150,
             timingFunction: "linear",
           }}
+          max={50}
           value={value}
           onChange={setValue}
         />

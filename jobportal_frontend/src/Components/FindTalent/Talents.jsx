@@ -3,9 +3,15 @@ import Sort from "../FindJobs/Sort";
 import TalentCard from "./TalentCard";
 import { useState } from "react";
 import { getAllProfiles } from "../../Services/ProfileSevice";
+import { useSelector } from "react-redux";
 
 const Talents = () => {
   const [talents,setTalents]=useState([])
+  const filter= useSelector((state)=>state.filter)
+
+  const [filterdTalents,setFilterdTalents]=useState([])
+
+
 
   useEffect(()=>{
 
@@ -18,7 +24,33 @@ const Talents = () => {
     })
     
 
-  },[talents])
+  },[])
+
+
+   useEffect(()=>{
+
+    let filterTalent=talents;
+    console.log(filter)
+   
+   
+
+    if(filter.name){
+      filterTalent=filterTalent.filter((talent)=>talent.name?.toLowerCase().includes(filter.name.toLowerCase()));
+    }
+
+      
+      setFilterdTalents(filterTalent)
+      console.log(filterTalent)
+      
+    
+
+    
+    
+
+  },[filter,talents])
+
+
+
   return (
     <div className="p-5">
       <div className="flex justify-between">
@@ -29,7 +61,7 @@ const Talents = () => {
       </div>
 
       <div className="flex gap-6 flex-wrap w-full mt-10 justify-between  ">
-        {talents?.map((talent, index) => (
+        {filterdTalents?.map((talent, index) => (
           <TalentCard key={index} {...talent} />
         ))}
       </div>
