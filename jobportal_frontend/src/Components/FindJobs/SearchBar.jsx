@@ -5,11 +5,27 @@ import { GrLocation } from "react-icons/gr";
 import { HiOutlineBriefcase } from "react-icons/hi";
 import { SiGooglesearchconsole } from "react-icons/si";
 import { Divider, RangeSlider } from '@mantine/core';
+import { useDispatch } from 'react-redux';
+import { updateFilter } from '../../Slices/FilterSlice';
 
 
 const SearchBar = () => {
 
-  const [value, setValue]= useState([1,80]);
+  const [value, setValue] = useState([0, 300]);
+   
+   const dispatch =useDispatch();
+
+
+   const handleChange =(event)=>{
+
+   
+      
+      dispatch(updateFilter({salary:event}))
+    
+
+
+
+   }
 
   const dropdownData = [
       { title: "Job Title", icon: IoSearch, options: ['Designer', 'Developer', 'Product Manager', 'Marketing Specialist', 'Data Analyst', 'Sales Executive', 'Content Writer', 'Customer Support'] },
@@ -38,11 +54,20 @@ const SearchBar = () => {
           <div>Salary</div>
           <div>&#8377; {value[0]} LPA - &#8377; {value[1]} LPA</div>
         </div>
-        <RangeSlider size="xs" color='brightSun.4' labelTransitionProps={{
-          transition: 'skew-down',
-          duration: 150,
-          timingFunction: 'linear',
-        }} value={value} onChange={setValue}  />
+        <RangeSlider
+                  onChangeEnd={handleChange}
+                  size="xs"
+                  color="brightSun.4"
+                  labelTransitionProps={{
+                    transition: "skew-down",
+                    duration: 150,
+                    timingFunction: "linear",
+                  }}
+                  minRange={1}
+                  max={300}
+                  value={value}
+                  onChange={setValue}
+                />
       </div>
       
       

@@ -129,6 +129,7 @@ const SearchBar = () => {
             duration: 150,
             timingFunction: "linear",
           }}
+          minRange={1}
           max={50}
           value={value}
           onChange={setValue}
