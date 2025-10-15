@@ -6,6 +6,7 @@ import ExpCard from './ExpCard'
 import CertifiCard from './CertifiCard'
 import { useParams } from 'react-router'
 import { getProfile } from '../../Services/ProfileSevice'
+import { FaUserTie } from "react-icons/fa";
 
 const Profile = () => {
   const id=useParams().id;
@@ -52,6 +53,8 @@ const Profile = () => {
           <div className='text-xl flex gap-1 items-center '><FaBriefcase className='h-4 w-4'/> {profile?.jobTitle} &bull; {profile?.company} </div>
 
           <div className='flex gap-1 text-lg items-center text-mine-shaft-300'> <GrLocation className='h-4 w-4'/>{profile?.location}</div>
+
+           <div className='flex gap-1 text-lg items-center text-mine-shaft-300'> <FaUserTie className='h-4 w-4'/>Experience: {profile?.totalExp} Years</div>
 
         </div>
 

@@ -116,7 +116,7 @@ const Info = () => {
           
           
           <><div className="text-xl flex gap-1 items-center ">
-          <FaBriefcase className="h-4 w-4" /> {profile.jobTitle} &bull;{" "}
+          <FaBriefcase className="h-4 w-4 " /> {profile.jobTitle} &bull;{" "}
           {profile.company}{" "}
         </div>
 

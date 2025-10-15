@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProfile } from "../../Services/ProfileSevice";
 import { setProfile } from "../../Slices/ProfileSlice";
 import { useEffect } from "react";
+import NotificationMenu from "./NotificationMenu";
 const Header = () => {
   const user = useSelector((state) => state.user);
   
@@ -36,7 +37,7 @@ const Header = () => {
       })
       .catch((err) => console.log(err));
     }
-  }, []);
+  }, [user]);
 
 
   const navigate = useNavigate();
@@ -70,11 +71,7 @@ const Header = () => {
 
         {/* <div className='bg-mine-shaft-900 p-2 rounded-full'> <IoSettingsOutline color='white' size={20}/></div> */}
 
-        <div className="bg-mine-shaft-900 p-2 rounded-full">
-          <Indicator color="brightSun.4" size={7} offset={3}>
-            <FaRegBell color="white" size={20} />
-          </Indicator>
-        </div>
+        {user ? <NotificationMenu/>:<></>}
       </div>
     </div>
   ) : (
