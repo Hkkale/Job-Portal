@@ -12,6 +12,8 @@ const Card = (props) => {
   const dispatch = useDispatch();
   const [isSaved, setIsSaved] = useState(false);
 
+  console.log(props)
+
   // Update local state when profile changes
   useEffect(() => {
     if (profile.savedJobs && props.id) {
