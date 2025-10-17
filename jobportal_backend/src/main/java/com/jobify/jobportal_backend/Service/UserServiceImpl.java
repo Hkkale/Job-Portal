@@ -83,6 +83,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserDto getUserByEmail(String email) throws JobPortalException {
+
+
+        return  userRepository.findByEmail(email).orElseThrow(() -> new JobPortalException("USER_NOT_FOUND")).toDto();
+
+
+
+    }
+
+    @Override
     public Boolean sendOtp(String email) throws Exception {
         User user = userRepository.findByEmail(email).orElseThrow(() -> new JobPortalException("USER_NOT_FOUND"));
 
