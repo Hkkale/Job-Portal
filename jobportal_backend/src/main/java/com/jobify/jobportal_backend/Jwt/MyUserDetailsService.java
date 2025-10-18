@@ -25,7 +25,7 @@ public class MyUserDetailsService implements UserDetailsService {
 
         try {
             UserDto userDto= userService.getUserByEmail(email);
-            return new CustomUserDetails(userDto.getId(),email,userDto.getPassword(),userDto.getAccountType(),new ArrayList<>());
+            return new CustomUserDetails(userDto.getId(),email,userDto.getName(),userDto.getPassword(),userDto.getAccountType(),new ArrayList<>());
         } catch (JobPortalException e) {
             e.printStackTrace();
         }
