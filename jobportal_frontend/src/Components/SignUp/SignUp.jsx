@@ -29,7 +29,7 @@ const SignUp = () => {
     email: "",
     password: "",
     confirmPassword: "",
-    acconutType: "APPLICANT",
+    accountType: "APPLICANT",
   };
 
   const [data, setData] = useState(form);
@@ -39,7 +39,7 @@ const SignUp = () => {
 
   const handleChange = (event) => {
     if (typeof event == "string") {
-      setData({ ...data, acconutType: event });
+      setData({ ...data, accountType: event });
       return;
     }
     let name = event.target.name;
@@ -171,7 +171,7 @@ const SignUp = () => {
         />
 
         <Radio.Group
-          value={data.acconutType}
+          value={data.accountType}
           onChange={handleChange}
           label="You are?"
           withAsterisk

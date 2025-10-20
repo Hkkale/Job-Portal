@@ -1,10 +1,11 @@
 import React from 'react'
 import axios from 'axios'
+import axiosInstance from '../Interceptor/AxiosInterceptor';
 const base_url="http://localhost:8080/profiles"
 
 const getProfile = async (id)=>{
 
-  return axios.get(`${base_url}/get/${id}`)
+  return axiosInstance.get(`/profiles/get/${id}`)
   .then(res=>res.data)
   .catch(error=>{throw error});
 

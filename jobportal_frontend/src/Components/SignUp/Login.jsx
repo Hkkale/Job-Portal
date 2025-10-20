@@ -73,6 +73,7 @@ const Login = () => {
              dispatch(setJwt(res.jwt));
              const decoded=jwtDecode(res.jwt);
              console.log(decoded);
+             dispatch(setUser({...decoded,email:decoded.sub}));
 
             navigate("/");
           }, 4000);

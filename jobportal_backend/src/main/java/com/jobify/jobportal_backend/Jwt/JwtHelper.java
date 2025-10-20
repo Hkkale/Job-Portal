@@ -57,6 +57,7 @@ public class JwtHelper {
         CustomUserDetails customUserDetails = (CustomUserDetails) userDetails;
         claims.put("id",customUserDetails.getId());
         claims.put("name",customUserDetails.getName());
+        System.out.println("Account Typeeeeeeeeeeeeee: " + customUserDetails.getAccountType());
         claims.put("accountType",customUserDetails.getAccountType());
 
 
