@@ -85,7 +85,7 @@ const JobCategory = () => {
           /* ...slides */
 
           jobCategory.map((category, index) => (
-            <Carousel.Slide>
+            <Carousel.Slide key={index}>
               <div className="flex flex-col items-center w-66 gap-2 border border-bright-sun-400 p-5 rounded-xl hover:cursor-pointer hover:shadow-[0px_0_5px_2px_black] !shadow-bright-sun-400 transition duration-300 ease-in-out">
                 <div className="p-2 bg-bright-sun-300 rounded-full">
                   <img

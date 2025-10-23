@@ -1,4 +1,5 @@
 import axios from "axios";
+import { navigateToLogin } from "../Services/AuthService";
 
 
 const axiosInstance=axios.create({
@@ -17,11 +18,21 @@ axiosInstance.interceptors.request.use((config)=>{
   return Promise.reject(error);
 })
 
+
+export const  setupResponseInterceptor=(navigate)=>{
+
+  axiosInstance.interceptors.response.use((response)=>{
+    return response;
+  },
+(errpor)=>{
+    if(errpor.response?.status===401){
+      navigateToLogin(navigate);
+    }
+})
+
+};
+  
+
 export default axiosInstance;
 
 
-
-// eyJhbGciOiJIUzI1NiJ9.eyJhY2NvdW50VHlwZSI6IkFQUExJQ0FOVCIsIm5hbWUiOiJIaXRlbmRyYSBLYWxlIiwiaWQiOjEsInN1YiI6IkhpdGVuZHJha2FsZTAwMEBnbWFpbC5jb20iLCJpYXQiOjE3NjA5NzI1NDQsImV4cCI6MTc2MTAwODU0NH0.VWnmLhbqMPs9JJkvrCOVmurRXeO-B-gdMTDagD9ZXYM
-
-
-// eyJhbGciOiJIUzI1NiJ9.eyJhY2NvdW50VHlwZSI6IkFQUExJQ0FOVCIsIm5hbWUiOiJIaXRlbmRyYSBLYWxlIiwiaWQiOjEsInN1YiI6IkhpdGVuZHJha2FsZTAwMEBnbWFpbC5jb20iLCJpYXQiOjE3NjA5NzI1NDQsImV4cCI6MTc2MTAwODU0NH0.VWnmLhbqMPs9JJkvrCOVmurRXeO-B-gdMTDagD9ZXYM

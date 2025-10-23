@@ -1,10 +1,11 @@
 import React from 'react'
-import axios from 'axios'
-const base_url="http://localhost:8080/jobs"
+import axiosInstance from '../Interceptor/AxiosInterceptor';
+
+
 
 const postJob = async (job)=>{
 
-  return axios.post(`${base_url}/post`,job)
+  return axiosInstance.post(`/jobs/post`,job)
   .then(res=>res.data)
   .catch(error=>{throw error});
 
@@ -15,7 +16,7 @@ const postJob = async (job)=>{
 
 const getAllJobs = async ()=>{
 
-  return axios.get(`${base_url}/getAll`)
+  return axiosInstance.get(`/jobs/getAll`)
   .then(res=>res.data)
   .catch(error=>{throw error});
 
@@ -25,7 +26,7 @@ const getAllJobs = async ()=>{
 
 const getJob = async (id)=>{
 
-  return axios.get(`${base_url}/get/${id}`)
+  return axiosInstance.get(`/jobs/get/${id}`)
   .then(res=>res.data)
   .catch(error=>{throw error});
 
@@ -34,7 +35,7 @@ const getJob = async (id)=>{
 }
 
 const applyJob = async(id,applicant)=>{
-  return axios.post(`${base_url}/apply/${id}`,applicant)
+  return axiosInstance.post(`/jobs/apply/${id}`,applicant)
   .then(res=>res.data)
   .catch(error=>{throw error});
 
@@ -43,7 +44,7 @@ const applyJob = async(id,applicant)=>{
 
 const getJobPostedBy = async (id)=>{
 
-  return axios.get(`${base_url}/postedBy/${id}`)
+  return axiosInstance.get(`/jobs/postedBy/${id}`)
   .then(res=>res.data)
   .catch(error=>{throw error});
 
@@ -52,7 +53,7 @@ const getJobPostedBy = async (id)=>{
 }
 
 const changeAppStatus = async(application)=>{
-  return axios.post(`${base_url}/changeAppStatus`,application)
+  return axios.post(`/jobs/changeAppStatus`,application)
   .then(res=>res.data)
   .catch(error=>{throw error});
 

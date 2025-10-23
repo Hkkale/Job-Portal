@@ -17,6 +17,7 @@ const UserSlice = createSlice({
     removeUser:(state)=>{
 
       removeItem("user");
+      localStorage.removeItem("token");
       state=null;
       return state;
 

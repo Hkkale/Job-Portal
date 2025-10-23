@@ -12,4 +12,11 @@ const loginUser = async (login)=>{
 }
 
 
-export { loginUser };
+const navigateToLogin=(navigate)=>{
+  localStorage.removeItem("token");
+  localStorage.removeItem("user");
+  navigate("/login");
+}
+
+
+export { loginUser, navigateToLogin };

@@ -178,14 +178,17 @@ const SignUp = () => {
         >
           <Group mt="xs">
             <Radio
+            
+            autoContrast
               className="py-4 px-6 border  border-mine-shaft-800 rounded-lg has-[:checked]:bg-bright-sun-400/5 has-[:checked]:border-bright-sun-400 "
-              autoContrast
+              
               value="APPLICANT"
               label="Applicant"
             />
             <Radio
+            autoContrast
               className="py-4 px-6 border border-mine-shaft-800 rounded-lg has-[:checked]:border-bright-sun-400   has-[:checked]:bg-bright-sun-400/5"
-              autoContrast
+              
               value="EMPLOYER"
               label="Employer"
             />

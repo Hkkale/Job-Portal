@@ -1,7 +1,7 @@
 
 import axios from 'axios'
 import axiosInstance from '../Interceptor/AxiosInterceptor';
-const base_url="http://localhost:8080"
+
 
 
 
@@ -21,7 +21,7 @@ const getNotifications = async (id)=>{
 
 const readNotification = async (id)=>{
 
-  return axios.put(`${base_url}/read/${id}`)
+  return axiosInstance.put(`/notification/read/${id}`)
   .then(res=>res.data)
   .catch(error=>{throw error});
 

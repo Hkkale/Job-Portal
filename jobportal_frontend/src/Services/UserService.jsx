@@ -1,9 +1,9 @@
-import axios from 'axios'
-const base_url="http://localhost:8080/users"
+import axiosInstance from "../Interceptor/AxiosInterceptor";
+
 
 const registerUser = async (user)=>{
 
-  return axios.post(`${base_url}/register`,user)
+  return axiosInstance.post(`${base_url}/register`,user)
   .then(res=>res.data)
   .catch(error=>{throw error});
 
@@ -14,7 +14,7 @@ const registerUser = async (user)=>{
 
 const loginUser = async (user)=>{
 
-  return axios.post(`${base_url}/login`,user)
+  return axiosInstance.post(`${base_url}/login`,user)
   .then(res=>res.data)
   .catch(error=>{throw error});
 
@@ -24,7 +24,7 @@ const loginUser = async (user)=>{
 
 const sendOtp = async (email)=>{
 
-  return axios.post(`${base_url}/sendOtp/${email}`,)
+  return axiosInstance.post(`/users/sendOtp/${email}`,)
   .then(res=>res.data)
   .catch(error=>{throw error});
 
@@ -34,7 +34,7 @@ const sendOtp = async (email)=>{
 
 const verifyOtp = async (email,otp)=>{
 
-  return axios.get(`${base_url}/verifyOtp/${email}/${otp}`,)
+  return axiosInstance.get(`/users/verifyOtp/${email}/${otp}`,)
   .then(res=>res.data)
   .catch(error=>{throw error});
 
@@ -44,7 +44,7 @@ const verifyOtp = async (email,otp)=>{
 
 const ChangePassword = async (email,password)=>{
 
-  return axios.post(`${base_url}/changePass`,{email,password})
+  return axios.post(`/users/changePass`,{email,password})
   .then(res=>res.data)
   .catch(error=>{throw error});
 

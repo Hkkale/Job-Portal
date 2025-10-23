@@ -12,12 +12,31 @@ import { getProfile } from "../../Services/ProfileSevice";
 import { setProfile } from "../../Slices/ProfileSlice";
 import { useEffect } from "react";
 import NotificationMenu from "./NotificationMenu";
+import {jwtDecode} from "jwt-decode";
+import { setUser } from "../../Slices/UserSlice";
+import { setupResponseInterceptor } from "../../Interceptor/AxiosInterceptor";
 const Header = () => {
   const user = useSelector((state) => state.user);
+  const token = useSelector((state) => state.jwt);
   
   
 
   const dispatch = useDispatch();
+  const navigate =useNavigate();
+
+  const location = useLocation();
+
+
+useEffect(() => {
+
+  setupResponseInterceptor(navigate);
+
+  
+ 
+  
+
+},[navigate])
+
 
  
 
@@ -25,9 +44,18 @@ const Header = () => {
 
 
     
+
+
+    if(token!=""){
+  const decoded=jwtDecode(token);
+  dispatch(setUser({...decoded,email:decoded.sub}));
+ }  
+
+
+    
     
     if(user){
-      getProfile(user.id)
+      getProfile(user?.profileId)
 
       
 
@@ -37,11 +65,10 @@ const Header = () => {
       })
       .catch((err) => console.log(err));
     }
-  }, [user]);
+  }, [token,navigate]);
 
 
-  const navigate = useNavigate();
-  const location = useLocation();
+
   return location.pathname != "/signup" && location.pathname != "/login" ? (
     <div className="w-full h-20 text-white flex justify-between px-6 items-center bg-mine-shaft-950 font-[poppins]  ">
       <div
