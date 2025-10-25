@@ -2,7 +2,7 @@ import React from "react";
 import { IoBag } from "react-icons/io5";
 import { FaRegBell } from "react-icons/fa6";
 import { IoSettingsOutline } from "react-icons/io5";
-import { Avatar, Button, Indicator } from "@mantine/core";
+import { Avatar, Burger, Button, Drawer, Indicator } from "@mantine/core";
 import Navlinks from "./Navlinks";
 import { useLocation, useNavigate } from "react-router";
 import Profile from "../TalentProfile/Profile";
@@ -12,62 +12,63 @@ import { getProfile } from "../../Services/ProfileSevice";
 import { setProfile } from "../../Slices/ProfileSlice";
 import { useEffect } from "react";
 import NotificationMenu from "./NotificationMenu";
-import {jwtDecode} from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 import { setUser } from "../../Slices/UserSlice";
 import { setupResponseInterceptor } from "../../Interceptor/AxiosInterceptor";
+import { useDisclosure } from "@mantine/hooks";
+import { FaXmark } from "react-icons/fa6";
+
+
 const Header = () => {
   const user = useSelector((state) => state.user);
   const token = useSelector((state) => state.jwt);
-  
-  
+  const [opened,{open,close}]=useDisclosure(false)
 
   const dispatch = useDispatch();
-  const navigate =useNavigate();
+  const navigate = useNavigate();
 
+  
   const location = useLocation();
+  const path = location.pathname;
 
+  const links= [
+    {name:"Find job",url:"/find-jobs"},
+    {name:"Find Talent",url:"/find-talent"},
+    {name:"Post Job",url:"/post-job/0"},
+    {name:"Posted Job",url:"/posted-jobs/0"},
+    {name:"Job History",url:"/job-history"},
+    
+    
+  ]
 
-useEffect(() => {
+  if(!user){
+    links.push({name:"Sign Up",url:"/signup"})
+    
+  }
 
-  setupResponseInterceptor(navigate);
-
-  
- 
-  
-
-},[navigate])
-
-
- 
+  const isActive = (pathName) => {
+    return path === pathName ? "text-bright-sun-400 " : "text-mine-shaft-300";
+  };
 
   useEffect(() => {
+    setupResponseInterceptor(navigate);
+  }, [navigate]);
 
-
-    
-
-
-    if(token!=""){
-  const decoded=jwtDecode(token);
-  dispatch(setUser({...decoded,email:decoded.sub}));
- }  
-
-
-    
-    
-    if(user){
-      getProfile(user?.profileId)
-
-      
-
-      .then((data) => {
-        console.log(data);
-        dispatch(setProfile(data));
-      })
-      .catch((err) => console.log(err));
+  useEffect(() => {
+    if (token != "") {
+      const decoded = jwtDecode(token);
+      dispatch(setUser({ ...decoded, email: decoded.sub }));
     }
-  }, [token,navigate]);
 
-
+    if (user) {
+      getProfile(user?.profileId)
+        .then((data) => {
+          console.log(data);
+          dispatch(setProfile(data));
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [token, navigate]);
 
   return location.pathname != "/signup" && location.pathname != "/login" ? (
     <div className="w-full h-20 text-white flex justify-between px-6 items-center bg-mine-shaft-950 font-[poppins]  ">
@@ -98,7 +99,30 @@ useEffect(() => {
 
         {/* <div className='bg-mine-shaft-900 p-2 rounded-full'> <IoSettingsOutline color='white' size={20}/></div> */}
 
-        {user ? <NotificationMenu/>:<></>}
+        {user ? <NotificationMenu /> : <></>}
+
+
+
+        <Burger className="bs:hidden" opened={opened} onClick={open} aria-label="Toggle navigation" />  
+
+        <Drawer opened={opened} onClose={close} title="" padding="xl" position="right" size="xs" overlayProps={{ backgroundOpacity: 0.5, blur: 4 }}   closeButtonProps={{
+          icon: <FaXmark size={26}  />,
+        }}>
+
+          <div className="flex  flex-col gap-6 items-center">
+            {
+        links.map((link,index)=><h2 key={index}
+        onClick={() => navigate(link.url)}
+        className={`${isActive(link.url)} cursor-pointer h-full flex items-center justify-center px-2 text-xl hover:text-bright-sun-400`}
+      >
+        {link.name}
+      </h2>)
+      }
+          </div>
+
+        </Drawer>
+
+       
       </div>
     </div>
   ) : (

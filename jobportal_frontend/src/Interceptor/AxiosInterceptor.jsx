@@ -25,8 +25,11 @@ export const  setupResponseInterceptor=(navigate)=>{
     return response;
   },
 (errpor)=>{
+  
+  console.log("Error in response interceptor",errpor.response?.status);
     if(errpor.response?.status===401){
       navigateToLogin(navigate);
+      
     }
 })
 

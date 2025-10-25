@@ -1,10 +1,12 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router';
+import { useSelector } from 'react-redux';
 
 const Navlinks = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const path = location.pathname;
+  const user= useSelector((state)=>state.user)
 
 
   const links= [
@@ -13,9 +15,13 @@ const Navlinks = () => {
     {name:"Post Job",url:"/post-job/0"},
     {name:"Posted Job",url:"/posted-jobs/0"},
     {name:"Job History",url:"/job-history"},
-    {name:"Sign Up",url:"/signup"},
+    
     
   ]
+
+  if(!user){
+    links.push({name:"Sign Up",url:"/signup"})
+  }
 
   const isActive = (pathName) => {
     return path === pathName ? "text-bright-sun-400 border-t-2" : "text-mine-shaft-300";

@@ -26,6 +26,26 @@
 --color-bright-sun-950: #461902;
 
 
+--breakpoint-xsm: 350px;
+  --breakpoint-xs: 476px;
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-bs: 900px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+
+  /* Max-width equivalents */
+  --breakpoint-2xl-mx: 1535px;
+  --breakpoint-xl-mx: 1279px;
+  --breakpoint-lg-mx: 1023px;
+  --breakpoint-bs-mx: 899px;
+  --breakpoint-md-mx: 767px;
+  --breakpoint-sm-mx: 639px;
+  --breakpoint-xs-mx: 475px;
+  --breakpoint-xsm-mx: 349px;
+
+
 
 
 }
