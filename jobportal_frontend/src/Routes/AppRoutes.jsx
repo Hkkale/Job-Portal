@@ -28,7 +28,7 @@ const AppRoutes = () => {
         <Divider mx="md" size="xs" orientation="horizontal" />
         <Routes>
           <Route path="/find-jobs" element={<ProtectedRoute allowedRoles={["APPLICANT"]}> <FindJob /></ProtectedRoute>} />
-          <Route path="/find-talent" element={<ProtectedRoute allowedRoles={["EMPLOYER"]}> <TalentProfilePage /></ProtectedRoute>} />
+          <Route path="/find-talent" element={<ProtectedRoute allowedRoles={["EMPLOYER","APPLICANT"]}> <FindTalentPage /></ProtectedRoute>} />
           <Route path="/talent-profile/:id" element={<TalentProfilePage />} />
           <Route path="/jobs/:id" element={<JobDescPage />} />
 
