@@ -77,7 +77,7 @@ const Header = () => {
         className="flex gap-2 cursor-pointer   h-full items-center  text-bright-sun-400 "
       >
         <IoBag className="text-4xl pb-1" color="text-bright-sun-400" />
-        <div className="text-3xl font-semibold">Jobify</div>
+        <div className="text-3xl max-[476px]:hidden  font-semibold">Jobify</div>
       </div>
 
       <Navlinks />

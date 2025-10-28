@@ -47,7 +47,7 @@ const Sort= (props) => {
         <Combobox.Target>
           
 
-          <div onClick={()=>combobox.toggleDropdown()} className='border border-bright-sun-400 flex items-center gap-2 px-2 py-1 rounded-xl cursor-pointer text-sm' >
+          <div onClick={()=>combobox.toggleDropdown()} className='border border-bright-sun-400 flex items-center gap-2 px-2 py-1 rounded-xl cursor-pointer max-[475px]:text-xs max-[475px]:px-1 text-sm' >
 
             {
               selectedItem

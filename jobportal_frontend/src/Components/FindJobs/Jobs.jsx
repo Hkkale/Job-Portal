@@ -97,18 +97,19 @@ a.packageOffered));
 
   return (
     <div className="p-5">
-      <div className="flex justify-between">
-        <div className="text-2xl font-semibold ">Recommended Jobs</div>
+      <div className="flex justify-between max-[425px]:flex-wrap max-[425px]:gap-2">
+        <div className="text-2xl max-[478px]:text-xl font-semibold ">Recommended Jobs</div>
         <div>
           <Sort sort="job" />
         </div>
       </div>
 
-      <div className="flex gap-3 flex-wrap w-full mt-10  ">
-        {filterdJobs.map((job, index) => (
-          <JobsCard key={index} {...job} />
-        ))}
-      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mt-10">
+  {filterdJobs.map((job, index) => (
+    <JobsCard key={index} {...job} />
+  ))}
+</div>
+
     </div>
   );
 };

@@ -28,7 +28,7 @@ const Navlinks = () => {
   };
 
   return (
-    <div className='flex gap-5 items-center  h-full '>
+    <div className="max-[900px]:hidden! flex gap-4.5 items-center h-full">
       
       {
         links.map((link,index)=><h2 key={index}
