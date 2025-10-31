@@ -53,7 +53,7 @@ const getJobPostedBy = async (id)=>{
 }
 
 const changeAppStatus = async(application)=>{
-  return axios.post(`/jobs/changeAppStatus`,application)
+  return axiosInstance.post(`/jobs/changeAppStatus`,application)
   .then(res=>res.data)
   .catch(error=>{throw error});
 

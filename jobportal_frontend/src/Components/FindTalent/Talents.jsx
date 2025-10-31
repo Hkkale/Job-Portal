@@ -105,7 +105,7 @@ totalExp));
 
 
   return (
-    <div className="p-5">
+    <div className="p-5 ">
       <div className="flex justify-between">
         <div className="text-2xl font-semibold "> Talents</div>
         <div>
@@ -113,20 +113,11 @@ totalExp));
         </div>
       </div>
 
-      <div className="grid gap-6 mt-10 w-full max-w-7xl mx-auto 
-  grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4
-  ">
-  {filterdTalents.length > 0 ? (
-    filterdTalents.map((talent, index) => (
-      <TalentCard key={index} {...talent} />
-    ))
-  ) : (
-    <div className="col-span-full text-2xl font-semibold text-center">
-      No Talents Found
-    </div>
-  )}
-</div>
-
+      <div className="flex gap-6 flex-wrap w-full mt-10  justify-start">
+        {filterdTalents.length>0?filterdTalents?.map((talent, index) => (
+          <TalentCard key={index} {...talent} />
+        )):<div className="text-2xl font-semibold ">No Talents Found</div>}
+      </div>
     </div>
   );
 };

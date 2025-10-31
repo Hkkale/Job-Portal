@@ -10,11 +10,13 @@ import { errorNotifiaction, successNotification } from '../../Services/Notificat
 import {useNavigate, useParams}  from 'react-router'
 import {useSelector} from 'react-redux'
 import { useState } from 'react'
+import { useMediaQuery } from '@mantine/hooks'
 
 
 const PostJob = () => {
 
   const id=useParams().id;
+  const matches=useMediaQuery('(max-width: 650px)');
   const content =
   '<h4>About The Job</h4><p>Write description here...</p><h4>Responsibilities</h4><ul><li>Add responsibilities here...</li></ul><h4>Qualifications and Skill Sets</h4><ul><li>Add required qualification and skill set here...</li></ul>';
   const [editorData,setEditorData]=useState(content)
@@ -132,21 +134,21 @@ const navigate=useNavigate();
 
       <div className=' flex flex-col gap-5 '>
 
-        <div className='flex gap-10 mb-5  [&>div]:w-1/2'>
+        <div className='flex gap-10 max-[650px]:[&>div]:w-full max-[650px]:flex-wrap  max-[767px]:gap-5 mb-5  [&>div]:w-1/2'>
 
           <SelectInput form={form} name="jobTitle"  {...select[0]}/>
           <SelectInput form={form} name="company" {...select[1]}/>
       
         </div>
 
-        <div className='flex gap-10 mb-5  [&>div]:w-1/2'>
+        <div className='flex gap-10 max-[650px]:[&>div]:w-full max-[650px]:flex-wrap max-[700px]:gap-5 mb-5  [&>div]:w-1/2'>
 
           <SelectInput form={form} name="experience" {...select[2]}/>
           <SelectInput form={form} name="jobType" {...select[3]}/>
       
         </div>
 
-        <div className='flex gap-10 mb-5  [&>div]:w-1/2'>
+        <div className='flex gap-10 max-[650px]:[&>div]:w-full max-[650px]:flex-wrap max-[700px]:gap-5 mb-5  [&>div]:w-1/2'>
 
           <SelectInput form={form} name="location" {...select[4]}/>
           <NumberInput {...form.getInputProps('packageOffered')} label="Salary" placeholder='Enter Salary'  withAsterisk hideControls min={1} max={200} clampBehavior='strict'/>
@@ -168,8 +170,8 @@ const navigate=useNavigate();
 
 
         <div className=' flex gap-4 mb-6'>
-          <Button className=''  color='brightSun.4' onClick={()=>handlePost()} variant='light' > Publish Job </Button>
-          <Button className=''  color='brightSun.4' onClick={()=>handleDraft()} variant='outline' > Save as Draft </Button>
+          <Button size={matches?"xs":"sm"} className=''  color='brightSun.4' onClick={()=>handlePost()} variant='light' > Publish Job </Button>
+          <Button size={matches?"xs":"sm"} className=''  color='brightSun.4' onClick={()=>handleDraft()} variant='outline' > Save as Draft </Button>
         </div>
 
 
