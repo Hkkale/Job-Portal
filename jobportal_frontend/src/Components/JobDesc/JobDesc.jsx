@@ -1,6 +1,6 @@
 import { ActionIcon, Button, Divider } from "@mantine/core";
 import React, { useEffect, useState } from "react";
-import { FaRegBookmark,FaBookmark } from "react-icons/fa6";
+import { FaRegBookmark, FaBookmark } from "react-icons/fa6";
 import { MdOutlineLocationOn } from "react-icons/md";
 
 import { HiOutlineBriefcase } from "react-icons/hi";
@@ -11,137 +11,169 @@ import { useNavigate } from "react-router";
 import { timeAgo } from "../../Services/Utilities";
 import { useDispatch, useSelector } from "react-redux";
 import { changeProfile } from "../../Slices/ProfileSlice";
-import {postJob} from "../../Services/JobService"
-import {errorNotifiaction, successNotification} from "../../Services/NotificationService"
+import { postJob } from "../../Services/JobService";
+import {
+  errorNotifiaction,
+  successNotification,
+} from "../../Services/NotificationService";
 const JobDesc = (props) => {
-  const profile=useSelector((state)=>state.profile);
-  const user=useSelector((state)=>state.user);
+  const profile = useSelector((state) => state.profile);
+  const user = useSelector((state) => state.user);
 
-    const dispatch= useDispatch();
-    const [applied,setApplied]=useState(false);
-  const handleSaveJob=()=>{
-    let savedJobs=profile.savedJobs?[...profile.savedJobs]:[];
+  const dispatch = useDispatch();
+  const [applied, setApplied] = useState(false);
+  const handleSaveJob = () => {
+    let savedJobs = profile.savedJobs ? [...profile.savedJobs] : [];
 
-
-    if(savedJobs?.includes(props.id)){
-      savedJobs=savedJobs.filter((jobId)=>jobId!==props.id)
-    }
-    else{
-      savedJobs=[...savedJobs,props.id]
+    if (savedJobs?.includes(props.id)) {
+      savedJobs = savedJobs.filter((jobId) => jobId !== props.id);
+    } else {
+      savedJobs = [...savedJobs, props.id];
     }
 
-    let updatedProfile={...profile,savedJobs:savedJobs};
-    dispatch(changeProfile(updatedProfile))
+    let updatedProfile = { ...profile, savedJobs: savedJobs };
+    dispatch(changeProfile(updatedProfile));
     console.log(updatedProfile);
+  };
 
-  }
+  console.log(props.applicants);
+  console.log(user.id);
+  console.log(props);
 
-  console.log(props.applicants)
-  console.log(user.id)
-  console.log(props)
+  const handleClose = () => {
+    postJob({ ...props, jobStatus: "CLOSED" })
+      .then((res) => {
+        successNotification("Success", "Job Closed Successfully");
+      })
+      .close((err) => {
+        console.log(err);
+        errorNotifiaction("Error", err.response.data.errorMessage);
+      });
+  };
 
-  const handleClose=()=>{
+  useEffect(() => {
+    if (
+      props.applicants?.filter((applicant) => applicant.applicantId === user.id)
+        .length > 0
+    ) {
+      setApplied(true);
+    } else {
+      setApplied(false);
+    }
+  }, [props]);
 
-    postJob({...props,jobStatus:"CLOSED"})
-    .then((res)=>{
-      successNotification("Success","Job Closed Successfully")
-
-    })
-    .close((err)=>{
-      console.log(err)
-      errorNotifiaction("Error",err.response.data.errorMessage)
-    })
-    
-  }
-  
-  useEffect(()=>{
-   if(props.applicants?.filter((applicant)=>applicant.applicantId===user.id).length>0){
-    setApplied(true)
-   }
-   else{
-    setApplied(false)
-   }
-  },[props])
- 
   const card = [
-    { name: "Location", icon: MdOutlineLocationOn, value: "New York",id:"location" },
-    { name: "Experience", icon: HiOutlineBriefcase, value: "Expert" ,id:"experience" },
-    { name: "Salary", icon: RiMoneyRupeeCircleLine, value: "48 LPA",id:"packageOffered"  },
-    { name: "Job Type", icon: BiBoltCircle, value: "Full Time" ,id:"jobType" },
+    {
+      name: "Location",
+      icon: MdOutlineLocationOn,
+      value: "New York",
+      id: "location",
+    },
+    {
+      name: "Experience",
+      icon: HiOutlineBriefcase,
+      value: "Expert",
+      id: "experience",
+    },
+    {
+      name: "Salary",
+      icon: RiMoneyRupeeCircleLine,
+      value: "48 LPA",
+      id: "packageOffered",
+    },
+    { name: "Job Type", icon: BiBoltCircle, value: "Full Time", id: "jobType" },
   ];
-
-  
 
   const data = DOMPurify.sanitize(props.description);
 
-  
-
-  const navigate= useNavigate();
+  const navigate = useNavigate();
   return (
-    <div className="w-2/3">
-      <div className="flex justify-between  ">
+    <div className="w-2/3 max-[900px]:w-full  max-[900px]:px-3">
+      <div className="flex justify-between flex-wrap">
         <div
           onClick={() => navigate("/jobs")}
-          className="flex gap-2 items-center  cursor-pointer"
+          className="flex gap-2 items-center cursor-pointer"
         >
           <div className="p-3 bg-mine-shaft-800 rounded-xl">
             <img
-              className="h-14"
+              className="h-14 max-[580px]:h-10"
               src={`/src/assets/Icons/${props.company}.png`}
+              onError={(e) =>
+                (e.currentTarget.src = "/src/assets/letter-j.png")
+              }
               alt=""
             />
           </div>
           <div>
-            <div className="font-semibold text-2xl">{props.jobTitle}</div>
-            <div className="text-lg text-mine-shaft-300 ">
-              {props.company} &#x2022; {timeAgo(props.postTime)} &#x2022;  {props.applicants ? 
-    (typeof props.applicants === 'object' ? 
-      Object.keys(props.applicants).length : 
-      props.applicants
-    ) : 0
-  } Applicants
+            <div className="font-semibold max-[580px]:text-xl text-2xl">{props.jobTitle}</div>
+            <div className="text-lg max-[580px]:text-sm text-mine-shaft-300 flex max-[395px]:flex-col ">
+              <span>
+              {props.company} &#x2022;&nbsp;</span><span>{timeAgo(props.postTime)} &#x2022; &nbsp;</span>
+              <span>
+              {props.applicants
+                ? typeof props.applicants === "object"
+                  ? Object.keys(props.applicants).length
+                  : props.applicants
+                : 0} Applicants
+                </span>
+              
             </div>
           </div>
         </div>
-        <div className="flex flex-col gap-2 items-center justify-center">
-         { (props.edit || !applied) &&<Button
-            onClick={() => navigate(props.edit ? `/post-job/${props.id}` :`/apply-job/${props.id}`)}
-            size="md"
-            color="brightSun.4"
-            variant="light"
-          >
-            {props.closed?"Reopen": props.edit ? "Edit" : "Apply"}
-          </Button>}
-          {!props.edit && applied &&
-             <Button
-            
-            size="sm"
-            color="green.8"
-            variant="light"
-          >
-            Applied
-          </Button>
-          }
+        <div className="flex flex-col max-[580px]:flex-row max-[580px]:px-18 max-[580px]:gap-5 max-[580px]:[&>button]:!w-[] gap-2 items-center  justify-center">
+          {(props.edit || !applied) && (
+            <Button
+              onClick={() =>
+                navigate(
+                  props.edit
+                    ? `/post-job/${props.id}`
+                    : `/apply-job/${props.id}`
+                )
+              }
+              size="md"
+              color="brightSun.4"
+              variant="light"
+            >
+              {props.closed ? "Reopen" : props.edit ? "Edit" : "Apply"}
+            </Button>
+          )}
+          {!props.edit && applied && (
+            <Button size="sm" color="green.8" variant="light">
+              Applied
+            </Button>
+          )}
 
-
-
-
-          {props.edit && !props.closed ? <Button
-            onClick={() => handleClose()}
-            size="sm"
-            color="red.5"
-            variant="outline"
-          >
-            Close
-          </Button>:profile.savedJobs?.includes(props.id) ?<FaBookmark onClick={()=>handleSaveJob()} className=' cursor-pointer text-bright-sun-400'/>:<FaRegBookmark onClick={()=>handleSaveJob()} className='text-mine-shaft-300 cursor-pointer hover:text-bright-sun-400'/>}
+          {props.edit && !props.closed ? (
+            <Button
+              onClick={() => handleClose()}
+              size="sm"
+              color="red.5"
+              variant="outline"
+            >
+              Close
+            </Button>
+          ) : profile.savedJobs?.includes(props.id) ? (
+            <FaBookmark
+              onClick={() => handleSaveJob()}
+              className=" cursor-pointer text-bright-sun-400"
+            />
+          ) : (
+            <FaRegBookmark
+              onClick={() => handleSaveJob()}
+              className="text-mine-shaft-300 cursor-pointer hover:text-bright-sun-400"
+            />
+          )}
         </div>
       </div>
 
       <Divider my="xl" />
 
-      <div className="flex  justify-between">
+      <div className="flex justify-between  gap-4 flex-wrap">
         {card.map((item, index) => (
-          <div key={index} className="flex flex-col items-center gap-1">
+          <div
+            key={index}
+            className="flex flex-col items-center gap-1  max-[386px]:w-1/3"
+          >
             <ActionIcon
               color="brightSun.4"
               className="!h-12 !w-12"
@@ -152,7 +184,10 @@ const JobDesc = (props) => {
               <item.icon className="h-4/5 w-4/5" />
             </ActionIcon>
             <div className="text-sm text-mine-shaft-300">{item.name}</div>
-            <div className=" font-semibold">{props?props[item.id]:"NA"} {item.id==="packageOffered"?"LPA":""}</div>
+            <div className="font-semibold">
+              {props ? props[item.id] : "NA"}{" "}
+              {item.id === "packageOffered" ? "LPA" : ""}
+            </div>
           </div>
         ))}
       </div>
@@ -205,27 +240,29 @@ const JobDesc = (props) => {
                 />
               </div>
               <div>
-                <div className="font-medium text-lg">
-                  {props.company}
-                </div>
-                <div className="text-lg text-mine-shaft-300 ">10K+ Employees
+                <div className="font-medium text-lg">{props.company}</div>
+                <div className="text-lg text-mine-shaft-300 ">
+                  10K+ Employees
                 </div>
               </div>
             </div>
-            
-              <Button
-                onClick={() => navigate(`company/${props.company}`)}
-                
-                color="brightSun.4"
-                variant="light"
-              >
-                Company Page
-              </Button>
-              
-            
+
+            <Button
+              onClick={() => navigate(`company/${props.company}`)}
+              color="brightSun.4"
+              variant="light"
+            >
+              Company Page
+            </Button>
           </div>
 
-          <div className="text-mine-shaft-300 text-justify pt-3">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Animi saepe ducimus, odit dolores sunt placeat delectus sint sapiente est eveniet ad quas, maxime aut vel obcaecati sed molestias eaque pariatur aspernatur! Praesentium voluptatibus rerum distinctio officiis? Nemo, necessitatibus cupiditate. Voluptatibus!</div>
+          <div className="text-mine-shaft-300 text-justify pt-3">
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Animi
+            saepe ducimus, odit dolores sunt placeat delectus sint sapiente est
+            eveniet ad quas, maxime aut vel obcaecati sed molestias eaque
+            pariatur aspernatur! Praesentium voluptatibus rerum distinctio
+            officiis? Nemo, necessitatibus cupiditate. Voluptatibus!
+          </div>
         </div>
       </div>
     </div>

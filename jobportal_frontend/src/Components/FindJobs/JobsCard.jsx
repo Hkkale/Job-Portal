@@ -48,6 +48,9 @@ const JobsCard = (job) => {
             <img
               className="h-7 w-7 object-contain"
               src={`/src/assets/Icons/${job.company}.png`}
+              onError={(e) =>
+                (e.currentTarget.src = "/src/assets/letter-j.png")
+              }
               alt={`${job.company}`}
             />
           </div>
