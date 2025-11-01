@@ -105,12 +105,14 @@ const ApplicationForm = () => {
         loaderProps={{ color: "brightSun.4", type: "bars" }}
       />
 
-       <div className="text-xl font-semibold mb-5">
+       <div className="text-xl max-[700px]:text-lg font-semibold mb-5">
           Submit Your Application
         </div>
 
         <div className="flex flex-col gap-5">
-          <div className="flex gap-10 [&>*]:!w-1/2">
+          <div className="flex gap-10 max-[700px]:gap-5 [&>*]:w-1/2 max-[700px]:[&>*]:w-full max-[700px]:flex-wrap ">
+
+          
             <TextInput
               {...form.getInputProps("name")}
               label="Full Name"
@@ -134,7 +136,7 @@ const ApplicationForm = () => {
               withAsterisk
             />
           </div>
-          <div className="flex gap-10 [&>*]:!w-1/2">
+          <div className="flex gap-10 max-[700px]:gap-5 [&>*]:w-1/2 max-[700px]:[&>*]:w-full max-[700px]:flex-wrap">
             <NumberInput
               {...form.getInputProps("phone")}
               readOnly={preview}

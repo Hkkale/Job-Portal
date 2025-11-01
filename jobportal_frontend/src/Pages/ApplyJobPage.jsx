@@ -24,14 +24,16 @@ const ApplyJobPage = () => {
 
   const navigate = useNavigate();
   return (
-    <div className='min-h-screen bg-mine-shaft-950 font-[poppins] w-full border-white box-border overflow-hidden '>
+    <div className='min-h-screen bg-mine-shaft-950 font-[poppins] w-full border-white box-border  '>
     
           
     
           <Button className='m-4' leftSection={<FaArrowLeftLong size={20}/>} color='brightSun.4' onClick={()=>navigate(-1)} variant='light' > Back </Button>
 
 
-          <ApplyJobComp {...job}/>
+          <div className='flex justify-center w-full '>
+            <ApplyJobComp {...job}/>
+          </div>
           
     
     

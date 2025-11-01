@@ -45,25 +45,29 @@ const ApplyJobComp = (props) => {
   };
 
   return (
-    <div className="w-2/3 mx-auto">
+    <div className="w-[80%]  max-[900px]:w-full max-[900px]:mx-5">
       <div className="flex justify-between">
         <div
           onClick={() => navigate("/jobs")}
           className="flex gap-2 items-center cursor-pointer"
         >
-          <div className="p-3 bg-mine-shaft-800 rounded-xl">
+          <div className="p-3 bg-mine-shaft-800 rounded-xl shrink-0">
             <img
-              className="h-14"
+              className="h-14  max-[700px]:h-10"
               src={`/src/assets/Icons/${props.company}.png`}
+              onError={(e) =>
+                (e.currentTarget.src = "/src/assets/letter-j.png")
+              }
+              
               alt="Company Logo"
             />
           </div>
           <div>
-            <div className="font-semibold text-2xl">{props.jobTitle}</div>
-            <div className="text-lg text-mine-shaft-300 flex flex-wrap gap-2">
-              <span className="font-semibold">{props.company}</span> &#x2022;
-              <span className="font-semibold">{timeAgo(props.postTime)}</span> &#x2022;
-              <span className="font-semibold">
+            <div className="font-semibold max-[700px]:text-xl text-2xl">{props.jobTitle}</div>
+            <div className="text-lg max-[700px]:text-base text-mine-shaft-300 flex flex-wrap gap-2 max-[500px]:gap-0">
+              <span className="font-medium">{props.company}</span> &#x2022;
+              <span className="font-medium">{timeAgo(props.postTime)}</span> &#x2022;
+              <span className="font-medium">
                 {props.applicants ? props.applicants.length : 0} Applicants
               </span>
             </div>
