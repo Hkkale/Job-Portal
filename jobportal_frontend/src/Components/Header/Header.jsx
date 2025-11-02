@@ -112,7 +112,12 @@ const Header = () => {
           <div className="flex  flex-col gap-6 items-center">
             {
         links.map((link,index)=><h2 key={index}
-        onClick={() => navigate(link.url)}
+        onClick={() => {
+          navigate(link.url)
+          setTimeout(()=>{
+            close()
+          },[500])
+        }}
         className={`${isActive(link.url)} cursor-pointer h-full flex items-center justify-center px-2 text-xl hover:text-bright-sun-400`}
       >
         {link.name}

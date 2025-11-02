@@ -202,7 +202,7 @@ const ApplicationForm = () => {
           )}
 
           {preview && (
-            <div className="flex gap-10 [&>*]:w-1/2">
+            <div className="flex gap-10 [&>*]:w-1/2 max-[700px]:gap-1">
               <Button
                 fullWidth
                 className="m-4"

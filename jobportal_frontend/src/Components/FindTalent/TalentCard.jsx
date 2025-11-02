@@ -116,7 +116,7 @@ const TalentCard = (props) => {
         <FaRegHeart className="text-mine-shaft-300 cursor-pointer" />
       </div>
 
-      <div className="flex gap-2 [&>div]:py-1 [&>div]:px-2 [&>div]:bg-mine-shaft-800 [&>div]:text-bright-sun-400 [&>div]:rounded-lg [&>div]:text-xs">
+      <div className="flex gap-2 [&>div]:py-1 [&>div]:px-2 [&>div]:bg-mine-shaft-800 [&>div]:text-bright-sun-400 [&>div]:rounded-lg [&>div]:text-xs flex-wrap">
         {profile?.skills?.map((skill, index) => index < 4 && (
           <div key={index}>{skill}</div>
         ))}

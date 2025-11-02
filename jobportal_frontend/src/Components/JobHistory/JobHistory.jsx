@@ -48,11 +48,11 @@ const JobHistory = () => {
 
   return (
     <div className="">
-      <div className="text-2xl font-semibold mb-5 ">Job History</div>
+      <div className="text-2xl font-semibold mb-5 max-[630px]:text-xl">Job History</div>
 
       <div>
         <Tabs value={activeTab} onChange={handleTabChange} variant="outline" >
-          <Tabs.List className="[&_button]:!text-lg [&_button]:!font-semibold mb-5 [&_button[data-active='true']]:!text-bright-sun-400">
+          <Tabs.List className="[&_button]:!text-lg [&_button]:!font-semibold mb-5 max-[630px]:[&_button]:!font-medium [&_button[data-active='true']]:!text-bright-sun-400 max-[630px]:[&_button]:!text-base max-[355px]:[&_button]:!text-sm max-[630px]:[&_button]:!px-1.5 max-[630px]:[&_button]:!py-2">
             <Tabs.Tab value="APPLIED">Applied</Tabs.Tab>
             <Tabs.Tab value="SAVED">Saved</Tabs.Tab>
             <Tabs.Tab value="OFFERED">Offered</Tabs.Tab>
@@ -60,7 +60,7 @@ const JobHistory = () => {
           </Tabs.List>
 
           <Tabs.Panel value={activeTab}>
-            <div className="flex gap-3 flex-wrap w-full mt-10  ">
+            <div className="flex gap-5 flex-wrap justify-start w-full mt-10  ">
               {showList.map((job, index) => (
                 <Card key={index} {...job} {...{[activeTab.toLowerCase()]:true}} />
               ))}

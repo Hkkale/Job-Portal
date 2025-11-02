@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Divider, Text } from "@mantine/core";
 import { FaRegCalendarAlt, FaBookmark, FaRegBookmark, FaRegClock } from "react-icons/fa";
-import { timeAgo } from "../../Services/Utilities";
+import { formatInterviewTime2, timeAgo } from "../../Services/Utilities";
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { changeProfile } from "../../Slices/ProfileSlice";
@@ -12,7 +12,7 @@ const Card = (props) => {
   const dispatch = useDispatch();
   const [isSaved, setIsSaved] = useState(false);
 
-  console.log(props)
+ 
 
   // Update local state when profile changes
   useEffect(() => {
@@ -37,13 +37,16 @@ const Card = (props) => {
   };
 
   return (
-    <div className="bg-mine-shaft-900 p-4 w-72 flex gap-3 flex-col rounded-xl hover:shadow-[0_0_5px_1px_yellow] !shadow-bright-sun-400">
+    <div className="bg-mine-shaft-900 p-4 w-80 flex gap-3 flex-col rounded-xl hover:shadow-[0_0_5px_1px_yellow] !shadow-bright-sun-400 max-[693px]:w-full max-[1033px]:w-[48.5%] max-[1373px]:w-[32%]">
       <div className="flex justify-between">
         <div className="flex gap-2 items-center">
           <div className="p-2 bg-mine-shaft-800 rounded-md">
             <img
               className="h-7"
               src={`./src/assets/Icons/${props.company}.png`}
+              onError={(e) =>
+                (e.currentTarget.src = "/src/assets/letter-j.png")
+              }
               alt={props.company}
             />
           </div>
@@ -63,7 +66,7 @@ const Card = (props) => {
         </div>
       </div>
 
-      <div className="flex gap-2 [&>div]:py-1 [&>div]:px-2 [&>div]:bg-mine-shaft-800 [&>div]:text-bright-sun-400 [&>div]:rounded-lg [&>div]:text-xs">
+      <div className="flex gap-2 [&>div]:py-1 [&>div]:px-2 [&>div]:bg-mine-shaft-800 [&>div]:text-bright-sun-400 [&>div]:rounded-lg [&>div]:text-xs flex-wrap">
         <div>{props.experience}</div>
         <div>{props.jobType}</div>
         <div>{props.location}</div>

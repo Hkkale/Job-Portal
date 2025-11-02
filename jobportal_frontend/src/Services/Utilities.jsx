@@ -85,5 +85,18 @@ const openBase64PDF=(base64string)=>{
 
 
 }
+function formatInterviewTime2(dateString) {
+  const date = new Date(dateString);
 
-export {formatDate,timeAgo,getBase64,formatInterviewTime,openBase64PDF}
+  // Format: e.g. "Fri, 31 October"
+  const dateOptions = { weekday: 'short', day: 'numeric', month: 'long' };
+  const formattedDate = date.toLocaleDateString('en-US', dateOptions);
+
+  // Format: e.g. "3:52 AM"
+  const timeOptions = { hour: 'numeric', minute: '2-digit', hour12: true };
+  const formattedTime = date.toLocaleTimeString('en-US', timeOptions);
+
+  return { formattedDate, formattedTime };
+}
+
+export {formatDate,timeAgo,getBase64,formatInterviewTime,openBase64PDF,formatInterviewTime2}
