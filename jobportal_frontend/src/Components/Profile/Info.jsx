@@ -64,7 +64,7 @@ const Info = () => {
   return (
     <>
 
-    <div className="text-3xl font-semibold flex justify-between">
+    <div className="text-3xl max-sm:text-2xl font-semibold flex justify-between">
           {user.name}
 
 
@@ -115,20 +115,20 @@ const Info = () => {
           
           
           
-          <><div className="text-xl flex gap-1 items-center ">
-          <FaBriefcase className="h-4 w-4 " /> {profile.jobTitle} &bull;{" "}
+          <><div className="text-xl flex gap-1  max-xs:text-lg max-[417px]:text-base items-center text-mine-shaft-300 ">
+          <FaBriefcase className="h-4 w-4 shrink-0" /> {profile.jobTitle} &bull;{" "}
           {profile.company}{" "}
         </div>
 
-        <div className="flex gap-1 text-lg items-center text-mine-shaft-300">
+        <div className="flex max-sm:mt-1 gap-1 text-lg max-xs:text-base max-[417px]:text-sm  items-center text-mine-shaft-300">
           
-          <GrLocation className="h-4 w-4" />
+          <GrLocation className="h-4 w-4 shrink-0" />
           {profile.location}
         </div>
 
-        <div className="flex gap-1 text-lg items-center text-mine-shaft-300">
+        <div className="flex gap-1 max-xs:mt-1 text-lg max-xs:text-base max-[417px]:text-sm items-center text-mine-shaft-300">
           
-          <FaUserTie className="h-4 w-4" />
+          <FaUserTie className="h-4 w-4 shrink-0" />
          Experience: {profile.totalExp} Years
         </div>
         

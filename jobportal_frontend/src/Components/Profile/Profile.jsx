@@ -58,18 +58,18 @@ const Profile = () => {
 
 
   return (
-    <div className="w-4/5 mx-auto mb-10 mt-10">
+    <div className="w-4/5 mx-auto mb-10 mt-10 max-lg:w-full">
 
 
-      <div className="">
+      <div className="px-5">
 
         <div className="relative">
-          <img className="rounded-t-2xl h-48 w-full" src="./src/assets/banner.jpg"
+          <img className="rounded-t-2xl h-46 max-md:h-40 max-xs:!h-32  max-sm:h-36 w-full" src="./src/assets/banner.jpg"
           alt="banner"/>
 
-          <div ref={ref} className="absolute -bottom-1/3 left-6 flex items-center justify-center">
+          <div ref={ref} className="absolute -bottom-1/3 max-md:-bottom-11.5 max-md:left-4 max-sm:-bottom-12 left-6 max-sm:left-2 max-xs:left-2.5 max-xs:-bottom-10 flex items-center justify-center ">
 
-          <Avatar className="!w-48 !h-48 border-mine-shaft-950 border-8 rounded-full" src={profile.picture ? `data:image/jpeg;base64,${profile.picture}`:"./src/assets/avatar-9.png"}/>
+          <Avatar className="w-48! h-48! max-md:!w-40 max-md:!h-40 border-mine-shaft-950 border-8 rounded-full max-sm:!h-36 max-sm:!w-36 max-xs:!h-32 max-xs:!w-32" src={profile.picture ? `data:image/jpeg;base64,${profile.picture}`:"./src/assets/avatar-9.png"}/>
 
 
           {hovered && <Overlay className="!rounded-full" color="#000" backgroundOpacity={0.75} />}
@@ -97,7 +97,7 @@ const Profile = () => {
 
       
 
-      <div className="px-3 mt-16">
+      <div className="px-5 mt-18 max-[768px]:mt-15 max-xs:mt-12">
         <Info  />
       </div>
 
