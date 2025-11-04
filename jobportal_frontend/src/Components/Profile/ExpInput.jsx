@@ -8,8 +8,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { isNotEmpty, useForm } from "@mantine/form";
 import { changeProfile } from '../../Slices/ProfileSlice'
 import { successNotification } from '../../Services/NotificationService'
+import { useMediaQuery } from "@mantine/hooks";
 
 const ExpInput = ({ add, setEdit, ...props }) => {
+   const matches=useMediaQuery('(max-width: 500px)')
   const fields = [
     {
       label: "Job Title",
@@ -134,11 +136,11 @@ const ExpInput = ({ add, setEdit, ...props }) => {
   successNotification("Success", `Experience ${add ? "Added" : "Updated"} Successfully`);
 };
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-3 ">
       <div className="text-lg font-semibold">
         {add ? "Add" : "Edit"} Experience
       </div>
-      <div className="flex gap-10 mb-5  [&>div]:w-1/2">
+      <div className="flex gap-10 max-[510px]:gap-1 mb-5 max-[510px]:mb-0 max-[510px]:flex-wrap max-[510px]:[&>div]:w-full  [&>div]:w-1/2">
         <SelectInput form={form} name="title" {...fields[0]} />
         <SelectInput form={form} name="company" {...fields[1]} />
       </div>
@@ -152,7 +154,7 @@ const ExpInput = ({ add, setEdit, ...props }) => {
         
       />
 
-      <div className="flex gap-10 mb-5  [&>div]:w-1/2">
+      <div className="flex gap-10 mb-5 max-[510px]:mb-0 max-[510px]:gap-1 max-[510px]:flex-wrap max-[510px]:[&>div]:w-full [&>div]:w-1/2">
         <MonthPickerInput
           {...form.getInputProps("startDate")}
           withAsterisk
@@ -178,14 +180,15 @@ const ExpInput = ({ add, setEdit, ...props }) => {
       />
 
       <div className="flex gap-5 mt-3">
-        <Button
+        <Button 
+          size={matches?"sm":"md"}
           onClick={() => handleSave()}
           color="green.8"
           variant="light"
         >
           Save
         </Button>
-        <Button onClick={() => setEdit(false)} color="red.8" variant="light">
+        <Button size={matches?"sm":"md"} onClick={() => setEdit(false)} color="red.8" variant="light">
           Cancel
         </Button>
       </div>

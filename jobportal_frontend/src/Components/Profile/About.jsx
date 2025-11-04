@@ -1,17 +1,20 @@
 import { ActionIcon, Textarea } from "@mantine/core";
 import React, { useState } from "react";
-import { FaCheck, FaRegSave } from "react-icons/fa";
+import { FaCheck } from 'react-icons/fa6'
 import { GoPencil } from "react-icons/go";
 import { LiaTimesSolid } from "react-icons/lia";
 import { useDispatch, useSelector } from "react-redux";
 import { successNotification } from "../../Services/NotificationService";
 import { changeProfile } from "../../Slices/ProfileSlice";
+import { useMediaQuery } from "@mantine/hooks";
 
 const About = () => {
   const [edit, setEdit] = useState(false);
   const profile=useSelector((state)=>state.profile)
   const [about,setAbout]=useState("")
   const dispatch=useDispatch()
+
+   const matches=useMediaQuery('(max-width: 500px)')
 
 
   const handleEdit =()=>{
@@ -40,19 +43,19 @@ const About = () => {
 
   }
   return (
-    <div className="px-3">
-      <div className="text-2xl font-semibold mb-5 flex justify-between ">
+    <div className="px-4">
+      <div className="text-2xl font-semibold mb-5 flex justify-between max-[350px]:text-xl ">
         About
          <div className='flex gap-1'>
         
         
-                    {edit && <ActionIcon onClick={()=>handleSave()} size="lg" color="green.8" variant="subtle">
+                    {edit && <ActionIcon size={matches?"md":"lg"} onClick={()=>handleSave()}  color="green.8" variant="subtle">
                      <FaCheck strokeWidth="2.5" className="h-4/5 w-4/5 " /> 
                   </ActionIcon>}
         
         
         
-                    <ActionIcon onClick={()=>handleEdit()} size="lg" color={edit?"red.8":"brightSun.4"} variant="subtle">
+                    <ActionIcon size={matches?"md":"lg"} onClick={()=>handleEdit()}  color={edit?"red.8":"brightSun.4"} variant="subtle">
                     {edit ? <LiaTimesSolid strokeWidth="2.5" className="h-4/5 w-4/5 " />   :<GoPencil className="h-4/5 w-4/5 " />}
                   </ActionIcon>
         
@@ -70,7 +73,7 @@ const About = () => {
           onChange={(e) => setAbout(e.currentTarget.value)}
         />
       ) : (
-        <div className="text-sm text-mine-shaft-300 text-justify">
+        <div className="text-sm max-[350px]:text-xs text-mine-shaft-300 text-justify">
           {profile?.about}
         </div>
       )}

@@ -61,7 +61,7 @@ const Profile = () => {
     <div className="w-4/5 mx-auto mb-10 mt-10 max-lg:w-full">
 
 
-      <div className="px-5">
+      <div className="px-4">
 
         <div className="relative">
           <img className="rounded-t-2xl h-46 max-md:h-40 max-xs:!h-32  max-sm:h-36 w-full" src="./src/assets/banner.jpg"
@@ -97,7 +97,7 @@ const Profile = () => {
 
       
 
-      <div className="px-5 mt-18 max-[768px]:mt-15 max-xs:mt-12">
+      <div className="px-4 mt-18 max-[768px]:mt-15 max-xs:mt-12">
         <Info  />
       </div>
 

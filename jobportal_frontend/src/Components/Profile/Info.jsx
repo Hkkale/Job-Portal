@@ -11,9 +11,12 @@ import { changeProfile } from '../../Slices/ProfileSlice'
 import { successNotification } from '../../Services/NotificationService'
 import { LiaTimesSolid } from "react-icons/lia";
 import { FaUserTie } from "react-icons/fa";
+import { useMediaQuery } from '@mantine/hooks'
 
 
 const Info = () => {
+
+   const matches=useMediaQuery('(max-width: 500px)')
 
   
   
@@ -64,20 +67,20 @@ const Info = () => {
   return (
     <>
 
-    <div className="text-3xl max-sm:text-2xl font-semibold flex justify-between">
+    <div className="text-3xl max-sm:text-2xl font-semibold flex justify-between  max-[350px]:text-xl">
           {user.name}
 
 
           <div className='flex gap-1'>
 
 
-            {edit && <ActionIcon onClick={()=>handleSave()} size="lg" color="green.8" variant="subtle">
-             <FaCheck strokeWidth="2.5" className="h-4/5 w-4/5 " /> 
+            {edit && <ActionIcon onClick={()=>handleSave()} size={matches?"md":"lg"} color="green.8" variant="subtle">
+             <FaCheck strokeWidth="2.5" className="h-4/5 w-4/5  " /> 
           </ActionIcon>}
 
 
 
-            <ActionIcon onClick={()=>handleEdit()} size="lg" color={edit?"red.8":"brightSun.4"} variant="subtle">
+            <ActionIcon size={matches?"md":"lg"} onClick={()=>handleEdit()}  color={edit?"red.8":"brightSun.4"} variant="subtle">
             {edit ? <LiaTimesSolid strokeWidth="2.5" className="h-4/5 w-4/5 " />   :<GoPencil className="h-4/5 w-4/5 " />}
           </ActionIcon>
 
@@ -89,14 +92,14 @@ const Info = () => {
 
         {
 
-          edit ?  <> <div className='flex gap-10 mb-5  [&>div]:w-1/2'>
+          edit ?  <> <div className='flex max-[510px]:flex-wrap gap-10 mb-5 max-[510px]:[&>div]:w-full max-[510px]:gap-1  [&>div]:w-1/2  max-[510px]:mb-1'>
 
           <SelectInput form={form} name="jobTitle" {...fields[0]}/>
           <SelectInput form={form} name="company" {...fields[1]}/>
       
         </div>
 
-        <div  className='flex gap-10 mb-5  [&>div]:w-1/2'>
+        <div  className='flex max-[510px]:flex-wrap gap-10 mb-5 max-[510px]:[&>div]:w-full max-[510px]:gap-1  [&>div]:w-1/2'>
 
           <SelectInput form={form} name="location" {...fields[2]}/>
 
@@ -115,18 +118,18 @@ const Info = () => {
           
           
           
-          <><div className="text-xl flex gap-1  max-xs:text-lg max-[417px]:text-base items-center text-mine-shaft-300 ">
+          <><div className="text-xl max-[377px]:text-sm flex gap-1  max-xs:text-lg max-[417px]:text-base items-center  text-mine-shaft-300 ">
           <FaBriefcase className="h-4 w-4 shrink-0" /> {profile.jobTitle} &bull;{" "}
           {profile.company}{" "}
         </div>
 
-        <div className="flex max-sm:mt-1 gap-1 text-lg max-xs:text-base max-[417px]:text-sm  items-center text-mine-shaft-300">
+        <div className="text-xl max-[377px]:text-sm flex gap-1  max-xs:text-lg max-[417px]:text-base items-center  text-mine-shaft-300 max-xs:mt-1">
           
           <GrLocation className="h-4 w-4 shrink-0" />
           {profile.location}
         </div>
 
-        <div className="flex gap-1 max-xs:mt-1 text-lg max-xs:text-base max-[417px]:text-sm items-center text-mine-shaft-300">
+        <div className="text-xl max-[377px]:text-sm flex gap-1  max-xs:text-lg max-[417px]:text-base items-center  text-mine-shaft-300 max-xs:mt-1">
           
           <FaUserTie className="h-4 w-4 shrink-0" />
          Experience: {profile.totalExp} Years

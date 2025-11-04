@@ -7,6 +7,7 @@ import CertifiCard from './CertifiCard'
 import CertInput from './CertInput'
 import { useDispatch, useSelector } from 'react-redux'
 import { LiaTimesSolid } from 'react-icons/lia'
+import { useMediaQuery } from '@mantine/hooks'
 
 const Certificate = () => {
   const [edit,setEdit]= useState(false)
@@ -20,20 +21,22 @@ const Certificate = () => {
 
   }
 
+   const matches=useMediaQuery('(max-width: 500px)')
+
 
   return (
-     <div className="px-3">
-        <div className="text-2xl font-semibold mb-5 flex justify-between">Certifications <div className="flex gap-2">
-          <ActionIcon onClick={()=>setAddCerti(true)} size="lg" color="brightSun.4" variant="subtle">
+     <div className="px-4">
+        <div className="text-2xl font-semibold mb-5 flex justify-between max-[350px]:text-xl">Certifications <div className="flex gap-2">
+          <ActionIcon size={matches?"md":"lg"} onClick={()=>setAddCerti(true)}  color="brightSun.4" variant="subtle">
            <FaPlus className="h-4/5 w-4/5 " />
           </ActionIcon>
-          <ActionIcon onClick={()=>handleEdit()} size="lg" color={edit ?"red.8":"brightSun.4"} variant="subtle">
+          <ActionIcon size={matches?"md":"lg"} onClick={()=>handleEdit()}  color={edit ?"red.8":"brightSun.4"} variant="subtle">
             {edit? <LiaTimesSolid strokeWidth="2.5" className="h-4/5 w-4/5 " />   :<GoPencil className="h-4/5 w-4/5 " />}
           </ActionIcon>
         </div>
         </div>
 
-        <div className="flex flex-col gap-8">
+        <div className="flex flex-col gap-8 max-[350px]:gap-8">
           {profile?.certifications?.map((certi, index) => (
             <CertifiCard key={index} index={index} edit={edit} {...certi} />
           ))}
