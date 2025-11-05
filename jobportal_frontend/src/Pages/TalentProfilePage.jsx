@@ -29,7 +29,7 @@ useEffect(()=>{
 
 
   return (
-    <div className=" min-h-screen bg-mine-shaft-950 font-[poppins] w-full border-white box-border overflow-hidden">
+    <div className="min-h-screen bg-mine-shaft-950 font-[poppins] w-full border-white box-border overflow-hidden">
       <Button
         className="m-4"
         leftSection={<FaArrowLeftLong size={20} />}
@@ -41,7 +41,7 @@ useEffect(()=>{
         Back{" "}
       </Button>
 
-      <div className="flex gap-15 m-4 justify-around">
+      <div className="flex  gap-15 m-4 justify-around max-[1170px]:flex-col">
         <Profile  />
         <RecommendTalent talents={talents} />
       </div>

@@ -72,48 +72,49 @@ const SignUp = () => {
   };
 
   const handleSubmit = () => {
-    let valid = true;
-    let newFormError = {};
-    for (let key in data) {
-      if (key === "accountType") continue;
+  let valid = true;
+  let newFormError = {};
 
-      if (key !== "confirmPassword")
-        newFormError[key] = signupValidation(key, data[key]);
-      else if (data[key] !== data["password"])
-        newFormError[key] == "Passwords should be match.";
+  for (let key in data) {
+    if (key === "accountType") continue;
 
-      if (newFormError[key]) valid = false;
+    if (key !== "confirmPassword")
+      newFormError[key] = signupValidation(key, data[key]);
+    else if (data[key] !== data["password"])
+      newFormError[key] = "Passwords should be match.";
 
-      setFormError(newFormError);
-    }
-    if (valid === true) {
-      setLoading(true);
+    if (newFormError[key]) valid = false;
+  }
 
-      registerUser(data)
-        .then((res) => {
-          console.log(res);
-          setData(form);
-          successNotification(
-            "Registered Successfully!",
-            "Redirecting to login page..."
-          );
+  setFormError(newFormError);
 
-          setTimeout(() => {
-            setLoading(false);
-            navigate("/login");
-          }, 4000);
-        })
-        .catch((err) => {
-          console.log(err);
+  if (valid === true) {
+    setLoading(true);
+
+    registerUser(data)
+      .then((res) => {
+        console.log(res);
+        setData(form);
+        successNotification(
+          "Registered Successfully!",
+          "Redirecting to login page..."
+        );
+        setTimeout(() => {
           setLoading(false);
-          errorNotifiaction(
-            "Registration Failed!",
-            err.response.data.errorMessage
-          );
-        });
-    }
-    console.log(data);
-  };
+          navigate("/login");
+        }, 4000);
+      })
+      .catch((err) => {
+        console.log(err);
+        setLoading(false);
+        errorNotifiaction(
+          "Registration Failed!",
+          err.response?.data?.errorMessage || "Something went wrong"
+        );
+      });
+  }
+};
+
 
   return (
     <>

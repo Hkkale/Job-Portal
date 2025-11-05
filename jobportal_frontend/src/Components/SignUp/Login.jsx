@@ -81,7 +81,9 @@ const Login = () => {
         .catch((err) => {
           setLoading(false);
           console.log(err.response.data);
-          errorNotifiaction("Login Failed!", err.response.data.errorMessage);
+          errorNotifiaction("Login Failed!", 
+            "Bad Credentials. Please try again."
+          );
         });
     }
   };

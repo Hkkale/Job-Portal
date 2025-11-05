@@ -10,14 +10,14 @@ const RecommendTalent = (props) => {
    
   
   return (
-    <div>
-      <div className="text-xl font-semibold mb-5 text-mine-shaft-100">
+    <div className="w-[30%] max-[1170px]:w-full ">
+      <div className="text-xl font-semibold mb-5 text-mine-shaft-100 max-[1170px]:mt-10">
         Recommended Talent
       </div>
 
-      <div className="flex flex-wrap flex-col gap-5 ">
+      <div className="flex flex-wrap flex-col gap-5 max-[1170px]:flex-row ">
         {props?.talents?.map((talent, index) => 
-          index < 4 && id!=talent.id && <TalentCard key={index} {...talent} />
+          index < 4 && id!=talent.id && <TalentCard recTalent key={index} {...talent} />
         )}
       </div>
     </div>

@@ -5,7 +5,16 @@ import { useSelector } from 'react-redux';
 const Navlinks = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const path = location.pathname;
+  let path = location.pathname;
+
+  if(path.startsWith("/post-job/")){
+    path="/post-job/0"
+
+  }
+  else if(path.startsWith("/posted-jobs/")){
+    path="/posted-jobs/0"
+  }
+
   const user= useSelector((state)=>state.user)
 
 

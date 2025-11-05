@@ -98,9 +98,11 @@ const TalentCard = (props) => {
 };
 
 
+
+
   
   return (
-    <div className="bg-mine-shaft-900 p-4 max-[748px]:w-full max-[1112px]:w-[48%] max-[1476px]:w-[31%]   w-85 flex gap-3 flex-col rounded-xl hover:shadow-[0_0_5px_1px_yellow] !shadow-bright-sun-400 ">
+    <div className={!props.recTalent ?"bg-mine-shaft-900 p-4 max-[748px]:w-full max-[1112px]:w-[48%] max-[1476px]:w-[31%] w-85 flex gap-3 flex-col rounded-xl hover:shadow-[0_0_5px_1px_yellow] !shadow-bright-sun-400 ":"bg-mine-shaft-900 p-4 min-[1170px]:w-full w-85 flex gap-3 flex-col rounded-xl max-[748px]:w-full max-[1097px]:w-[47%] hover:shadow-[0_0_5px_1px_yellow] !shadow-bright-sun-400  "}>
       <div className="flex justify-between">
         <div className="flex gap-2 items-center">
           <div className="p-2 bg-mine-shaft-800 rounded-full">
@@ -177,9 +179,9 @@ const TalentCard = (props) => {
             Scedule
           </Button>
         ) : (
-          <Button  color="brightSun.4" variant="light" fullWidth>
+          <Button href={`mailto:${profile?.email}`}            color="brightSun.4" component="a" variant="light" fullWidth>
             
-            Message
+            Message 
           </Button>
         )}
         </>

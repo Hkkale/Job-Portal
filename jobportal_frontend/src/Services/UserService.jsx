@@ -3,7 +3,7 @@ import axiosInstance from "../Interceptor/AxiosInterceptor";
 
 const registerUser = async (user)=>{
 
-  return axiosInstance.post(`${base_url}/register`,user)
+  return axiosInstance.post(`/users/register`,user)
   .then(res=>res.data)
   .catch(error=>{throw error});
 
@@ -14,7 +14,7 @@ const registerUser = async (user)=>{
 
 const loginUser = async (user)=>{
 
-  return axiosInstance.post(`${base_url}/login`,user)
+  return axiosInstance.post(`/users/login`,user)
   .then(res=>res.data)
   .catch(error=>{throw error});
 
