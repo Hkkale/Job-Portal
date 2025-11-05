@@ -3,8 +3,10 @@ import React, { useEffect, useState } from "react";
 
 import JobDesc from "../JobDesc/JobDesc";
 import TalentCard from "../FindTalent/TalentCard";
+import { useMediaQuery } from "@mantine/hooks";
 
 const PostedJobDesc = (props) => {
+  const matches=useMediaQuery('(max-width: 475px)');
   const [tab,setTab]=useState("overview")
 
   const [arr , setArr]=useState([])
@@ -34,21 +36,21 @@ const PostedJobDesc = (props) => {
   },[props])
   
   return (
-    <div className="mt-5 w-3/4 px-5">
+    <div className="mt-5 w-3/4 max-[837px]:w-full max-[837px]:px-0 px-5">
       {props.jobTitle ? <>
-      <div className="text-2xl font-semibold flex items-center">
+      <div className="text-2xl font-semibold flex items-center max-xs:text-xl">
         {props.jobTitle}
-        <Badge variant="light" ml="sm" size="sm" color="brightSun.4">
+        <Badge variant="light" ml="sm" size={matches?"xs":"sm"} color="brightSun.4">
           {props.jobStatus}
         </Badge>
       </div>
 
-      <div className="font-medium text-mine-shaft-300 mb-5">
+      <div className="font-medium max-xs:text-sm text-mine-shaft-300 mb-5">
         {props.location}
       </div>
 
       <Tabs variant="outline" value={tab} onChange={handleTabChange}>
-        <Tabs.List className="[&_button]:!text-lg [&_button]:!font-semibold mb-5 [&_button[data-active='true']]:!text-bright-sun-400">
+        <Tabs.List className="[&_button]:!text-lg [&_button]:!font-semibold mb-5 max-[630px]:[&_button]:!font-medium [&_button[data-active='true']]:!text-bright-sun-400 max-[630px]:[&_button]:!text-base max-[355px]:[&_button]:!text-sm max-[630px]:[&_button]:!px-1.5 max-[630px]:[&_button]:!py-2">
           <Tabs.Tab value="overview">Overview</Tabs.Tab>
           <Tabs.Tab value="applicants">Applicants</Tabs.Tab>
           <Tabs.Tab value="invited">Invited</Tabs.Tab>

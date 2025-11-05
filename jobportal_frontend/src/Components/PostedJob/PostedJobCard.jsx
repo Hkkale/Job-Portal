@@ -7,7 +7,12 @@ const PostedJobCard = (props) => {
   const id=useParams().id;
   const navigate=useNavigate()
   return (
-    <div onClick={()=>navigate(`/posted-jobs/${props.id}`)} className={`rounded-xl p-2 border-l-2 border-l-bright-sun-400 hover:cursor-pointer ${props.id==id?"bg-bright-sun-400 text-black":"bg-mine-shaft-900 text-mine-shaft-300"}`}>
+    <div onClick={()=>{
+      navigate(`/posted-jobs/${props.id}`)
+      setTimeout(()=>{
+        props.close()
+      },[500])
+    }} className={`rounded-xl p-2 border-l-2 w-52 max-lg:w-48 border-l-bright-sun-400 hover:cursor-pointer max-[899px]:w-44 ${props.id==id?"bg-bright-sun-400  text-black":"bg-mine-shaft-900 text-mine-shaft-300"}`}>
 
 
       <div className='text-sm font-semibold'>{props.jobTitle}</div>

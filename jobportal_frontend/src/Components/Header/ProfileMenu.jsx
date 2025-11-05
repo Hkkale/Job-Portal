@@ -25,8 +25,10 @@ const ProfileMenu = () => {
 
   const handleLogout = () => {
     console.log("user Logged out");
-
     dispatch(removeUser());
+    navigate("/login")
+
+    
   };
 
   return (

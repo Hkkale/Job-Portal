@@ -15,7 +15,7 @@ const PostedJob = (props) => {
   },[props.job])
 
   return (
-    <div className="w-1/6 mt-6">
+    <div className="w-1/6 mt-6 max-[837px]:w-full ">
       <div className="text-2xl font-semibold mb-5 ">Jobs</div>
 
       <div>
@@ -43,7 +43,7 @@ const PostedJob = (props) => {
         <div className="flex flex-col gap-5 mt-5">
           {
 
-            props.jobList?.filter((job)=>job?.jobStatus===activeTab).map((item,index)=><PostedJobCard key={index}{...item}/>)
+            props.jobList?.filter((job)=>job?.jobStatus===activeTab).map((item,index)=><PostedJobCard close={props.close} key={index}{...item}/>)
 
 
 
