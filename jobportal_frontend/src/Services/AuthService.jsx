@@ -15,7 +15,8 @@ const loginUser = async (login)=>{
 const navigateToLogin=(navigate)=>{
   localStorage.removeItem("token");
   localStorage.removeItem("user");
-  navigate("/login");
+  window.location.href = "/login";
+
 }
 
 

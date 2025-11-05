@@ -9,7 +9,10 @@ const setItem = (key, value) => {
 
 const getItem = (key) => {
 
- return JSON.parse(localStorage.getItem(key))
+  const user=JSON.parse(localStorage.getItem(key))
+  console.log("Getting user from local storage",user);
+
+ return user; 
  
 }
 
