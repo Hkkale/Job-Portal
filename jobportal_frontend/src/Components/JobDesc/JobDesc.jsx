@@ -91,8 +91,8 @@ const JobDesc = (props) => {
     <div className="w-2/3 max-[940px]:w-full  max-[940px]:px-3">
       <div className="flex justify-between flex-wrap">
         <div
-          onClick={() => navigate("/jobs")}
-          className="flex gap-2 items-center cursor-pointer"
+          
+          className="flex gap-2 items-center "
         >
           <div className="p-3 bg-mine-shaft-800 rounded-xl shrink-0">
             <img

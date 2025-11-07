@@ -21,6 +21,8 @@ const TalentCard = (props) => {
   const [opened, { open, close }] = useDisclosure(false);
   const [apl, { open:openApl, close:closeApl }] = useDisclosure(false);
   const [profile, setProfile] = useState({})
+
+
  
 
   useEffect(()=>{
@@ -101,7 +103,7 @@ const TalentCard = (props) => {
 
 
   
-  return (
+  return  (
     <div className={!props.recTalent ?"bg-mine-shaft-900 p-4 max-[748px]:w-full max-[1112px]:w-[48%] max-[1476px]:w-[31%] w-85 flex gap-3 flex-col rounded-xl hover:shadow-[0_0_5px_1px_yellow] !shadow-bright-sun-400 ":"bg-mine-shaft-900 p-4 min-[1170px]:w-full w-85 flex gap-3 flex-col rounded-xl max-[748px]:w-full max-[1097px]:w-[47%] hover:shadow-[0_0_5px_1px_yellow] !shadow-bright-sun-400  "}>
       <div className="flex justify-between">
         <div className="flex gap-2 items-center">

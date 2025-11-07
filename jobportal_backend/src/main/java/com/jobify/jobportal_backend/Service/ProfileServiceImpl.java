@@ -1,5 +1,6 @@
 package com.jobify.jobportal_backend.Service;
 
+import com.jobify.jobportal_backend.DTOs.AccountType;
 import com.jobify.jobportal_backend.DTOs.ProfileDto;
 import com.jobify.jobportal_backend.Entity.Profile;
 import com.jobify.jobportal_backend.Exception.JobPortalException;
@@ -22,12 +23,14 @@ public class ProfileServiceImpl implements  ProfileService{
     }
 
     @Override
-    public Long createProfile(String email) throws JobPortalException {
+    public Long createProfile(String email,String name,AccountType accountType) throws JobPortalException {
 
 
         Profile profile = Profile.builder()
                 .id(utilities.getNextSequence("profiles"))
+                .name(name)
                 .email(email)
+                .accountType(accountType)
                 .skills(new ArrayList<>())
                 .experiences(new ArrayList<>())
                 .certifications(new ArrayList<>())

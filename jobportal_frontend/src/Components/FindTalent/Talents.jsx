@@ -114,7 +114,7 @@ totalExp));
       </div>
 
       <div className="flex gap-6 flex-wrap w-full mt-10  justify-start">
-        {filterdTalents.length>0?filterdTalents?.map((talent, index) => (
+        {filterdTalents.length>0?filterdTalents?.map((talent, index) => talent.accountType =="APPLICANT" &&(
           <TalentCard key={index} {...talent} />
         )):<div className="text-2xl font-semibold ">No Talents Found</div>}
       </div>

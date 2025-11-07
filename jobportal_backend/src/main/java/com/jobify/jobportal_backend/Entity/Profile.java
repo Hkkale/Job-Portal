@@ -1,6 +1,7 @@
 package com.jobify.jobportal_backend.Entity;
 
 
+import com.jobify.jobportal_backend.DTOs.AccountType;
 import com.jobify.jobportal_backend.DTOs.Certification;
 import com.jobify.jobportal_backend.DTOs.Experience;
 import com.jobify.jobportal_backend.DTOs.ProfileDto;
@@ -25,6 +26,7 @@ public class Profile {
     private Long id;
     private String name;
     private String email;
+    private AccountType accountType;
     private String jobTitle;
     private String company;
     private String location;
@@ -38,7 +40,7 @@ public class Profile {
 
 
     public ProfileDto toDto(){
-        return new ProfileDto(this.id,this.name,this.email,this.jobTitle,this.company,this.location,
+        return new ProfileDto(this.id,this.name,this.email,this.accountType,this.jobTitle,this.company,this.location,
         this.about,this.picture!=null? Base64.getEncoder().encodeToString(this.picture):null,this.totalExp,this.skills,this.experiences,this.certifications,this.savedJobs);
     }
 

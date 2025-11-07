@@ -62,7 +62,7 @@ public class UserServiceImpl implements UserService {
         if (optional.isPresent()) throw new JobPortalException("USER_FOUND");
 
 
-        userDto.setProfileId(profileService.createProfile(userDto.getEmail()));
+        userDto.setProfileId(profileService.createProfile(userDto.getEmail(),userDto.getName(),userDto.getAccountType()));
 
         userDto.setId(utilities.getNextSequence("users"));
         userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));

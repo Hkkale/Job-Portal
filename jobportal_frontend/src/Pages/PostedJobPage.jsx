@@ -20,22 +20,32 @@ const PostedJobPage = () => {
   const matches =useMediaQuery('(max-width: 837px)');
 
 
-  useEffect(()=>{
-    window.scrollTo(0,0);
-    getJobPostedBy(user?.id)
-    .then((res)=>{
-      setJobList(res)
-      if(res && res.length>0 && Number(id)==0){
-        navigate(`/posted-jobs/${res[0].id}`)
+ 
 
+
+  
+
+  useEffect(() => {
+  window.scrollTo(0, 0);
+
+  if (!user || !user.id) {
+    console.log("User not loaded yet");
+    return;
+  }
+
+  getJobPostedBy(user.id)
+    .then((res) => {
+      setJobList(res || []);
+      if (res && res.length > 0 && Number(id) === 0) {
+        navigate(`/posted-jobs/${res[0].id}`);
       }
-      setJob(res.find((item)=>item.id==id))
+      setJob(res.find((item) => item.id == id));
     })
-    .catch((err)=>{
-      console.log(err)
-    })
+    .catch((err) => {
+      console.log("Error fetching jobs:", err);
+    });
+}, [id, user]);
 
-  },[id])
 
   
   return (
