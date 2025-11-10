@@ -17,7 +17,7 @@ const Footer = () => {
   if (location.pathname === "/signup" || location.pathname === "/login") return null;
 
   return (
-    <div className="pt-20 pb-5 bg-mine-shaft-950 font-[poppins] px-4 sm:px-8">
+    <div className="pt-20 pb-5  bg-mine-shaft-950 font-[poppins] px-4 sm:px-8">
       <div className="max-w-7xl mx-auto flex flex-col sm:flex-row sm:flex-wrap justify-between gap-8">
         
         {/* Brand and Description */}

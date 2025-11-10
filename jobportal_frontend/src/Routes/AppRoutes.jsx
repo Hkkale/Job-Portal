@@ -18,6 +18,7 @@ import { Divider } from "@mantine/core";
 import { useSelector } from "react-redux";
 import ProtectedRoute from "../Services/ProtectedRoute";
 import PublicRoute from "../Services/PublicRoute";
+import TradeMark from "../Components/TradeMark/TradeMark";
 
 const AppRoutes = () => {
   const user = useSelector((state) => state.user);
@@ -52,6 +53,7 @@ const AppRoutes = () => {
         </Routes>
         <Divider mx="md" size="xs" className="" />
         <Footer />
+        <TradeMark/>
       </div>
     </BrowserRouter>
   );

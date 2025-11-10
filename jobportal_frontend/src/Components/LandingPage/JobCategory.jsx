@@ -57,10 +57,10 @@ const JobCategory = () => {
 ]
   return (
     <div className="mt-20 w-full  overflow-hidden ">
-      <div className="text-4xl font-semibold text-mine-shaft-100 text-center mb-3">
+      <div className="text-4xl max-[1003px]:text-3xl max-[800px]:text-2xl max-[491px]:text-xl max-[343px]:text-lg font-semibold text-mine-shaft-100 text-center mb-3">
         Browse <span className="text-bright-sun-400">Job </span>Category
       </div>
-      <div className="text-lg mx-auto text-mine-shaft-300 text-center mb-12  w-1/2">
+      <div className="text-lg  max-[1003px]:text-base max-[800px]:text-sm max-[491px]:text-xs  mx-auto text-mine-shaft-300 text-center mb-12  w-1/2">
         Explore diverse job oppurtunities tailored to your skills. Start your
         career journey today!
       </div>

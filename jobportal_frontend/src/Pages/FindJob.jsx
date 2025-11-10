@@ -5,7 +5,7 @@ import Jobs from "../Components/FindJobs/Jobs";
 
 const FindJob = () => {
   return (
-    <div className=" min-h-screen bg-mine-shaft-950 font-[poppins] w-full border-white box-border overflow-hidden">
+    <div className="min-h-screen bg-mine-shaft-950 font-[poppins] w-full border-white box-border overflow-hidden">
       <SearchBar />
       <Divider mx="md" size="xs" orientation="horizontal" />
       <Jobs />
