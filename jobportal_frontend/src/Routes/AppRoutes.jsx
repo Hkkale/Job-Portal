@@ -19,6 +19,7 @@ import { useSelector } from "react-redux";
 import ProtectedRoute from "../Services/ProtectedRoute";
 import PublicRoute from "../Services/PublicRoute";
 import TradeMark from "../Components/TradeMark/TradeMark";
+import ErrorPage from "../Pages/ErrorPage";
 
 const AppRoutes = () => {
   const user = useSelector((state) => state.user);
@@ -32,7 +33,6 @@ const AppRoutes = () => {
           <Route path="/find-talent" element={<ProtectedRoute allowedRoles={["EMPLOYER","APPLICANT"]}> <FindTalentPage /></ProtectedRoute>} />
           <Route path="/talent-profile/:id" element={<TalentProfilePage />} />
           <Route path="/jobs/:id" element={<JobDescPage />} />
-
           <Route path="/post-job/:id" element={<ProtectedRoute allowedRoles={["EMPLOYER","APPLICANT"]}> <PostJobPage /></ProtectedRoute>} />
           <Route path="/posted-jobs/:id" element={<ProtectedRoute allowedRoles={["EMPLOYER","APPLICANT"]}> <PostedJobPage /></ProtectedRoute>} />
           <Route path="/apply-job/:id" element={<ApplyJobPage />} />
@@ -46,10 +46,10 @@ const AppRoutes = () => {
             path="/login"
             element={<PublicRoute><SignUpPage /></PublicRoute>}
           />
-          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/profile" element={<ProtectedRoute allowedRoles={["APPLICANT"]}> <ProfilePage /></ProtectedRoute>} />
 
           <Route path="/" element={<HomePage />} />
-          {/* <Route path="/*" element={<HomePage />} /> */}
+          <Route path="/*" element={<ErrorPage />} />
         </Routes>
         <Divider mx="md" size="xs" className="" />
         <Footer />

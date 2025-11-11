@@ -65,7 +65,7 @@ const JobCategory = () => {
         career journey today!
       </div>
 
-      <div className='w-full px-5 '>
+      <div className='w-full px-5 max-[500px]:px-2 py-1 '>
       <Carousel
         slideSize={{
           base: "100%", // Mobile: 1 slide per view

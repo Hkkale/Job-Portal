@@ -27,16 +27,16 @@ const Testimonials = () => {
 ]
   return (
     <div className='mt-20 pb-5'>
-      <div className="text-4xl font-semibold text-mine-shaft-100 text-center mb-3 ">
+      <div className="text-4xl max-[1003px]:text-3xl max-[800px]:text-2xl max-[491px]:text-xl max-[343px]:text-lg font-semibold text-mine-shaft-100 text-center mb-3">
         What  <span className="text-bright-sun-400">User </span> says about us
       </div>
 
 
 
-      <div className='flex justify-evenly'>
+      <div className='flex justify-evenly max-[810px]:flex-wrap mt-10  gap-x-2 gap-y-5  '>
 
 
-      { testimonials.map((data,index)=><div key={index} className='flex flex-col gap-3 w-[23%] border border-bright-sun-400 p-3 rounded-xl mt-10'>
+      { testimonials.map((data,index)=><div key={index} className='flex flex-col gap-3  max-[400px]:gap-1  max-[810px]:w-[48%]  max-[400px]:w-full w-[23%] border border-bright-sun-400 p-3 rounded-xl '>
         <div className='flex gap-2 items-center '>
           <Avatar className='!h-14 !w-14 ' src="./src/assets/avatar-9.png" />
         
