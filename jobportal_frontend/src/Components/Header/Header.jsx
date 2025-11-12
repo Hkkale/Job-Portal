@@ -97,7 +97,7 @@ const Header = () => {
           </>
         )}
 
-        {/* <div className='bg-mine-shaft-900 p-2 rounded-full'> <IoSettingsOutline color='white' size={20}/></div> */}
+        
 
         {user ? <NotificationMenu /> : <></>}
 

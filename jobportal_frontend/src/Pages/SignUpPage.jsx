@@ -10,7 +10,7 @@ const SignUpPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   return (
-    <div className="min-h-screen bg-mine-shaft-950 font-[poppins] w-full border-white box-border relative overflow-hidden ">
+    <div className="min-h-screen bg-mine-shaft-950 font-[poppins] w-full border-white box-border relative overflow-hidden">
       <Button
         className="m-4 !absolute z-10"
         leftSection={<FaArrowLeftLong size={20} />}
@@ -21,13 +21,13 @@ const SignUpPage = () => {
         Home{" "}
       </Button>
       <div
-        className={`w-full transition-all ease-in-out duration-1000 h-screen flex [&>*]:flex-shrink-0 ${
-          location.pathname === "/signup" ? "-translate-x-1/2" : "translate-x-0"
+        className={`w-full transition-all ease-in-out duration-1000 min-h-screen h-screen   flex [&>*]:shrink-0 ${
+          location.pathname === "/signup" ? "-translate-x-1/2 max-[708px]:-translate-x-full  " : "translate-x-0"
         } `}
       >
         <Login />
         <div
-          className={`w-1/2 h-full bg-mine-shaft-900 transition-all duration-1000 ease-in-out ${
+          className={`w-1/2 h-full bg-mine-shaft-900 transition-all duration-1000 ease-in-out max-[708px]:hidden ${
             location.pathname == "/signup"
               ? "rounded-r-[250px]"
               : "rounded-l-[250px]"
@@ -37,11 +37,11 @@ const SignUpPage = () => {
             onClick={() => navigate("/")}
             className="flex gap-2 cursor-pointer  items-center  text-bright-sun-400 "
           >
-            <IoBag className="h-16 w-16 pb-1" color="text-bright-sun-400" />
-            <div className="text-6xl font-semibold">Jobify</div>
+            <IoBag className="max-[1000px]:text-5xl max-[788px]:text-4xl  text-6xl pb-1" color="text-bright-sun-400 " />
+            <div className="text-6xl font-semibold max-[1000px]:text-5xl max-[788px]:text-4xl  ">Jobify</div>
           </div>
 
-          <div className="text-2xl text-mine-shaft-200 font-semibold">
+          <div className="text-2xl max-[1000px]:text-xl max-[788px]:text-lg  text-mine-shaft-200 font-semibold">
             Find the Job made for you
           </div>
         </div>

@@ -76,7 +76,7 @@ const Login = () => {
              dispatch(setUser({...decoded,email:decoded.sub}));
 
             navigate("/");
-          }, 4000);
+          }, 5000);
         })
         .catch((err) => {
           setLoading(false);
@@ -95,7 +95,7 @@ const Login = () => {
         overlayProps={{ radius: "sm", blur: 2 }}
         loaderProps={{ color: "brightSun.4", type: "bars" }}
       />
-      <div className="w-1/2 px-20 flex flex-col justify-center gap-3">
+      <div className="w-1/2 px-20 flex flex-col justify-center gap-3 max-[1000px]:px-10 max-[788px]:px-5 max-[708px]:w-full">
         <div className="text-2xl font-semibold ">Login</div>
 
         <TextInput
@@ -129,7 +129,7 @@ const Login = () => {
           Login
         </Button>
 
-        <div className="mx-auto ">
+        <div className="mx-auto max-[310px]:text-sm max-[275px]:text-xs text-center ">
           Don't have an account?
           <span
             className="text-bright-sun-400 hover:underline cursor-pointer"
@@ -146,7 +146,7 @@ const Login = () => {
 
         <div
           onClick={open}
-          className="text-bright-sun-400 hover:underline cursor-pointer text-center"
+          className="text-bright-sun-400 hover:underline cursor-pointer text-center max-[310px]:text-sm max-[275px]:text-xs "
         >
           Forget Password
         </div>

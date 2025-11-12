@@ -36,6 +36,7 @@ const SignUp = () => {
   const [formError, setFormError] = useState(form);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [check, setCheck]=useState(false);
 
   const handleChange = (event) => {
     if (typeof event == "string") {
@@ -88,6 +89,17 @@ const SignUp = () => {
 
   setFormError(newFormError);
 
+  if(valid==true){
+
+    if(!check){
+      errorNotifiaction("Registration Failed!","Please accept terms and condition.")
+      return
+
+    } 
+
+    
+  }
+
   if (valid === true) {
     setLoading(true);
 
@@ -95,6 +107,7 @@ const SignUp = () => {
       .then((res) => {
         console.log(res);
         setData(form);
+        setCheck(false)
         successNotification(
           "Registered Successfully!",
           "Redirecting to login page..."
@@ -121,14 +134,16 @@ const SignUp = () => {
       <LoadingOverlay
         visible={loading}
         zIndex={1000}
-        className="translate-x-1/2"
+        className="translate-x-1/2 max-[708px]:translate-x-full "
         overlayProps={{ radius: "sm", blur: 2 }}
         loaderProps={{ color: "brightSun.4", type: "bars" }}
       />
-      <div className="w-1/2 px-20 flex flex-col justify-center gap-3">
+      <div className="w-1/2 px-20 flex flex-col justify-center gap-3  max-[1000px]:px-10 max-[788px]:px-5 max-[708px]:w-full max-[708px]:pt-15 ">
         <div className="text-2xl font-semibold ">Create Account</div>
 
-        <TextInput
+
+        <div className="flex flex-col gap-1.5 h-9/10">
+          <TextInput
           error={formError.name}
           name="name"
           onChange={handleChange}
@@ -177,31 +192,35 @@ const SignUp = () => {
           label="You are?"
           withAsterisk
         >
-          <Group mt="xs">
+          <div className="flex gap-5 max-[708px]:gap-2">
             <Radio
             
             autoContrast
-              className="py-4 px-6 border  border-mine-shaft-800 rounded-lg has-[:checked]:bg-bright-sun-400/5 has-[:checked]:border-bright-sun-400 "
+              className="py-4 px-6 max-[708px]:px-4 max-[708px]:py-2.5 border  border-mine-shaft-800 rounded-lg has-[:checked]:bg-bright-sun-400/5 has-[:checked]:border-bright-sun-400"
               
               value="APPLICANT"
               label="Applicant"
             />
             <Radio
             autoContrast
-              className="py-4 px-6 border border-mine-shaft-800 rounded-lg has-[:checked]:border-bright-sun-400   has-[:checked]:bg-bright-sun-400/5"
+              className="py-4 px-6 max-[708px]:px-4 max-[708px]:py-2.5 border border-mine-shaft-800 rounded-lg has-[:checked]:border-bright-sun-400   has-[:checked]:bg-bright-sun-400/5"
               
               value="EMPLOYER"
               label="Employer"
             />
-          </Group>
+          </div>
         </Radio.Group>
 
         <Checkbox
           autoContrast
+          checked={check}
+          onChange={(e)=>setCheck(e.currentTarget.checked)}
+          className=" max-[708px]:[&_label]:text-sm max-[310px]:[&_label]:text-xs "
+          
           label={
-            <>
-              I accept <Anchor> terms & conditions</Anchor>
-            </>
+            <div className="max-[708px]:text-sm max-[310px]:text-xs ">
+              I accept <a className="text-bright-sun-400"> terms & conditions</a>
+            </div>
           }
         />
 
@@ -209,12 +228,13 @@ const SignUp = () => {
           loading={loading}
           onClick={handleSubmit}
           variant="filled"
+          className="shrink-0"
           autoContrast
         >
           Sign up
         </Button>
 
-        <div className="mx-auto ">
+        <div className="mx-auto max-[708px]:text-sm max-[310px]:text-xs ">
           Already an account?
           <span
             className="text-bright-sun-400 hover:underline cursor-pointer"
@@ -228,6 +248,9 @@ const SignUp = () => {
             Login
           </span>
         </div>
+        </div>
+
+        
       </div>
     </>
   );

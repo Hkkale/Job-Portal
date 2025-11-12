@@ -91,7 +91,7 @@ const PostedJobDesc = (props) => {
           </div>
         </Tabs.Panel>
       </Tabs>
-      </>: <div className="text-2xl min-h-[70vh] font-semibold flex flex-col items-center justify-center text-mine-shaft-200">
+      </>: <div className="text-2xl min-h-[70vh] font-semibold flex flex-col items-center justify-center text-mine-shaft-200 max-[500px]:text-xl text-center">
        <h1>NO JOB FOUND!</h1> 
        <h1>Select a job to see details</h1>
       </div>}
