@@ -248,7 +248,7 @@ const JobDesc = (props) => {
             </div>
 
             <Button
-              onClick={() => navigate(`company/${props.company}`)}
+             
               color="brightSun.4"
               variant="light"
             >

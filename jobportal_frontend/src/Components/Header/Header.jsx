@@ -29,9 +29,17 @@ const Header = () => {
 
   
   const location = useLocation();
-  const path = location.pathname;
+  let path = location.pathname;
 
-  const links= [
+  if(path.startsWith("/post-job/")){
+    path="/post-job/0"
+
+  }
+  else if(path.startsWith("/posted-jobs/")){
+    path="/posted-jobs/0"
+  }
+
+  let links= [
     {name:"Find job",url:"/find-jobs"},
     {name:"Find Talent",url:"/find-talent"},
     {name:"Post Job",url:"/post-job/0"},
@@ -41,10 +49,22 @@ const Header = () => {
     
   ]
 
-  if(!user){
-    links.push({name:"Sign Up",url:"/signup"})
-    
-  }
+    if (!user) {
+  links.push({ name: "Sign Up", url: "/signup" });
+} else if (user.accountType === "APPLICANT") {
+  // remove specific links
+  
+  const removeList = ["/find-talent", "/post-job/0", "/posted-jobs/0"];
+  links = links.filter(link => !removeList.includes(link.url));
+}
+else if(user.accountType === "EMPLOYER"){
+
+  const removeList = ["/find-jobs", "/job-history"];
+
+  
+  links = links.filter(link => !removeList.includes(link.url));
+
+}
 
   const isActive = (pathName) => {
     return path === pathName ? "text-bright-sun-400 " : "text-mine-shaft-300";
@@ -54,21 +74,23 @@ const Header = () => {
     setupResponseInterceptor(navigate);
   }, [navigate]);
 
-  useEffect(() => {
-    if (token != "") {
-      const decoded = jwtDecode(token);
-      dispatch(setUser({ ...decoded, email: decoded.sub }));
-    }
+useEffect(() => {
+  if (token) {
+    const decoded = jwtDecode(token);
+    dispatch(setUser({ ...decoded, email: decoded.sub }));
+  }
+}, [token]);
 
-    if (user) {
-      getProfile(user?.profileId)
-        .then((data) => {
-          console.log(data);
-          dispatch(setProfile(data));
-        })
-        .catch((err) => console.log(err));
-    }
-  }, [token, navigate]);
+// 2️⃣ Fetch profile only when user changes
+useEffect(() => {
+  if (user?.profileId) {
+    getProfile(user.profileId)
+      .then((data) => {
+        dispatch(setProfile(data));
+      })
+      .catch((err) => console.log(err));
+  }
+}, [user]);
 
   return location.pathname != "/signup" && location.pathname != "/login" ? (
     <div className="w-full h-20 text-white flex justify-between px-6 items-center bg-mine-shaft-950 font-[poppins]  ">

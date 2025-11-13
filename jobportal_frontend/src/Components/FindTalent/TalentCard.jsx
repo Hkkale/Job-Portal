@@ -9,7 +9,7 @@ import { DateInput, TimeInput } from "@mantine/dates";
 import { getProfile } from "../../Services/ProfileSevice";
 import { changeAppStatus } from "../../Services/JobService";
 import { errorNotifiaction, successNotification } from "../../Services/NotificationService";
-import { formatInterviewTime, openBase64PDF } from "../../Services/Utilities";
+import { formatInterviewDateTime2, formatInterviewTime, openBase64PDF } from "../../Services/Utilities";
 
 const TalentCard = (props) => {
   const id=useParams().id;
@@ -21,6 +21,13 @@ const TalentCard = (props) => {
   const [opened, { open, close }] = useDisclosure(false);
   const [apl, { open:openApl, close:closeApl }] = useDisclosure(false);
   const [profile, setProfile] = useState({})
+
+  console.log("Balaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",props)
+
+  const { formattedDate, formattedTime } = formatInterviewDateTime2(props.interviewTime);
+
+console.log(formattedDate); // "Thu, 27 November •"
+console.log(formattedTime); // "08:00 AM"
 
 
  

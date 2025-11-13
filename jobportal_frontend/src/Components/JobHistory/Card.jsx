@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Divider, Text } from "@mantine/core";
 import { FaRegCalendarAlt, FaBookmark, FaRegBookmark, FaRegClock } from "react-icons/fa";
-import { formatInterviewTime2, timeAgo } from "../../Services/Utilities";
+import { formatInterviewDateTime2, timeAgo } from "../../Services/Utilities";
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { changeProfile } from "../../Slices/ProfileSlice";
@@ -10,7 +10,22 @@ const Card = (props) => {
   const profile = useSelector((state) => state.profile);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+ 
   const [isSaved, setIsSaved] = useState(false);
+  console.log(profile)
+
+  const applicantId = profile.id;
+
+  // find the applicant inside the job
+  const applicant = props.applicants.find(a => a.applicantId === applicantId);
+  console.log(applicant.interviewTime)
+
+  const { formattedDate, formattedTime } = formatInterviewDateTime2(applicant.interviewTime);
+
+  console.log(formattedDate); // "Thu, 27 November •"
+  console.log(formattedTime); // "08:00 AM"
+
+  
 
  
 
@@ -35,6 +50,8 @@ const Card = (props) => {
     const updatedProfile = { ...profile, savedJobs };
     dispatch(changeProfile(updatedProfile));
   };
+
+  console.log("propsssssssssssssssssssssss",props)
 
   return (
     <div className="bg-mine-shaft-900 p-4 w-80 flex gap-3 flex-col rounded-xl hover:shadow-[0_0_5px_1px_yellow] !shadow-bright-sun-400 max-[693px]:w-full max-[1033px]:w-[48.5%] max-[1373px]:w-[32%]">
@@ -114,7 +131,7 @@ const Card = (props) => {
           <Divider color="mineShaft.7" size="xs" orientation="horizontal" />
           <div className="flex gap-1 text-sm items-center justify-center">
             <FaRegCalendarAlt className="text-bright-sun-400 w-4 h-4" />
-            Sun, 25 August • <span className="text-mine-shaft-400">10:00 AM</span>
+            {formattedDate} • <span className="text-mine-shaft-400">{formattedTime}</span>
           </div>
         </>
       )}

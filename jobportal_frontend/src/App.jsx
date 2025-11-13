@@ -70,7 +70,10 @@ function App() {
     focusRing: "never",
     primaryColor: "brightSun",
     primaryShade: 4,
-  });
+  });   
+
+
+  
 
   return (
     <Provider store={Store}>

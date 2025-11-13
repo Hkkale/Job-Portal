@@ -18,7 +18,7 @@ const Navlinks = () => {
   const user= useSelector((state)=>state.user)
 
 
-  const links= [
+  let links= [
     {name:"Find job",url:"/find-jobs"},
     {name:"Find Talent",url:"/find-talent"},
     {name:"Post Job",url:"/post-job/0"},
@@ -28,9 +28,26 @@ const Navlinks = () => {
     
   ]
 
-  if(!user){
-    links.push({name:"Sign Up",url:"/signup"})
-  }
+  console.log(user?.accountType)
+
+  if (!user) {
+  links.push({ name: "Sign Up", url: "/signup" });
+} else if (user.accountType === "APPLICANT") {
+  // remove specific links
+  
+  const removeList = ["/find-talent", "/post-job/0", "/posted-jobs/0"];
+  links = links.filter(link => !removeList.includes(link.url));
+}
+else if(user.accountType === "EMPLOYER"){
+
+  const removeList = ["/find-jobs", "/job-history"];
+
+  
+  links = links.filter(link => !removeList.includes(link.url));
+
+}
+
+  console.log(links)
 
   const isActive = (pathName) => {
     return path === pathName ? "text-bright-sun-400 border-t-2" : "text-mine-shaft-300";

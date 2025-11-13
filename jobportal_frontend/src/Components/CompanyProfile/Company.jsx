@@ -7,12 +7,6 @@ import CompanyJobs from "./CompanyJobs";
 import CompanyEmp from "./CompanyEmp";
 
 const Company = () => {
-
-
-  
-
-
-
   return (
     <div className="w-3/4">
       <div className="relative ">

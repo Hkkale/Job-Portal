@@ -55,8 +55,9 @@ const JobHistory = () => {
           <Tabs.List className="[&_button]:!text-lg [&_button]:!font-semibold mb-5 max-[630px]:[&_button]:!font-medium [&_button[data-active='true']]:!text-bright-sun-400 max-[630px]:[&_button]:!text-base max-[355px]:[&_button]:!text-sm max-[630px]:[&_button]:!px-1.5 max-[630px]:[&_button]:!py-2">
             <Tabs.Tab value="APPLIED">Applied</Tabs.Tab>
             <Tabs.Tab value="SAVED">Saved</Tabs.Tab>
-            <Tabs.Tab value="OFFERED">Offered</Tabs.Tab>
             <Tabs.Tab value="INTERVIEWING">Interviewing</Tabs.Tab>
+            <Tabs.Tab value="OFFERED">Offered</Tabs.Tab>
+            
           </Tabs.List>
 
           <Tabs.Panel value={activeTab}>
