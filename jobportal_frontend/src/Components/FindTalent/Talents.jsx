@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import Sort from "../FindJobs/Sort";
 import TalentCard from "./TalentCard";
 import { useState } from "react";
-import { getAllProfiles } from "../../Services/ProfileSevice";
+import { getAllProfiles } from "../../Services/ProfileService";
 import { useDispatch, useSelector } from "react-redux";
 import { resetFilter } from "../../Slices/FilterSlice";
 import { resetSort } from "../../Slices/SortSlice";

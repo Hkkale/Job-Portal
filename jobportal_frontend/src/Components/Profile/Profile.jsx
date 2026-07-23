@@ -8,7 +8,7 @@ import {
 } from "@mantine/core";
 import React, { useEffect, useState } from "react";
 
-import { getProfile } from "../../Services/ProfileSevice";
+import { getProfile } from "../../Services/ProfileService";
 import { useDispatch, useSelector } from "react-redux";
 import Info from "./Info";
 import { changeProfile, setProfile } from "../../Slices/ProfileSlice";

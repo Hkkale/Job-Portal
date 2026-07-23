@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import Profile from "../Components/TalentProfile/Profile";
 import RecommendTalent from "../Components/TalentProfile/RecommendTalent";
-import { getAllProfiles } from "../Services/ProfileSevice";
+import { getAllProfiles } from "../Services/ProfileService";
 
 
 const TalentProfilePage = () => {

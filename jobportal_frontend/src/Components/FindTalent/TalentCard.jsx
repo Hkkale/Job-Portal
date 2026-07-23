@@ -6,7 +6,7 @@ import { GrLocation } from "react-icons/gr";
 import { useNavigate, useParams } from "react-router";
 import { useDisclosure } from "@mantine/hooks";
 import { DateInput, TimeInput } from "@mantine/dates";
-import { getProfile } from "../../Services/ProfileSevice";
+import { getProfile } from "../../Services/ProfileService";
 import { changeAppStatus } from "../../Services/JobService";
 import { errorNotifiaction, successNotification } from "../../Services/NotificationService";
 import { formatInterviewDateTime2, formatInterviewTime, openBase64PDF } from "../../Services/Utilities";

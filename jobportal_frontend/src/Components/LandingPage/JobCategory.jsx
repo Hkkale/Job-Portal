@@ -83,7 +83,7 @@ const JobCategory = () => {
           align: "start",
           
         }}
-        className='h-full flex flex-col justify-center [&_button]:bg-bright-sun-400! [&_button]:h-9! [&_button]:w-9! [&_button]:hidden! hover:[&_button]:flex! ' 
+        className='h-full flex flex-col justify-center [&_button]:bg-bright-sun-400! [&_button]:h-9! [&_button]:w-9! [&_button]:opacity-70! hover:[&_button]:opacity-100! '
       >
         {
           /* ...slides */

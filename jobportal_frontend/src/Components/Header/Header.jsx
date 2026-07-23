@@ -8,7 +8,7 @@ import { useLocation, useNavigate } from "react-router";
 import Profile from "../TalentProfile/Profile";
 import ProfileMenu from "./ProfileMenu";
 import { useDispatch, useSelector } from "react-redux";
-import { getProfile } from "../../Services/ProfileSevice";
+import { getProfile } from "../../Services/ProfileService";
 import { setProfile } from "../../Slices/ProfileSlice";
 import { useEffect } from "react";
 import NotificationMenu from "./NotificationMenu";
