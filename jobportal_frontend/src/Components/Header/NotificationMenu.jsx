@@ -6,7 +6,7 @@ import { useNavigate } from "react-router";
 import { Menu } from "@mantine/core";
 
 import { FaRegUserCircle } from "react-icons/fa";
-import { getNotifications, readNotification } from "../../Services/NotfService";
+import { getNotifications, readNotification } from "../../Services/NotificationApiService";
 
 const NotificationMenu = () => {
   const [opened, setOpened] = useState(false);

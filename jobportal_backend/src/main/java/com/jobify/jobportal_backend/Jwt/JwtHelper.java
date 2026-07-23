@@ -1,7 +1,10 @@
 package com.jobify.jobportal_backend.Jwt;
 
 import io.jsonwebtoken.*;
+import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
@@ -14,8 +17,16 @@ import java.util.function.Function;
 @Component
 public class JwtHelper {
 
-    // Secret key for signing JWT (should be at least 256-bit for HS256)
-    private static final Key SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+    // Base64-encoded 256-bit secret, externalized so tokens survive app restarts (see jwt.secret in application.properties)
+    @Value("${jwt.secret}")
+    private String secret;
+
+    private Key signingKey;
+
+    @PostConstruct
+    private void init() {
+        signingKey = Keys.hmacShaKeyFor(Decoders.BASE64.decode(secret));
+    }
 
     // Token validity (e.g., 10 hours)
     private static final long JWT_TOKEN_VALIDITY = 10 * 60 * 60 * 1000;
@@ -39,7 +50,7 @@ public class JwtHelper {
     // Retrieve all claims from token using the secret key
     private Claims getAllClaimsFromToken(String token) {
         return Jwts.parserBuilder()
-                .setSigningKey(SECRET_KEY)
+                .setSigningKey(signingKey)
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
@@ -76,7 +87,7 @@ public class JwtHelper {
                 .setSubject(subject)
                 .setIssuedAt(now)
                 .setExpiration(validity)
-                .signWith(SECRET_KEY, SignatureAlgorithm.HS256)
+                .signWith(signingKey, SignatureAlgorithm.HS256)
                 .compact();
     }
 

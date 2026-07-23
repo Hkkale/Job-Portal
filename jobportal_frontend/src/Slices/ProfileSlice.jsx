@@ -1,7 +1,7 @@
 import React from 'react'
 import {createSlice} from '@reduxjs/toolkit'
 import { getItem, removeItem, setItem } from '../Services/LocalStorageService'
-import { updateProfile } from '../Services/ProfileSevice'
+import { updateProfile } from '../Services/ProfileService'
 
 
 const ProfileSlice = createSlice({

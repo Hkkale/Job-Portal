@@ -5,7 +5,7 @@ import { GrLocation } from "react-icons/gr";
 import ExpCard from "./ExpCard";
 import CertifiCard from "./CertifiCard";
 import { useParams } from "react-router";
-import { getProfile } from "../../Services/ProfileSevice";
+import { getProfile } from "../../Services/ProfileService";
 import { FaUserTie } from "react-icons/fa";
 import { useMediaQuery } from "@mantine/hooks";
 

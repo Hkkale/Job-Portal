@@ -39,12 +39,7 @@ public class NotificationController {
 
     @PutMapping("read/{userId}")
     public ResponseEntity<ResponseDto> readNotification(@PathVariable Long userId) throws JobPortalException {
-        //TODO: process PUT request
-        
         notificationService.readNotification(userId);
-
-
-        
         return new ResponseEntity<>(new ResponseDto("Success"),HttpStatus.OK);
     }
 }
